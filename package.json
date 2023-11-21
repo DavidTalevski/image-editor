@@ -1,0 +1,12 @@
+{
+  "name": "web-image-processor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Talevski",
+  "license": "ISC",
+  "workspaces":["image-editor", "image-processor"]
+}
