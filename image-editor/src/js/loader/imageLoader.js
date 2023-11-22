@@ -14,7 +14,7 @@ export class ImageLoader {
             let fileData;
 
             try {
-                fileData = await this.readFile(blob)
+                fileData = await this.read(blob)
             } catch (e) {
                 return reject(e);
             }
@@ -39,7 +39,7 @@ export class ImageLoader {
      * @param {Blob} blob 
      * @returns {Promise<String>}
      */
-    readFile(blob) {
+    read(blob) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
 
