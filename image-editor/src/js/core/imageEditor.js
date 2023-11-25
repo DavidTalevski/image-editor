@@ -1,4 +1,4 @@
-import { ImageLoader } from "../loader/imageLoader";
+import { ImageLoader } from "./loader/imageLoader";
 
 export class ImageEditor {
 
