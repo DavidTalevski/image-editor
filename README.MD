@@ -9,6 +9,9 @@ Functionalities:
 - Contrast
 - Action history (undo step)
 - Color picker
+- Flip image
+- Rotate image
+- Image compression
 
 - Convert Images (png, jpg, webp)
 - Upscale (Real-ESRGAN model)
