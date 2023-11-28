@@ -1,6 +1,6 @@
 import { StoredUserPreferences } from "./storedUserPreferences";
 import { StorageType } from "./enum/storageType.enum";
-import { LocalStorage } from "node-localstorage";
+// import { LocalStorage } from "node-localstorage";
 import structuredClone from '@ungap/structured-clone';
 
 export class UserPreferences {
@@ -36,9 +36,7 @@ export class UserPreferences {
     }
 
     /**
-     * @template param
-     * @param {param} key 
-     * @returns {StoredUserPreferences[param]}
+     * @param {keyof(typeof this.data) key 
      */
     getPreference(key) {
         return this.data[key];
@@ -50,7 +48,7 @@ export class UserPreferences {
      */
     setPreference(key, data) {
         this.data[key] = data;
-        this.storage.setItem(this.key, this.data);
+        this.storage.setItem(this.key, JSON.stringify(this.data));
     }
 
     getAllPreferences() {
@@ -62,7 +60,7 @@ export class UserPreferences {
      */
     setAllPreference(preferences) {
         this.data = preferences;
-        this.storage.setItem(this.key, this.data);
+        this.storage.setItem(this.key, JSON.stringify(this.data));
     }
 
     /** @private */
@@ -71,8 +69,8 @@ export class UserPreferences {
             case StorageType.LOCAL_STORAGE:
                 this.storage = localStorage;
                 break;
-            case StorageType.NODE_LOCAL_STORAGE:
-                this.storage = new LocalStorage(this.key);
+            // case StorageType.NODE_LOCAL_STORAGE:
+            //     this.storage = new LocalStorage(this.key);
             default:
                 this.storage = sessionStorage;
                 break;
@@ -81,14 +79,14 @@ export class UserPreferences {
 
     /** @private */
     setInitialData() {
-        const existing_data = this.storage.getItem(this.key);
-        const static = structuredClone(StoredUserPreferences);
+        const existing_data = JSON.parse(this.storage.getItem(this.key));
+        const staticd = structuredClone(StoredUserPreferences);
 
         if (existing_data) {
-            this.synchronizeData(static, existing_data);
+            this.synchronizeData(staticd, existing_data);
         }
 
-        this.data = static;
+        this.data = staticd;
     }
 
     /** @private */
@@ -101,6 +99,7 @@ export class UserPreferences {
                 } else this.synchronizeData(staticd[key], saved[key])
             } else if (!saved.hasOwnProperty(key)) {
                 console.log(this.TAG, `Adding new property: "${key}"`)
+                console.log(saved, staticd)
                 saved[key] = staticd[key];
             }
         })
