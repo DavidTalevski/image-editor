@@ -1,12 +1,15 @@
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileImage } from '@fortawesome/free-solid-svg-icons'; // Import the file image icon
+import { faFileImage } from '@fortawesome/free-solid-svg-icons';
 
-const LoadImageTab = ({ onImageSelect }) => {
+const LoadImageTab = ({ onImageSelect, onTabSelect }) => {
     const fileInputRef = useRef(null);
 
     const handleTabClick = () => {
         fileInputRef.current.click();
+
+        // Notify the parent component about the selected tab
+        onTabSelect();
     };
 
     const handleFileChange = (e) => {
@@ -15,6 +18,9 @@ const LoadImageTab = ({ onImageSelect }) => {
         if (selectedFile) {
             // Do something with the selected file, e.g., pass it to a callback
             onImageSelect(selectedFile);
+
+            // Notify the parent component about the selected tab
+            onTabSelect();
         }
     };
 

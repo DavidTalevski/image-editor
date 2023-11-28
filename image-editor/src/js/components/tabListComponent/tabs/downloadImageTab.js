@@ -1,15 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-const DownloadImageTab = ({ canvasRef }) => {
+const DownloadImageTab = ({ canvasRef, onTabSelect }) => {
     const handleDownload = () => {
-        const canvas = canvasRef.current;
-        const image = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = image;
-        link.download = 'canvas_image.png';
-        link.click();
+        onTabSelect();
     };
 
     return (

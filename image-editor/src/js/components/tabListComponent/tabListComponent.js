@@ -2,11 +2,11 @@ import React from 'react';
 import LoadImageTab from './tabs/loadImageTab';
 import DownloadImageTab from './tabs/downloadImageTab';
 
-const TabListComponent = ({ onImageSelect, canvasRef }) => {
+const TabListComponent = ({ onImageSelect, canvasRef, onTabSelect }) => {
     return (
-        <div>
-            <LoadImageTab onImageSelect={onImageSelect} />
-            <DownloadImageTab canvasRef={canvasRef} />
+        <div className="tab-list">
+            <LoadImageTab onImageSelect={onImageSelect} onTabSelect={() => onTabSelect('loadImage')} />
+            <DownloadImageTab onTabSelect={() => onTabSelect('downloadImage')} canvasRef={canvasRef} />
             {/* Add other tabs as needed */}
         </div>
     );
