@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faFileImage } from '@fortawesome/free-solid-svg-icons';
 
 import DownloadImagePanel from "./panels/downloadImagePanel"
+import LoadImagePanel from './panels/loadImagePanel';
 
-const ActionPanel = ({ selectedTab, onDownloadImage, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression }) => {
+const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
         switch (selectedTab) {
@@ -19,7 +20,12 @@ const ActionPanel = ({ selectedTab, onDownloadImage, onDownloadAsPNG, onDownload
                         defaultCompression={defaultCompression}
                     />
                 );
-            // Add more cases for other tabs as needed
+            case 'loadImage':
+                return (
+                    <LoadImagePanel
+                        onLoadImage={onLoadImage}
+                    />
+                );
             default:
                 return null;
         }

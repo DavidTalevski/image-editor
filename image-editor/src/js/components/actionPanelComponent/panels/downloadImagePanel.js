@@ -5,7 +5,6 @@ import { faFileImage } from '@fortawesome/free-solid-svg-icons';
 
 const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression }) => {
 
-    console.log("ASd", defaultCompression)
     const [fileName, setFileName] = useState('');
     const [compressionLevel, setCompressionLevel] = useState(defaultCompression || 1);
 
@@ -25,15 +24,15 @@ const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPE
                 <input type="text" value={fileName} onChange={(e) => setFileName(e.target.value)} />
             </div>
 
-            <button className="download-button" onClick={() => onDownloadAsPNG(fileName)}>
+            <button className="panel-button" onClick={() => onDownloadAsPNG(fileName)}>
                 <FontAwesomeIcon icon={faFileImage} /> Download as PNG
             </button>
 
-            <button className="download-button" onClick={() => onDownloadAsWebP(fileName)}>
+            <button className="panel-button" onClick={() => onDownloadAsWebP(fileName)}>
                 <FontAwesomeIcon icon={faFileImage} /> Download as WebP
             </button>
 
-            <button className="download-button" onClick={() => onDownloadAsJPEG(fileName)}>
+            <button className="panel-button" onClick={() => onDownloadAsJPEG(fileName)}>
                 <FontAwesomeIcon icon={faFileImage} /> Download as JPEG
             </button>
         </div>

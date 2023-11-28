@@ -23,6 +23,7 @@ function App() {
 
 
   const handleImageSelect = async (selectedFile) => {
+    console.log(selectedFile)
     try {
       const image = await loader.load(selectedFile);
       setSelectedImage(image);
@@ -55,7 +56,6 @@ function App() {
   return (
     <div className="app">
       <TabListComponent
-        onImageSelect={handleImageSelect}
         canvasRef={canvasRef}
         onTabSelect={handleTabSelect}
       />
@@ -67,6 +67,7 @@ function App() {
         onDownloadAsJPEG={handleDownloadAsJPEG}
         onSetCompression={handleSetCompression}
         defaultCompression={preferences.getPreference("imageQuality") * 100}
+        onLoadImage={handleImageSelect}
       />
     </div>
   );
