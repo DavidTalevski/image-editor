@@ -22,10 +22,20 @@ function App() {
   downloader.canvas = canvasRef?.current;
 
 
-  const handleImageSelect = async (selectedFile) => {
-    console.log(selectedFile)
+  // todo enum
+  const handleImageSelect = async (selectedFile, actionType) => {
+
     try {
-      const image = await loader.load(selectedFile);
+      let image;
+
+      if (actionType == "Upload") {
+        image = await loader.loadFromBlob(selectedFile);
+      } else if (actionType == "URL") {
+        image = await loader.loadFromUrl(selectedFile);
+      } else if (actionType == "Clipboard") {
+        image = await loader.loadFromClipboard();
+      }
+
       setSelectedImage(image);
     } catch (e) {
       console.log(e);

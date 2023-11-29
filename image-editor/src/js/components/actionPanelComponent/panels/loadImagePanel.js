@@ -8,11 +8,20 @@ const LoadImagePanel = ({ onLoadImage }) => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        onLoadImage(file);
+        onLoadImage(file, 'Upload');
     };
 
-    const handleLoadImage = () => {
-        fileInputRef.current.click();
+    const handleLoadImage = (source) => {
+        if (source === 'URL') {
+            const url = prompt('Enter the URL:');
+            if (url) {
+                onLoadImage(url, 'URL');
+            }
+        } else if (source === 'Clipboard') {
+            onLoadImage(null, 'Clipboard');
+        } else {
+            fileInputRef.current.click();
+        }
     };
 
     return (
@@ -27,17 +36,18 @@ const LoadImagePanel = ({ onLoadImage }) => {
                 />
             </div>
 
-            <button className="panel-button" onClick={handleLoadImage}>
+            <button className="panel-button" onClick={() => handleLoadImage('Upload')}>
                 <FontAwesomeIcon icon={faUpload} /> Upload Image
             </button>
 
-            <button className="panel-button" onClick={handleLoadImage}>
+            <button className="panel-button" onClick={() => handleLoadImage('URL')}>
                 <FontAwesomeIcon icon={faUpload} /> Load From URL
             </button>
 
-            <button className="panel-button" onClick={handleLoadImage}>
-                <FontAwesomeIcon icon={faUpload} /> Create Blank
+            <button className="panel-button" onClick={() => handleLoadImage('Clipboard')}>
+                <FontAwesomeIcon icon={faUpload} /> Paste Image
             </button>
+
         </div>
     );
 };
