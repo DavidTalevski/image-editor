@@ -3,23 +3,26 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
+import LoadImageActionType from '../../../enum/loadImageActionType.enum';
+
 const LoadImagePanel = ({ onLoadImage }) => {
     const fileInputRef = useRef(null);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        onLoadImage(file, 'Upload');
+        onLoadImage(LoadImageActionType.UPLOAD, file);
     };
 
     const handleLoadImage = (source) => {
-        if (source === 'URL') {
+        if (source === LoadImageActionType.URL) {
             const url = prompt('Enter the URL:');
-            if (url) {
-                onLoadImage(url, 'URL');
-            }
-        } else if (source === 'Clipboard') {
-            onLoadImage(null, 'Clipboard');
-        } else {
+
+            if (!url) return;
+
+            onLoadImage(LoadImageActionType.URL, url);
+        } else if (source === LoadImageActionType.CLIPBOARD) {
+            onLoadImage(LoadImageActionType.CLIPBOARD);
+        } else if (source === LoadImageActionType.UPLOAD) {
             fileInputRef.current.click();
         }
     };
@@ -36,15 +39,15 @@ const LoadImagePanel = ({ onLoadImage }) => {
                 />
             </div>
 
-            <button className="panel-button" onClick={() => handleLoadImage('Upload')}>
+            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.UPLOAD)}>
                 <FontAwesomeIcon icon={faUpload} /> Upload Image
             </button>
 
-            <button className="panel-button" onClick={() => handleLoadImage('URL')}>
+            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.URL)}>
                 <FontAwesomeIcon icon={faUpload} /> Load From URL
             </button>
 
-            <button className="panel-button" onClick={() => handleLoadImage('Clipboard')}>
+            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.CLIPBOARD)}>
                 <FontAwesomeIcon icon={faUpload} /> Paste Image
             </button>
 

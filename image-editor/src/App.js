@@ -8,6 +8,7 @@ import ActionPanel from './js/components/actionPanelComponent/actionPanelCompone
 import { UserPreferences } from './js/core/storage/userPreferences';
 import { ImageDownloader } from './js/core/downloader/imageDownloader';
 
+import LoadImageActionType from './js/enum/loadImageActionType.enum';
 
 const loader = new ImageLoader();
 const preferences = new UserPreferences();
@@ -22,17 +23,20 @@ function App() {
   downloader.canvas = canvasRef?.current;
 
 
-  // todo enum
-  const handleImageSelect = async (selectedFile, actionType) => {
+  /**
+   * @param {LoadImageActionType} actionType 
+   * @param {any} data 
+   */
+  const handleImageSelect = async (actionType, data) => {
 
     try {
       let image;
 
-      if (actionType == "Upload") {
-        image = await loader.loadFromBlob(selectedFile);
-      } else if (actionType == "URL") {
-        image = await loader.loadFromUrl(selectedFile);
-      } else if (actionType == "Clipboard") {
+      if (actionType == LoadImageActionType.UPLOAD) {
+        image = await loader.loadFromBlob(data);
+      } else if (actionType == LoadImageActionType.URL) {
+        image = await loader.loadFromUrl(data);
+      } else if (actionType == LoadImageActionType.CLIPBOARD) {
         image = await loader.loadFromClipboard();
       }
 
