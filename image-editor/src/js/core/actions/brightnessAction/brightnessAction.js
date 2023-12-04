@@ -23,23 +23,20 @@ export default class BrightnessAction extends Action {
         super(canvas, data);
 
         this.loader = new ImageLoader();
-    }
-
-    /**
-     * @param {BrightnessActionConfig} data 
-     */
-    async update(data) {
-        this.data = data;
-
-        this.canvas.setBrightness(this.data.brightness);
-
-        this.execute();
+        this.isLoading = false;
     }
 
     async execute() {
         super.execute();
 
-        if (!this.image) this.image = await this.loader.loadFromUrl(this.data.canvasData);
+        if (this.isLoading) return;
+
+        if (!this.image) {
+            this.isLoading = true;
+            this.image = await this.loader.loadFromUrl(this.data.canvasData);
+        }
+
+        this.isLoading = false;
 
         this.canvas.drawImage(this.image);
         this.canvas.setBrightness(this.data.brightness);
