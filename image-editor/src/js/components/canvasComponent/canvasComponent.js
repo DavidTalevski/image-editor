@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const CanvasComponent = React.forwardRef(ref => {
+const CanvasComponent = React.forwardRef((props, ref) => {
     const canvasRef = useRef(null);
 
     return (
