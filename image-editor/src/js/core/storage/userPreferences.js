@@ -99,7 +99,6 @@ export class UserPreferences {
                 } else this.synchronizeData(staticd[key], saved[key])
             } else if (!saved.hasOwnProperty(key)) {
                 console.log(this.TAG, `Adding new property: "${key}"`)
-                console.log(saved, staticd)
                 saved[key] = staticd[key];
             }
         })

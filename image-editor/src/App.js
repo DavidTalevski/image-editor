@@ -1,50 +1,66 @@
 // App.js
 import React, { useState, useRef } from 'react';
 import './css/App.css';
-import { ImageLoader } from './js/core/loader/imageLoader';
+
 import CanvasComponent from './js/components/canvasComponent/canvasComponent';
 import TabListComponent from './js/components/tabListComponent/tabListComponent';
 import ActionPanel from './js/components/actionPanelComponent/actionPanelComponent';
+import ActionHistoryPanelComponent from './js/components/actionHistoryPanelComponent/actionHistoryPanelComponent';
+
 import { UserPreferences } from './js/core/storage/userPreferences';
 import { ImageDownloader } from './js/core/downloader/imageDownloader';
 
-import LoadImageActionType from './js/enum/loadImageActionType.enum';
+import LoadImageActionType from './js/core/enum/loadImageActionType.enum';
 
-const loader = new ImageLoader();
+import CanvasController from './js/core/canvas/canvasController';
+import ActionManager from './js/core/actions/actionManager';
+import ActionType from './js/core/enum/actionType.enum';
+
+
 const preferences = new UserPreferences();
-const downloader = new ImageDownloader();
-
+const actionManager = new ActionManager();
 
 function App() {
   const canvasRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [selectedTab, setSelectedTab] = useState(null);
+  const [history, setHistory] = useState([]);
 
-  downloader.canvas = canvasRef?.current;
+  let downloader, canvasController;
 
+  if (canvasRef.current) {
+    canvasController = new CanvasController(canvasRef?.current);
+    actionManager.setCanvas(canvasController);
+    downloader = new ImageDownloader(canvasController);
+  }
 
   /**
-   * @param {LoadImageActionType} actionType 
-   * @param {any} data 
+   * @param {LoadImageActionType} loadImageActionType 
+   * @param {any} imageData 
    */
-  const handleImageSelect = async (actionType, data) => {
+  const handleImageSelect = async (loadImageActionType, imageData) => {
 
-    try {
-      let image;
-
-      if (actionType == LoadImageActionType.UPLOAD) {
-        image = await loader.loadFromBlob(data);
-      } else if (actionType == LoadImageActionType.URL) {
-        image = await loader.loadFromUrl(data);
-      } else if (actionType == LoadImageActionType.CLIPBOARD) {
-        image = await loader.loadFromClipboard();
-      }
-
-      setSelectedImage(image);
-    } catch (e) {
-      console.log(e);
-      return;
+    /**
+     * @type {import("./js/core/actions/loadAction/loadActionData").LoadActionData}
+     */
+    const data = {
+      loadImageActionType: loadImageActionType,
+      imageData: imageData,
+      canvasData: canvasController.getSaveData()
     }
+
+    const loadAction = actionManager.createAction(ActionType.LOAD, data);
+
+    loadAction.execute();
+  };
+
+  const addActionToHistory = (actionText) => {
+    setHistory([...history, actionText]);
+  };
+
+  const removeActionFromHistory = (index) => {
+    const newHistory = [...history];
+    newHistory.splice(index, 1);
+    setHistory(newHistory);
   };
 
   const handleTabSelect = (tab) => {
@@ -73,7 +89,7 @@ function App() {
         canvasRef={canvasRef}
         onTabSelect={handleTabSelect}
       />
-      <CanvasComponent image={selectedImage} ref={canvasRef} />
+      <CanvasComponent ref={canvasRef} />
       <ActionPanel
         selectedTab={selectedTab}
         onDownloadAsPNG={handleDownloadAsPNG}
@@ -83,6 +99,12 @@ function App() {
         defaultCompression={preferences.getPreference("imageQuality") * 100}
         onLoadImage={handleImageSelect}
       />
+      <ActionHistoryPanelComponent
+        history={history}
+        addAction={addActionToHistory}
+        removeAction={removeActionFromHistory}
+      />
+      <button onClick={() => addActionToHistory(`Action ${history.length + 1}`)}>Add New Action</button>
     </div>
   );
 }

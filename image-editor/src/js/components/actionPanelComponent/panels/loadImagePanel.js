@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
-import LoadImageActionType from '../../../enum/loadImageActionType.enum';
+import LoadImageActionType from '../../../core/enum/loadImageActionType.enum';
 
 const LoadImagePanel = ({ onLoadImage }) => {
     const fileInputRef = useRef(null);

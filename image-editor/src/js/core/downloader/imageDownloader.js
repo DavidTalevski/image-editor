@@ -1,3 +1,4 @@
+import CanvasController from "../canvas/canvasController";
 import { ImageType } from "../enum/imageType.enum";
 
 export class ImageDownloader {
@@ -5,6 +6,9 @@ export class ImageDownloader {
     /** @private */
     TAG = "[Image Downloader]";
 
+    /**
+     * @param {CanvasController} canvas 
+     */
     constructor(canvas) {
         this.canvas = canvas;
     }
@@ -19,7 +23,7 @@ export class ImageDownloader {
         if (quality < 0 || quality > 1) quality = 1;
 
         const name = `${fileName}.${type}`;
-        const image = this.canvas.toDataURL(`image/${type}`, quality);
+        const image = this.canvas.getSaveData(type, quality)
         const link = document.createElement('a');
 
         link.href = image;

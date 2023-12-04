@@ -1,23 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 
-const CanvasComponent = React.forwardRef(({ image }, ref) => {
+const CanvasComponent = React.forwardRef(ref => {
     const canvasRef = useRef(null);
-
-    useEffect(() => {
-        if (!image) return;
-        if (!(image instanceof HTMLImageElement)) return;
-
-        /** @type {HTMLCanvasElement} */
-        const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
-
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-    }, [image]);
 
     return (
         <canvas
