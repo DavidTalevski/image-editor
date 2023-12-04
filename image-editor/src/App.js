@@ -25,7 +25,11 @@ function App() {
   const [selectedTab, setSelectedTab] = useState(null);
   const [history, setHistory] = useState([]);
 
-  let downloader, canvasController;
+  /** @type {CanvasController} */
+  let canvasController
+
+  /** @type {ImageDownloader} */
+  let downloader;
 
   if (canvasRef.current) {
     canvasController = new CanvasController(canvasRef?.current);
@@ -52,6 +56,41 @@ function App() {
 
     loadAction.execute();
   };
+
+
+  const handleAdjustBrightness = (brightness) => {
+    preferences.setPreference("brightness", brightness);
+
+    const currentAction = actionManager.getCurrentAction();
+
+    if (currentAction && currentAction.type == ActionType.BRIGHTNESS) {
+      /**
+       * @type {import("./js/core/actions/brightnessAction/brightnessActionData").BrightnessActionData}
+       */
+      const data = {
+        brightness: preferences.getPreference("brightness"),
+        previousBrightness: currentAction.data.previousBrightness,
+        canvasData: currentAction.data.canvasData
+      }
+
+      currentAction.update(data);
+      return;
+    }
+
+    /**
+     * @type {import("./js/core/actions/brightnessAction/brightnessActionData").BrightnessActionData}
+     */
+    const data = {
+      brightness: preferences.getPreference("brightness"),
+      previousBrightness: canvasController.filter.getFilterValue("brightness"),
+      canvasData: canvasController.getSaveData()
+    }
+
+    const loadAction = actionManager.createAction(ActionType.BRIGHTNESS, data);
+
+    loadAction.execute();
+  };
+
 
   const addActionToHistory = (actionText) => {
     setHistory([...history, actionText]);
@@ -98,6 +137,10 @@ function App() {
         onSetCompression={handleSetCompression}
         defaultCompression={preferences.getPreference("imageQuality") * 100}
         onLoadImage={handleImageSelect}
+        contrast={preferences.getPreference("contrast")}
+        brightness={preferences.getPreference("brightness")}
+        saturation={preferences.getPreference("saturation")}
+        handleAdjustBrightness={handleAdjustBrightness}
       />
       <ActionHistoryPanelComponent
         history={history}

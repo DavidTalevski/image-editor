@@ -1,6 +1,10 @@
 import CanvasController from "../canvas/canvasController";
+import ActionType from "../enum/actionType.enum";
 
 export default class Action {
+
+    /** @type {ActionType} */
+    type;
 
     /**
      * @param {CanvasController} canvas 
@@ -21,11 +25,21 @@ export default class Action {
         return this.active;
     }
 
+    async update(data) {
+        this.data = data;
+        return this.execute();
+    }
+
     async execute() {
         this.active = true;
     }
 
     async undo() {
         this.active = false;
+    }
+
+    destroy() {
+        this.data = null;
+        this.canvas = null;
     }
 }

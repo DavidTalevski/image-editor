@@ -59,6 +59,10 @@ export default class ActionManager {
         return action;
     }
 
+    getCurrentAction() {
+        return this.actionQueue[this.actionQueue.length - 1];
+    }
+
     /**
      * Executes a specific action from the action queue.
      * @param {number} orderId - The order ID of the action to execute.

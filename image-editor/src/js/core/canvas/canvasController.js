@@ -1,4 +1,5 @@
 import { ImageType } from "../enum/imageType.enum";
+import CanvasFilterManager from "./canvasFilterManager";
 
 export default class CanvasController {
 
@@ -11,6 +12,8 @@ export default class CanvasController {
 
         /** @private */
         this.context = canvas.getContext('2d');
+
+        this.filter = new CanvasFilterManager();
     }
 
     /**
@@ -26,6 +29,23 @@ export default class CanvasController {
 
     clear() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    redraw() {
+        this.context.drawImage(this.canvas, 0, 0);
+    }
+
+    /**
+     * @param {number} brightness 
+     */
+    setBrightness(brightness) {
+        this.filter.addOrUpdateFilter("brightness", brightness);
+        this.applyFilters();
+    }
+
+    applyFilters() {
+        this.context.filter = this.filter.getFilters();
+        this.redraw();
     }
 
     /**

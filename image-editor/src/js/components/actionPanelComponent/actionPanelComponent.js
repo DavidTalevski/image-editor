@@ -5,10 +5,12 @@ import { faDownload, faFileImage } from '@fortawesome/free-solid-svg-icons';
 
 import DownloadImagePanel from "./panels/downloadImagePanel"
 import LoadImagePanel from './panels/loadImagePanel';
+import FilterPanel from './panels/filterPanel';
 
-const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage }) => {
+const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage, handleAdjustBrightness, handleAdjustContrast, handleAdjustSaturation, brightness, contrast, saturation }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
+        // TODO ENUM
         switch (selectedTab) {
             case 'downloadImage':
                 return (
@@ -24,6 +26,17 @@ const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloa
                 return (
                     <LoadImagePanel
                         onLoadImage={onLoadImage}
+                    />
+                );
+            case "filter":
+                return (
+                    <FilterPanel
+                        brightness={brightness}
+                        contrast={contrast}
+                        saturation={saturation}
+                        onAdjustBrightness={handleAdjustBrightness}
+                        onAdjustContrast={handleAdjustContrast}
+                        onAdjustSaturation={handleAdjustSaturation}
                     />
                 );
             default:
