@@ -8,8 +8,8 @@
 - [ ] Crop
 - [ ] Resize
 - [ ] Filters
-- [ ] Brightness
-- [ ] Contrast
+- [X] Brightness
+- [X] Contrast
 - [ ] Action History (Undo Step)
 - [ ] Color Picker
 - [ ] Flip Image

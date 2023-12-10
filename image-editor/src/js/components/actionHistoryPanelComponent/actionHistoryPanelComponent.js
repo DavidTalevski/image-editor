@@ -1,8 +1,7 @@
-// ActionHistoryPanelComponent.js
 import React, { useEffect, useRef } from 'react';
 import ActionHistoryCard from './actionHistoryCard';
 
-const ActionHistoryPanelComponent = ({ history, addAction, removeAction }) => {
+const ActionHistoryPanelComponent = ({ history }) => {
     const panelRef = useRef(null);
 
     useEffect(() => {
@@ -16,7 +15,13 @@ const ActionHistoryPanelComponent = ({ history, addAction, removeAction }) => {
         <div style={{ maxHeight: '1000px', overflowY: 'auto' }} ref={panelRef}>
             <h2>Action History Panel</h2>
             {history.map((action, index) => (
-                <ActionHistoryCard key={index} action={action} onDelete={() => removeAction(index)} />
+                <ActionHistoryCard
+                    key={index}
+                    id={index + 1}
+                    title={`Action ${index + 1}`}
+                    properties={action}
+                    icon="your-icon-name"
+                />
             ))}
         </div>
     );

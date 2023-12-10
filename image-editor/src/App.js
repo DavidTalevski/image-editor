@@ -129,13 +129,6 @@ function App() {
     setHistory((prevHistory) => [...prevHistory, actionText]);
   };
 
-  const removeActionFromHistory = (index) => {
-    setHistory((prevHistory) => {
-      const newHistory = [...prevHistory];
-      newHistory.splice(index, 1);
-      return newHistory;
-    });
-  };
   const handleTabSelect = (tab) => {
     setSelectedTab(tab);
   };
@@ -181,10 +174,7 @@ function App() {
       />
       <ActionHistoryPanelComponent
         history={history}
-        addAction={addActionToHistory}
-        removeAction={removeActionFromHistory}
       />
-      <button onClick={() => addActionToHistory(`Action ${history.length + 1}`)}>Add New Action</button>
     </div>
   );
 }
