@@ -51,6 +51,14 @@ export default class CanvasController {
         this.applyFilters();
     }
 
+    /**
+     * @param {saturation} brightness 
+     */
+    setSaturation(saturation) {
+        this.filter.addOrUpdateFilter("saturate", saturation);
+        this.applyFilters();
+    }
+
     applyFilters() {
         this.context.filter = this.filter.getFilters();
         this.redraw();

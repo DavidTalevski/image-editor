@@ -1,5 +1,5 @@
 /**
- * @typedef brightnessActionData
+ * @typedef BrightnessActionData
  * @property {number} brightness
  */
 

@@ -48,6 +48,10 @@ function App() {
   // Reset the value back to false after the reset has been performed
   useEffect(() => {
     if (resetFilters) {
+      preferences.setPreference("contrast", 100)
+      preferences.setPreference("brightness", 100)
+      preferences.setPreference("saturation", 100)
+
       setResetFilters(false);
     }
   }, [resetFilters]);
@@ -108,6 +112,18 @@ function App() {
     await action.update(data);
   };
 
+  const handleAdjustSaturation = async (saturation) => {
+    preferences.setPreference("saturation", saturation);
+
+    const data = {
+      saturation: preferences.getPreference("saturation")
+    }
+
+    const action = actionManager.add.saturationAction(data);
+
+    await action.update(data);
+  };
+
 
   const addActionToHistory = (actionText) => {
     setHistory((prevHistory) => [...prevHistory, actionText]);
@@ -159,6 +175,7 @@ function App() {
         brightness={preferences.getPreference("brightness")}
         saturation={preferences.getPreference("saturation")}
         handleAdjustBrightness={handleAdjustBrightness}
+        handleAdjustSaturation={handleAdjustSaturation}
         handleAdjustContrast={handleAdjustContrast}
         resetFilters={resetFilters}
       />

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onAdjustContrast, onAdjustSaturation, resetFilters }) => {
     const [brightnessValue, setBrightnessValue] = useState(brightness ?? 100);
     const [contrastValue, setContrastValue] = useState(contrast ?? 100);
+    const [saturationValue, setSaturationValue] = useState(saturation ?? 100);
 
     useEffect(() => {
         // Check if the resetFilters prop has changed
@@ -10,6 +11,7 @@ const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onA
             // Reset values to their default numbers (you may need to adjust these)
             setBrightnessValue(100);
             setContrastValue(100);
+            setSaturationValue(100);
 
             // Call the provided callbacks to reset the values in the parent component
             // onAdjustBrightness(100);
@@ -64,10 +66,14 @@ const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onA
                     type="range"
                     min="0"
                     max="200"
-                    value={saturation}
-                    onChange={(e) => onAdjustSaturation(Number(e.target.value))}
+                    value={saturationValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setSaturationValue(val);
+                        onAdjustSaturation(val);
+                    }}
                 />
-                <span>{saturation}%</span>
+                <span>{saturationValue}%</span>
             </div>
         </div>
     );

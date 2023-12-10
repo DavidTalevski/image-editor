@@ -2,6 +2,7 @@ import ActionManager from "./actionManager";
 import BrightnessAction from "./actions/brightnessAction/brightnessAction";
 import ContrastAction from "./actions/contrastAction/contrastAction";
 import LoadAction from "./actions/loadAction/loadAction";
+import SaturationAction from "./actions/saturationAction/saturationAction";
 
 export default class ActionFactory {
 
@@ -21,7 +22,7 @@ export default class ActionFactory {
     }
 
     /**
-     * @param {import("./actions/brightnessAction/brightnessActionData").brightnessActionData} data 
+     * @param {import("./actions/brightnessAction/brightnessActionData").BrightnessActionData} data 
      * @returns {BrightnessAction}
      */
     brightnessAction(data) {
@@ -34,6 +35,14 @@ export default class ActionFactory {
      */
     contrastAction(data) {
         return this.createAction(ContrastAction, data)
+    }
+
+    /**
+     * @param {import("./actions/saturationAction/saturationActionData").SaturationActionData} data 
+     * @returns {SaturationAction}
+     */
+    saturationAction(data) {
+        return this.createAction(SaturationAction, data);
     }
 
     /**
