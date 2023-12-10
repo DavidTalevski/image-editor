@@ -13,7 +13,7 @@ const ActionHistoryPanelComponent = ({ history, addAction, removeAction }) => {
     }, [history]);
 
     return (
-        <div style={{ maxHeight: '200px', overflowY: 'auto' }} ref={panelRef}>
+        <div style={{ maxHeight: '1000px', overflowY: 'auto' }} ref={panelRef}>
             <h2>Action History Panel</h2>
             {history.map((action, index) => (
                 <ActionHistoryCard key={index} action={action} onDelete={() => removeAction(index)} />

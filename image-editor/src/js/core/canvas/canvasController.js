@@ -43,6 +43,14 @@ export default class CanvasController {
         this.applyFilters();
     }
 
+    /**
+     * @param {contrast} brightness 
+     */
+    setContrast(contrast) {
+        this.filter.addOrUpdateFilter("contrast", contrast);
+        this.applyFilters();
+    }
+
     applyFilters() {
         this.context.filter = this.filter.getFilters();
         this.redraw();

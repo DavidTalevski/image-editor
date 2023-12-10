@@ -1,8 +1,8 @@
 import Action from "../action";
-import { ImageLoader } from "../../loader/imageLoader";
-import ActionType from "../../enum/actionType.enum";
-import LoadImageActionType from "../../enum/loadImageActionType.enum";
-import CanvasController from "../../canvas/canvasController";
+import { ImageLoader } from "../../../loader/imageLoader";
+import ActionType from "../../../enum/actionType.enum";
+import LoadImageActionType from "../../../enum/loadImageActionType.enum";
+import CanvasController from "../../../canvas/canvasController";
 
 export default class LoadAction extends Action {
     /**
@@ -24,16 +24,6 @@ export default class LoadAction extends Action {
     async execute() {
         super.execute();
         return this.drawImage(this.data.loadImageActionType, this.data.imageData);
-    }
-
-    async undo() {
-        super.undo();
-        if (!this.data.canvasData) {
-            this.canvas.clear();
-            return;
-        }
-
-        return this.drawImage(LoadImageActionType.URL, this.data.canvasData);
     }
 
     /**

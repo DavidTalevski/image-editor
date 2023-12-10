@@ -1,10 +1,10 @@
-import Action from "./action";
-import ActionType from "../enum/actionType.enum";
+import Action from "./actions/action";
 import CanvasController from "../canvas/canvasController";
-import ActionRegistry from "./actionRegistry";
-import registerActions from "./registerActions";
+import EventEmitter from "eventemitter3"
+import ActionManagerEvents from "./events/actionManagerEvents.enum";
+import ActionFactory from "./actionFactory";
 
-export default class ActionManager {
+export default class ActionManager extends EventEmitter {
 
     /**
      * @type {Action[]}
@@ -15,16 +15,19 @@ export default class ActionManager {
     /** @private */
     TAG = "[Action Manager]";
 
+    events = ActionManagerEvents;
+
+    add = new ActionFactory(this);
+
     /**
      * Creates an instance of ActionManager.
      * @param {CanvasController} canvas - The canvas controller instance.
      */
     constructor(canvas) {
-        /** @private */
+        super();
         this.canvas = canvas;
-
-        registerActions();
     }
+
     /**
      * @param {CanvasController} canvas - The canvas controller instance
      */
@@ -46,19 +49,17 @@ export default class ActionManager {
     }
 
     /**
-     * Creates an action and adds it to the action queue.
-     * @param {ActionType} actionId - The type of action to create.
-     * @param {any} data - Additional data for the action.
+     * @param {Action} action 
      */
-    createAction(actionId, data) {
-        console.log(this.TAG, "Creating action with id:", actionId);
-        const action = ActionRegistry.getActionInstance(actionId, this.canvas, data);
-
+    addAction(action) {
         this.actionQueue.push(action);
 
-        return action;
+        this.emit(this.events.ACTION_CREATED, action);
     }
 
+    /**
+     * @returns {Action}
+     */
     getCurrentAction() {
         return this.actionQueue[this.actionQueue.length - 1];
     }

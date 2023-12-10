@@ -1,9 +1,22 @@
-// FilterPanel.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onAdjustContrast, onAdjustSaturation }) => {
+const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onAdjustContrast, onAdjustSaturation, resetFilters }) => {
+    const [brightnessValue, setBrightnessValue] = useState(brightness ?? 100);
+    const [contrastValue, setContrastValue] = useState(contrast ?? 100);
 
-    const [brightnessValue, setBrightnessValue] = React.useState(brightness ?? 100);
+    useEffect(() => {
+        // Check if the resetFilters prop has changed
+        if (resetFilters) {
+            // Reset values to their default numbers (you may need to adjust these)
+            setBrightnessValue(100);
+            setContrastValue(100);
+
+            // Call the provided callbacks to reset the values in the parent component
+            // onAdjustBrightness(100);
+            // onAdjustContrast(100);
+            // onAdjustSaturation(100); // Assuming 100 is the default for saturation
+        }
+    }, [resetFilters]);
 
 
     return (
@@ -34,10 +47,14 @@ const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onA
                     type="range"
                     min="0"
                     max="200"
-                    value={contrast}
-                    onChange={(e) => onAdjustContrast(Number(e.target.value))}
+                    value={contrastValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setContrastValue(val);
+                        onAdjustContrast(val);
+                    }}
                 />
-                <span>{contrast}%</span>
+                <span>{contrastValue}%</span>
             </div>
 
             <div className="filter-slider">

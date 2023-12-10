@@ -1,7 +1,7 @@
 import Action from "../action";
-import ActionType from "../../enum/actionType.enum";
-import CanvasController from "../../canvas/canvasController";
-import { ImageLoader } from "../../loader/imageLoader";
+import ActionType from "../../../enum/actionType.enum";
+import CanvasController from "../../../canvas/canvasController";
+import { ImageLoader } from "../../../loader/imageLoader";
 
 /**
  * @typedef {import("./brightnessActionData").BrightnessActionData} BrightnessActionConfig
@@ -33,19 +33,13 @@ export default class BrightnessAction extends Action {
 
         if (!this.image) {
             this.isLoading = true;
-            this.image = await this.loader.loadFromUrl(this.data.canvasData);
+            this.image = await this.loader.loadFromUrl(this.canvas.getSaveData());
         }
 
         this.isLoading = false;
 
         this.canvas.drawImage(this.image);
         this.canvas.setBrightness(this.data.brightness);
-    }
-
-    async undo() {
-        super.undo();
-
-        this.canvas.setBrightness(this.data.previousBrightness);
     }
 
     destroy() {

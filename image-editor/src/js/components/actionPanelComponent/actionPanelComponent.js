@@ -7,7 +7,7 @@ import DownloadImagePanel from "./panels/downloadImagePanel"
 import LoadImagePanel from './panels/loadImagePanel';
 import FilterPanel from './panels/filterPanel';
 
-const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage, handleAdjustBrightness, handleAdjustContrast, handleAdjustSaturation, brightness, contrast, saturation }) => {
+const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage, handleAdjustBrightness, handleAdjustContrast, handleAdjustSaturation, brightness, contrast, saturation, resetFilters }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
         // TODO ENUM
@@ -34,6 +34,7 @@ const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloa
                         brightness={brightness}
                         contrast={contrast}
                         saturation={saturation}
+                        resetFilters={resetFilters}
                         onAdjustBrightness={handleAdjustBrightness}
                         onAdjustContrast={handleAdjustContrast}
                         onAdjustSaturation={handleAdjustSaturation}

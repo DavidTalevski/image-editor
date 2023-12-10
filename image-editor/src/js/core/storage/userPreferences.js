@@ -36,14 +36,14 @@ export class UserPreferences {
     }
 
     /**
-     * @param {keyof(typeof this.data) key 
+     * @param {keyof(typeof this.data)} key 
      */
     getPreference(key) {
         return this.data[key];
     }
 
     /**
-     * @param {string} key 
+     * @param {keyof(typeof this.data)} key 
      * @param {any} data 
      */
     setPreference(key, data) {

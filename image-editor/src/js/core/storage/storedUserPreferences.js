@@ -5,6 +5,10 @@ export const StoredUserPreferences = {
     downloadImageType: ImageType.PNG,
     imageQuality: 1,
     brightness: 100,
-    contrast: 0,
+    contrast: 100,
     saturation: 0,
+    /**
+     * @type {import("../snapshots/snapshot").Snapshot[]}
+     */
+    snapshots: []
 }

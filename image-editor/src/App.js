@@ -1,5 +1,5 @@
 // App.js
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './css/App.css';
 
 import CanvasComponent from './js/components/canvasComponent/canvasComponent';
@@ -13,17 +13,44 @@ import { ImageDownloader } from './js/core/downloader/imageDownloader';
 import LoadImageActionType from './js/core/enum/loadImageActionType.enum';
 
 import CanvasController from './js/core/canvas/canvasController';
-import ActionManager from './js/core/actions/actionManager';
-import ActionType from './js/core/enum/actionType.enum';
-
+import ActionManager from './js/core/action/actionManager';
+import SnapshotManager from './js/core/snapshot/snapshotManager';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
+const snapshotManager = new SnapshotManager();
+
+window.ac = actionManager;
+
+snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
 function App() {
   const canvasRef = useRef(null);
   const [selectedTab, setSelectedTab] = useState(null);
   const [history, setHistory] = useState([]);
+
+  const [resetFilters, setResetFilters] = useState(false);
+
+  useEffect(() => {
+    const onActionCreated = (action) => {
+      addActionToHistory(action.type);
+      setResetFilters(true);
+    }
+
+    actionManager.on(actionManager.events.ACTION_CREATED, onActionCreated);
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      actionManager.off(actionManager.events.ACTION_CREATED, onActionCreated);
+    };
+  }, []); // Empty dependency array means this effect runs once after the initial render
+
+  // Reset the value back to false after the reset has been performed
+  useEffect(() => {
+    if (resetFilters) {
+      setResetFilters(false);
+    }
+  }, [resetFilters]);
 
   /** @type {CanvasController} */
   let canvasController
@@ -43,65 +70,56 @@ function App() {
    */
   const handleImageSelect = async (loadImageActionType, imageData) => {
 
-    /**
-     * @type {import("./js/core/actions/loadAction/loadActionData").LoadActionData}
-     */
     const data = {
       loadImageActionType: loadImageActionType,
-      imageData: imageData,
-      canvasData: canvasController.getSaveData()
+      imageData: imageData
     }
 
-    const loadAction = actionManager.createAction(ActionType.LOAD, data);
+    const action = actionManager.add.loadAction(data);
 
-    loadAction.execute();
+    await action.execute(data);
   };
 
 
-  const handleAdjustBrightness = (brightness) => {
+  // treba na 100 da se vrakjat slajderite posle zavrshena akcija
+
+  const handleAdjustBrightness = async (brightness) => {
     preferences.setPreference("brightness", brightness);
 
-    const currentAction = actionManager.getCurrentAction();
-
-    if (currentAction && currentAction.type == ActionType.BRIGHTNESS) {
-      /**
-       * @type {import("./js/core/actions/brightnessAction/brightnessActionData").BrightnessActionData}
-       */
-      const data = {
-        brightness: preferences.getPreference("brightness"),
-        previousBrightness: currentAction.data.previousBrightness,
-        canvasData: currentAction.data.canvasData
-      }
-
-      currentAction.update(data);
-      return;
-    }
-
-    /**
-     * @type {import("./js/core/actions/brightnessAction/brightnessActionData").BrightnessActionData}
-     */
     const data = {
-      brightness: preferences.getPreference("brightness"),
-      previousBrightness: canvasController.filter.getFilterValue("brightness"),
-      canvasData: canvasController.getSaveData()
+      brightness: preferences.getPreference("brightness")
     }
 
-    const loadAction = actionManager.createAction(ActionType.BRIGHTNESS, data);
+    const action = actionManager.add.brightnessAction(data);
 
-    loadAction.execute();
+    await action.update(data);
+  };
+
+
+  const handleAdjustContrast = async (contrast) => {
+    preferences.setPreference("contrast", contrast);
+
+    const data = {
+      contrast: preferences.getPreference("contrast")
+    }
+
+    const action = actionManager.add.contrastAction(data);
+
+    await action.update(data);
   };
 
 
   const addActionToHistory = (actionText) => {
-    setHistory([...history, actionText]);
+    setHistory((prevHistory) => [...prevHistory, actionText]);
   };
 
   const removeActionFromHistory = (index) => {
-    const newHistory = [...history];
-    newHistory.splice(index, 1);
-    setHistory(newHistory);
+    setHistory((prevHistory) => {
+      const newHistory = [...prevHistory];
+      newHistory.splice(index, 1);
+      return newHistory;
+    });
   };
-
   const handleTabSelect = (tab) => {
     setSelectedTab(tab);
   };
@@ -141,6 +159,8 @@ function App() {
         brightness={preferences.getPreference("brightness")}
         saturation={preferences.getPreference("saturation")}
         handleAdjustBrightness={handleAdjustBrightness}
+        handleAdjustContrast={handleAdjustContrast}
+        resetFilters={resetFilters}
       />
       <ActionHistoryPanelComponent
         history={history}

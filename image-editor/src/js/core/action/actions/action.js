@@ -1,5 +1,5 @@
-import CanvasController from "../canvas/canvasController";
-import ActionType from "../enum/actionType.enum";
+import CanvasController from "../../canvas/canvasController";
+import ActionType from "../../enum/actionType.enum";
 
 export default class Action {
 
@@ -32,10 +32,6 @@ export default class Action {
 
     async execute() {
         this.active = true;
-    }
-
-    async undo() {
-        this.active = false;
     }
 
     destroy() {
