@@ -5,9 +5,9 @@ const ActionHistoryPanelComponent = ({ history }) => {
     const panelRef = useRef(null);
 
     useEffect(() => {
-        // Scroll to the top of the panel when a new action is added
+        // Scroll to the bottom of the panel when a new action is added
         if (panelRef.current) {
-            panelRef.current.scrollTop = 0;
+            panelRef.current.scrollTop = panelRef.current.scrollHeight;
         }
     }, [history]);
 

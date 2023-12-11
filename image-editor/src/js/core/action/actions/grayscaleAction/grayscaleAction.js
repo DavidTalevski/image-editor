@@ -3,20 +3,20 @@ import CanvasController from "../../../canvas/canvasController";
 import FilterAction from "../filterAction";
 
 /**
- * @typedef {import("./contrastActionData").ContrastActionData} ContrastActionConfig
+ * @typedef {import("./grayscaleActionData").GrayscaleActionData} GrayScaleActionConfig
  */
 
-export default class ContrastAction extends FilterAction {
+export default class GrayscaleAction extends FilterAction {
     /**
      * @type {ContrastActionConfig}
      */
     data;
 
-    type = ActionType.CONTRAST;
+    type = ActionType.GRAYSCALE;
 
     /**
      * @param {CanvasController} canvas 
-     * @param {ContrastActionConfig} data 
+     * @param {GrayScaleActionConfig} data 
      */
     constructor(canvas, data) {
         super(canvas, data);
@@ -25,6 +25,6 @@ export default class ContrastAction extends FilterAction {
     async execute() {
         await super.execute();
 
-        this.canvas.setContrast(this.data.contrast);
+        this.canvas.setGrayscale(this.data.grayscale);
     }
 }

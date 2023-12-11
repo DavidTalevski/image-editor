@@ -1,13 +1,12 @@
-import Action from "../action";
 import ActionType from "../../../enum/actionType.enum";
 import CanvasController from "../../../canvas/canvasController";
-import { ImageLoader } from "../../../loader/imageLoader";
+import FilterAction from "../filterAction";
 
 /**
  * @typedef {import("./saturationActionData").SaturationActionData} SaturationActionConfig
  */
 
-export default class SaturationAction extends Action {
+export default class SaturationAction extends FilterAction {
     /**
      * @type {SaturationActionConfig}
      */
@@ -21,31 +20,11 @@ export default class SaturationAction extends Action {
      */
     constructor(canvas, data) {
         super(canvas, data);
-
-        this.loader = new ImageLoader();
-        this.isLoading = false;
     }
 
     async execute() {
-        super.execute();
+        await super.execute();
 
-        if (this.isLoading) return;
-
-        if (!this.image) {
-            this.isLoading = true;
-            this.image = await this.loader.loadFromUrl(this.canvas.getSaveData());
-        }
-
-        this.isLoading = false;
-
-        this.canvas.drawImage(this.image);
         this.canvas.setSaturation(this.data.saturation);
-    }
-
-    destroy() {
-        this.loader = null;
-        this.image = null;
-
-        super.destroy();
     }
 }

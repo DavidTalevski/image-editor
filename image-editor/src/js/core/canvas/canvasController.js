@@ -52,6 +52,14 @@ export default class CanvasController {
     }
 
     /**
+     * @param {number} grayscale 
+     */
+    setGrayscale(grayscale) {
+        this.filter.addOrUpdateFilter("grayscale", grayscale);
+        this.applyFilters();
+    }
+
+    /**
      * @param {saturation} brightness 
      */
     setSaturation(saturation) {

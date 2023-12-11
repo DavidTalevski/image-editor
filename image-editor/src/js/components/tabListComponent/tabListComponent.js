@@ -3,7 +3,7 @@ import LoadImageTab from './tabs/loadImageTab';
 import DownloadImageTab from './tabs/downloadImageTab';
 import FilterTab from './tabs/filterTab';
 
-const TabListComponent = ({ onImageSelect, canvasRef, onTabSelect }) => {
+const TabListComponent = ({ canvasRef, onTabSelect }) => {
     return (
         // TODO ENUM
         <div className="tab-list">

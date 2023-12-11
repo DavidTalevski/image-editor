@@ -1,16 +1,32 @@
 // ActionPanel.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faFileImage } from '@fortawesome/free-solid-svg-icons';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-import DownloadImagePanel from "./panels/downloadImagePanel"
+import DownloadImagePanel from "./panels/downloadImagePanel";
 import LoadImagePanel from './panels/loadImagePanel';
 import FilterPanel from './panels/filterPanel';
 
-const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression, onLoadImage, handleAdjustBrightness, handleAdjustContrast, handleAdjustSaturation, brightness, contrast, saturation, resetFilters }) => {
+const ActionPanel = ({
+    selectedTab,
+    onDownloadAsPNG,
+    onDownloadAsWebP,
+    onDownloadAsJPEG,
+    onSetCompression,
+    defaultCompression,
+    onLoadImage,
+    handleAdjustBrightness,
+    handleAdjustContrast,
+    handleAdjustSaturation,
+    brightness,
+    contrast,
+    saturation,
+    resetFilters,
+    handleAdjustGrayscale,
+    grayscale,
+}) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
-        // TODO ENUM
         switch (selectedTab) {
             case 'downloadImage':
                 return (
@@ -23,12 +39,8 @@ const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloa
                     />
                 );
             case 'loadImage':
-                return (
-                    <LoadImagePanel
-                        onLoadImage={onLoadImage}
-                    />
-                );
-            case "filter":
+                return <LoadImagePanel onLoadImage={onLoadImage} />;
+            case 'filter':
                 return (
                     <FilterPanel
                         brightness={brightness}
@@ -38,6 +50,8 @@ const ActionPanel = ({ selectedTab, onDownloadAsPNG, onDownloadAsWebP, onDownloa
                         onAdjustBrightness={handleAdjustBrightness}
                         onAdjustContrast={handleAdjustContrast}
                         onAdjustSaturation={handleAdjustSaturation}
+                        onAdjustGrayscale={handleAdjustGrayscale}
+                        grayscale={grayscale}
                     />
                 );
             default:

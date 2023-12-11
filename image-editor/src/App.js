@@ -15,10 +15,12 @@ import LoadImageActionType from './js/core/enum/loadImageActionType.enum';
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
 import SnapshotManager from './js/core/snapshot/snapshotManager';
+import ActionHandler from './js/core/action/actionHandler';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
 const snapshotManager = new SnapshotManager();
+const actionHandler = new ActionHandler(actionManager, preferences);
 
 window.ac = actionManager;
 
@@ -51,6 +53,7 @@ function App() {
       preferences.setPreference("contrast", 100)
       preferences.setPreference("brightness", 100)
       preferences.setPreference("saturation", 100)
+      preferences.setPreference("grayscale", 0)
 
       setResetFilters(false);
     }
@@ -83,47 +86,6 @@ function App() {
 
     await action.execute(data);
   };
-
-
-  // treba na 100 da se vrakjat slajderite posle zavrshena akcija
-
-  const handleAdjustBrightness = async (brightness) => {
-    preferences.setPreference("brightness", brightness);
-
-    const data = {
-      brightness: preferences.getPreference("brightness")
-    }
-
-    const action = actionManager.add.brightnessAction(data);
-
-    await action.update(data);
-  };
-
-
-  const handleAdjustContrast = async (contrast) => {
-    preferences.setPreference("contrast", contrast);
-
-    const data = {
-      contrast: preferences.getPreference("contrast")
-    }
-
-    const action = actionManager.add.contrastAction(data);
-
-    await action.update(data);
-  };
-
-  const handleAdjustSaturation = async (saturation) => {
-    preferences.setPreference("saturation", saturation);
-
-    const data = {
-      saturation: preferences.getPreference("saturation")
-    }
-
-    const action = actionManager.add.saturationAction(data);
-
-    await action.update(data);
-  };
-
 
   const addActionToHistory = (actionText) => {
     setHistory((prevHistory) => [...prevHistory, actionText]);
@@ -164,12 +126,17 @@ function App() {
         onSetCompression={handleSetCompression}
         defaultCompression={preferences.getPreference("imageQuality") * 100}
         onLoadImage={handleImageSelect}
+
         contrast={preferences.getPreference("contrast")}
         brightness={preferences.getPreference("brightness")}
         saturation={preferences.getPreference("saturation")}
-        handleAdjustBrightness={handleAdjustBrightness}
-        handleAdjustSaturation={handleAdjustSaturation}
-        handleAdjustContrast={handleAdjustContrast}
+        grayscale={preferences.getPreference("grayscale")}
+
+        handleAdjustBrightness={actionHandler.handleAdjustBrightness}
+        handleAdjustSaturation={actionHandler.handleAdjustSaturation}
+        handleAdjustContrast={actionHandler.handleAdjustContrast}
+        handleAdjustGrayscale={actionHandler.handleAdjustGrayscale}
+
         resetFilters={resetFilters}
       />
       <ActionHistoryPanelComponent

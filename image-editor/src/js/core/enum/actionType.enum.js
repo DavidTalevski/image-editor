@@ -4,6 +4,7 @@ const ActionType = Object.freeze({
     BRIGHTNESS: 1,
     CONTRAST: 2,
     SATURATION: 3,
+    GRAYSCALE: 4
 })
 
 export default ActionType;

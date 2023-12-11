@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onAdjustContrast, onAdjustSaturation, resetFilters }) => {
+const FilterPanel = ({
+    brightness,
+    contrast,
+    saturation,
+    grayscale,
+    onAdjustBrightness,
+    onAdjustContrast,
+    onAdjustSaturation,
+    onAdjustGrayscale,
+    resetFilters
+}) => {
+
     const [brightnessValue, setBrightnessValue] = useState(brightness ?? 100);
     const [contrastValue, setContrastValue] = useState(contrast ?? 100);
     const [saturationValue, setSaturationValue] = useState(saturation ?? 100);
+    const [grayscaleValue, setGrayscaleValue] = useState(grayscale || 0);
 
     useEffect(() => {
         // Check if the resetFilters prop has changed
@@ -12,14 +24,9 @@ const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onA
             setBrightnessValue(100);
             setContrastValue(100);
             setSaturationValue(100);
-
-            // Call the provided callbacks to reset the values in the parent component
-            // onAdjustBrightness(100);
-            // onAdjustContrast(100);
-            // onAdjustSaturation(100); // Assuming 100 is the default for saturation
+            setGrayscaleValue(0);
         }
     }, [resetFilters]);
-
 
     return (
         <div className="filter-panel">
@@ -74,6 +81,23 @@ const FilterPanel = ({ brightness, contrast, saturation, onAdjustBrightness, onA
                     }}
                 />
                 <span>{saturationValue}%</span>
+            </div>
+
+            <div className="filter-checkbox">
+                <label htmlFor="grayscaleCheckbox">Grayscale</label>
+                <input
+                    id="grayscaleCheckbox"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={grayscaleValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setGrayscaleValue(val);
+                        onAdjustGrayscale(val);
+                    }}
+                />
+                <span>{grayscaleValue}%</span>
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import BrightnessAction from "./actions/brightnessAction/brightnessAction";
 import ContrastAction from "./actions/contrastAction/contrastAction";
 import LoadAction from "./actions/loadAction/loadAction";
 import SaturationAction from "./actions/saturationAction/saturationAction";
+import GrayscaleAction from "./actions/grayscaleAction/grayscaleAction";
 
 export default class ActionFactory {
 
@@ -43,6 +44,14 @@ export default class ActionFactory {
      */
     saturationAction(data) {
         return this.createAction(SaturationAction, data);
+    }
+
+    /**
+     * @param {import("./actions/grayscaleAction/grayscaleActionData").GrayscaleActionData} data 
+     * @returns {GrayscaleAction}
+     */
+    grayscaleAction(data) {
+        return this.createAction(GrayscaleAction, data);
     }
 
     /**
