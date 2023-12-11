@@ -7,7 +7,7 @@
 - [X] Image Compression
 - [ ] Crop
 - [ ] Resize
-- [ ] Filters
+- [X] Filters
 - [X] Brightness
 - [X] Contrast
 - [ ] Action History (Undo Step)
