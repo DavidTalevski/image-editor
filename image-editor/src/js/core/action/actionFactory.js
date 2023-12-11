@@ -5,6 +5,9 @@ import LoadAction from "./actions/loadAction/loadAction";
 import SaturationAction from "./actions/saturationAction/saturationAction";
 import GrayscaleAction from "./actions/grayscaleAction/grayscaleAction";
 import HueRotationAction from "./actions/hueRotationAction/hueRotationAction";
+import InvertAction from "./actions/invertAction/invertAction";
+import SepiaAction from "./actions/sepiaAction/sepiaAction";
+import BlurAction from "./actions/blurAction/blurAction";
 
 export default class ActionFactory {
 
@@ -61,6 +64,30 @@ export default class ActionFactory {
      */
     hueRotationAction(data) {
         return this.createAction(HueRotationAction, data);
+    }
+
+    /**
+     * @param {import("./actions/invertAction/invertActionData").InvertActionData} data 
+     * @returns {InvertAction}
+     */
+    invertAction(data) {
+        return this.createAction(InvertAction, data)
+    }
+
+    /**
+     * @param {import("./actions/sepiaAction/sepiaActionData").SepiaActionData} data 
+     * @returns {SepiaAction}
+     */
+    sepiaAction(data) {
+        return this.createAction(SepiaAction, data)
+    }
+
+    /**
+     * @param {import("./actions/blurAction/blurActionData").BlurActionData} data 
+     * @returns {BlurAction}
+     */
+    blurAction(data) {
+        return this.createAction(BlurAction, data);
     }
 
     /**

@@ -102,6 +102,51 @@ class ActionHandler {
 
         await action.update(data);
     };
+
+    /**
+     * @param {number} sepia 
+     */
+    handleAdjustSepia = async (sepia) => {
+        this.preferences.setPreference("sepia", sepia);
+
+        const data = {
+            sepia: this.preferences.getPreference("sepia"),
+        };
+
+        const action = this.actionManager.add.sepiaAction(data);
+
+        await action.update(data);
+    };
+
+    /**
+     * @param {number} blur 
+     */
+    handleAdjustBlur = async (blur) => {
+        this.preferences.setPreference("blur", blur);
+
+        const data = {
+            blur: this.preferences.getPreference("blur"),
+        };
+
+        const action = this.actionManager.add.blurAction(data);
+
+        await action.update(data);
+    };
+
+    /**
+     * @param {number} invert 
+     */
+    handleAdjustInvert = async (invert) => {
+        this.preferences.setPreference("invert", invert);
+
+        const data = {
+            invert: this.preferences.getPreference("invert"),
+        };
+
+        const action = this.actionManager.add.invertAction(data);
+
+        await action.update(data);
+    };
 }
 
 export default ActionHandler;

@@ -20,10 +20,16 @@ const ActionPanel = ({
     handleAdjustSaturation,
     handleAdjustGrayscale,
     handleAdjustHueRotation,
+    handleAdjustSepia,
+    handleAdjustBlur,
+    handleAdjustInvert,
     brightness,
     contrast,
     saturation,
     grayscale,
+    sepia,
+    blur,
+    invert,
     hueRotation,
     resetFilters,
 }) => {
@@ -50,12 +56,18 @@ const ActionPanel = ({
                         saturation={saturation}
                         grayscale={grayscale}
                         hueRotation={hueRotation}
+                        sepia={sepia}
+                        blur={blur}
+                        invert={invert}
 
                         onAdjustBrightness={handleAdjustBrightness}
                         onAdjustContrast={handleAdjustContrast}
                         onAdjustSaturation={handleAdjustSaturation}
                         onAdjustGrayscale={handleAdjustGrayscale}
                         onAdjustHueRotation={handleAdjustHueRotation}
+                        onAdjustSepia={handleAdjustSepia}
+                        onAdjustBlur={handleAdjustBlur}
+                        onAdjustInvert={handleAdjustInvert}
 
                         resetFilters={resetFilters}
                     />

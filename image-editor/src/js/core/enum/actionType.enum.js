@@ -5,7 +5,10 @@ const ActionType = Object.freeze({
     CONTRAST: 2,
     SATURATION: 3,
     GRAYSCALE: 4,
-    HUE_ROTATION: 5
+    HUE_ROTATION: 5,
+    INVERT: 6,
+    BLUR: 7,
+    SEPIA: 8
 })
 
 export default ActionType;

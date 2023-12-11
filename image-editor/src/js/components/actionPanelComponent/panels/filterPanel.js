@@ -6,11 +6,17 @@ const FilterPanel = ({
     saturation,
     grayscale,
     hueRotation,
+    sepia,
+    blur,
+    invert,
     onAdjustBrightness,
     onAdjustContrast,
     onAdjustSaturation,
     onAdjustGrayscale,
     onAdjustHueRotation,
+    onAdjustSepia,
+    onAdjustBlur,
+    onAdjustInvert,
     resetFilters
 }) => {
 
@@ -19,6 +25,9 @@ const FilterPanel = ({
     const [saturationValue, setSaturationValue] = useState(saturation ?? 100);
     const [grayscaleValue, setGrayscaleValue] = useState(grayscale || 0);
     const [hueRotationValue, setHueRotationValue] = useState(hueRotation || 0);
+    const [sepiaValue, setSepiaValue] = useState(sepia || 0);
+    const [blurValue, setBlurValue] = useState(blur || 0);
+    const [invertValue, setInvertValue] = useState(invert || 0);
 
     useEffect(() => {
         // Check if the resetFilters prop has changed
@@ -29,6 +38,9 @@ const FilterPanel = ({
             setSaturationValue(100);
             setGrayscaleValue(0);
             setHueRotationValue(0);
+            setSepiaValue(0);
+            setBlurValue(0);
+            setInvertValue(0);
         }
     }, [resetFilters]);
 
@@ -119,6 +131,57 @@ const FilterPanel = ({
                     }}
                 />
                 <span>{hueRotationValue}°</span>
+            </div>
+
+            <div className="filter-slider">
+                <label htmlFor="sepiaSlider">Sepia</label>
+                <input
+                    id="sepiaSlider"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={sepiaValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setSepiaValue(val);
+                        onAdjustSepia(val);
+                    }}
+                />
+                <span>{sepiaValue}%</span>
+            </div>
+
+            <div className="filter-slider">
+                <label htmlFor="blurSlider">Blur</label>
+                <input
+                    id="blurSlider"
+                    type="range"
+                    min="0"
+                    max="20"
+                    value={blurValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setBlurValue(val);
+                        onAdjustBlur(val);
+                    }}
+                />
+                <span>{blurValue}px</span>
+            </div>
+
+            <div className="filter-slider">
+                <label htmlFor="invertSlider">Invert</label>
+                <input
+                    id="invertSlider"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={invertValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setInvertValue(val);
+                        onAdjustInvert(val);
+                    }}
+                />
+                <span>{invertValue}%</span>
             </div>
         </div>
     );

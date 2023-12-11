@@ -54,6 +54,9 @@ function App() {
       preferences.setPreference("brightness", 100)
       preferences.setPreference("saturation", 100)
       preferences.setPreference("grayscale", 0)
+      preferences.setPreference("sapia", 0)
+      preferences.setPreference("blur", 0)
+      preferences.setPreference("invert", 0)
 
       setResetFilters(false);
     }
@@ -98,6 +101,9 @@ function App() {
         saturation={preferences.getPreference("saturation")}
         grayscale={preferences.getPreference("grayscale")}
         hueRotation={preferences.getPreference("hueRotation")}
+        sapia={preferences.getPreference("sapia")}
+        blur={preferences.getPreference("blur")}
+        invert={preferences.getPreference("invert")}
 
         onDownloadAsPNG={downloadHandler.handleDownloadAsPNG}
         onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
@@ -109,6 +115,9 @@ function App() {
         handleAdjustContrast={actionHandler.handleAdjustContrast}
         handleAdjustGrayscale={actionHandler.handleAdjustGrayscale}
         handleAdjustHueRotation={actionHandler.handleAdjustHueRotation}
+        handleAdjustInvert={actionHandler.handleAdjustInvert}
+        handleAdjustBlur={actionHandler.handleAdjustBlur}
+        handleAdjustSepia={actionHandler.handleAdjustSepia}
       />
       <ActionHistoryPanelComponent
         history={history}

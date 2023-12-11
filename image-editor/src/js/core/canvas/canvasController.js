@@ -75,6 +75,30 @@ export default class CanvasController {
         this.applyFilters();
     }
 
+    /**
+     * @param {number} invert 
+     */
+    setInvert(invert) {
+        this.filter.addOrUpdateFilter("invert", `${invert}%`);
+        this.applyFilters();
+    }
+
+    /**
+     * @param {number} blur 
+     */
+    setBlur(blur) {
+        this.filter.addOrUpdateFilter("blur", `${blur}px`);
+        this.applyFilters();
+    }
+
+    /**
+     * @param {number} sepia 
+     */
+    setSepia(sepia) {
+        this.filter.addOrUpdateFilter("sepia", `${sepia}%`);
+        this.applyFilters();
+    }
+
     applyFilters() {
         this.context.filter = this.filter.getFilters();
         this.redraw();
