@@ -4,6 +4,7 @@ import ContrastAction from "./actions/contrastAction/contrastAction";
 import LoadAction from "./actions/loadAction/loadAction";
 import SaturationAction from "./actions/saturationAction/saturationAction";
 import GrayscaleAction from "./actions/grayscaleAction/grayscaleAction";
+import HueRotationAction from "./actions/hueRotationAction/hueRotationAction";
 
 export default class ActionFactory {
 
@@ -52,6 +53,14 @@ export default class ActionFactory {
      */
     grayscaleAction(data) {
         return this.createAction(GrayscaleAction, data);
+    }
+
+    /**
+     * @param {import("./actions/hueRotationAction/hueRotationActionData").HueRotationActionData} data 
+     * @returns {HueRotationAction}
+     */
+    hueRotationAction(data) {
+        return this.createAction(HueRotationAction, data);
     }
 
     /**

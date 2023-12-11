@@ -39,7 +39,7 @@ export default class CanvasController {
      * @param {number} brightness 
      */
     setBrightness(brightness) {
-        this.filter.addOrUpdateFilter("brightness", brightness);
+        this.filter.addOrUpdateFilter("brightness", `${brightness}%`);
         this.applyFilters();
     }
 
@@ -47,7 +47,7 @@ export default class CanvasController {
      * @param {contrast} brightness 
      */
     setContrast(contrast) {
-        this.filter.addOrUpdateFilter("contrast", contrast);
+        this.filter.addOrUpdateFilter("contrast", `${contrast}%`);
         this.applyFilters();
     }
 
@@ -55,7 +55,7 @@ export default class CanvasController {
      * @param {number} grayscale 
      */
     setGrayscale(grayscale) {
-        this.filter.addOrUpdateFilter("grayscale", grayscale);
+        this.filter.addOrUpdateFilter("grayscale", `${grayscale}%`);
         this.applyFilters();
     }
 
@@ -63,7 +63,15 @@ export default class CanvasController {
      * @param {saturation} brightness 
      */
     setSaturation(saturation) {
-        this.filter.addOrUpdateFilter("saturate", saturation);
+        this.filter.addOrUpdateFilter("saturate", `${saturation}%`);
+        this.applyFilters();
+    }
+
+    /**
+     * @param {number} hueRotationDegrees 
+     */
+    setHueRotation(hueRotationDegrees) {
+        this.filter.addOrUpdateFilter("hue-rotate", `${hueRotationDegrees}deg`);
         this.applyFilters();
     }
 

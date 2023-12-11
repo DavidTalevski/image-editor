@@ -5,10 +5,12 @@ const FilterPanel = ({
     contrast,
     saturation,
     grayscale,
+    hueRotation,
     onAdjustBrightness,
     onAdjustContrast,
     onAdjustSaturation,
     onAdjustGrayscale,
+    onAdjustHueRotation,
     resetFilters
 }) => {
 
@@ -16,6 +18,7 @@ const FilterPanel = ({
     const [contrastValue, setContrastValue] = useState(contrast ?? 100);
     const [saturationValue, setSaturationValue] = useState(saturation ?? 100);
     const [grayscaleValue, setGrayscaleValue] = useState(grayscale || 0);
+    const [hueRotationValue, setHueRotationValue] = useState(hueRotation || 0);
 
     useEffect(() => {
         // Check if the resetFilters prop has changed
@@ -25,6 +28,7 @@ const FilterPanel = ({
             setContrastValue(100);
             setSaturationValue(100);
             setGrayscaleValue(0);
+            setHueRotationValue(0);
         }
     }, [resetFilters]);
 
@@ -83,10 +87,10 @@ const FilterPanel = ({
                 <span>{saturationValue}%</span>
             </div>
 
-            <div className="filter-checkbox">
-                <label htmlFor="grayscaleCheckbox">Grayscale</label>
+            <div className="filter-slider">
+                <label htmlFor="grayscaleSlider">Grayscale</label>
                 <input
-                    id="grayscaleCheckbox"
+                    id="grayscaleSlider"
                     type="range"
                     min="0"
                     max="100"
@@ -98,6 +102,23 @@ const FilterPanel = ({
                     }}
                 />
                 <span>{grayscaleValue}%</span>
+            </div>
+
+            <div className="filter-slider">
+                <label htmlFor="hueSlider">Hue Rotation</label>
+                <input
+                    id="hueSlider"
+                    type="range"
+                    min="0"
+                    max="360"
+                    value={hueRotationValue}
+                    onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setHueRotationValue(val);
+                        onAdjustHueRotation(val);
+                    }}
+                />
+                <span>{hueRotationValue}°</span>
             </div>
         </div>
     );

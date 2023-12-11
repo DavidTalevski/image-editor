@@ -8,6 +8,7 @@ export const StoredUserPreferences = {
     contrast: 100,
     saturation: 100,
     grayscale: 0,
+    hueRotation: 0,
     /**
      * @type {import("../snapshots/snapshot").Snapshot[]}
      */

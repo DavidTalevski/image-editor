@@ -67,7 +67,7 @@ class CanvasFilterManager {
      */
     getFilters() {
         return this.filters
-            .map(({ name, value }) => `${name}(${value}%)`)
+            .map(({ name, value }) => `${name}(${value})`)
             .join(' ');
     }
 }

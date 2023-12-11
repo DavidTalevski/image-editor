@@ -18,12 +18,14 @@ const ActionPanel = ({
     handleAdjustBrightness,
     handleAdjustContrast,
     handleAdjustSaturation,
+    handleAdjustGrayscale,
+    handleAdjustHueRotation,
     brightness,
     contrast,
     saturation,
-    resetFilters,
-    handleAdjustGrayscale,
     grayscale,
+    hueRotation,
+    resetFilters,
 }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
@@ -46,12 +48,16 @@ const ActionPanel = ({
                         brightness={brightness}
                         contrast={contrast}
                         saturation={saturation}
-                        resetFilters={resetFilters}
+                        grayscale={grayscale}
+                        hueRotation={hueRotation}
+
                         onAdjustBrightness={handleAdjustBrightness}
                         onAdjustContrast={handleAdjustContrast}
                         onAdjustSaturation={handleAdjustSaturation}
                         onAdjustGrayscale={handleAdjustGrayscale}
-                        grayscale={grayscale}
+                        onAdjustHueRotation={handleAdjustHueRotation}
+
+                        resetFilters={resetFilters}
                     />
                 );
             default:

@@ -22,7 +22,7 @@ const snapshotManager = new SnapshotManager();
 const downloader = new ImageDownloader();
 
 const actionHandler = new ActionHandler(actionManager, preferences);
-const downloadHandler = new ImageDownloadHandler(actionManager, downloader)
+const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 
 snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
@@ -97,6 +97,7 @@ function App() {
         brightness={preferences.getPreference("brightness")}
         saturation={preferences.getPreference("saturation")}
         grayscale={preferences.getPreference("grayscale")}
+        hueRotation={preferences.getPreference("hueRotation")}
 
         onDownloadAsPNG={downloadHandler.handleDownloadAsPNG}
         onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
@@ -107,6 +108,7 @@ function App() {
         handleAdjustSaturation={actionHandler.handleAdjustSaturation}
         handleAdjustContrast={actionHandler.handleAdjustContrast}
         handleAdjustGrayscale={actionHandler.handleAdjustGrayscale}
+        handleAdjustHueRotation={actionHandler.handleAdjustHueRotation}
       />
       <ActionHistoryPanelComponent
         history={history}
