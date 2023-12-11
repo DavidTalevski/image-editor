@@ -1,5 +1,6 @@
-import { UserPreferences } from "../storage/userPreferences";
-import ActionManager from "./actionManager";
+import { UserPreferences } from "../core/storage/userPreferences";
+import ActionManager from "../core/action/actionManager";
+import LoadImageActionType from "../core/enum/loadImageActionType.enum";
 
 class ActionHandler {
     /**
@@ -59,7 +60,6 @@ class ActionHandler {
     };
 
     handleAdjustGrayscale = async (grayscale) => {
-        console.log(this, grayscale)
         this.preferences.setPreference("grayscale", grayscale);
 
         const data = {
@@ -69,6 +69,21 @@ class ActionHandler {
         const action = this.actionManager.add.grayscaleAction(data);
 
         await action.update(data);
+    };
+
+    /**
+     * @param {LoadImageActionType} loadImageActionType 
+     * @param {any} imageData 
+     */
+    handleImageSelect = async (loadImageActionType, imageData) => {
+        const data = {
+            loadImageActionType: loadImageActionType,
+            imageData: imageData
+        }
+
+        const action = this.actionManager.add.loadAction(data);
+
+        await action.execute(data);
     };
 }
 

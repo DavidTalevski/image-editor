@@ -10,19 +10,19 @@ import ActionHistoryPanelComponent from './js/components/actionHistoryPanelCompo
 import { UserPreferences } from './js/core/storage/userPreferences';
 import { ImageDownloader } from './js/core/downloader/imageDownloader';
 
-import LoadImageActionType from './js/core/enum/loadImageActionType.enum';
-
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
 import SnapshotManager from './js/core/snapshot/snapshotManager';
-import ActionHandler from './js/core/action/actionHandler';
+import ActionHandler from './js/handlers/actionHandler';
+import ImageDownloadHandler from './js/handlers/downloadHandler';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
 const snapshotManager = new SnapshotManager();
-const actionHandler = new ActionHandler(actionManager, preferences);
+const downloader = new ImageDownloader();
 
-window.ac = actionManager;
+const actionHandler = new ActionHandler(actionManager, preferences);
+const downloadHandler = new ImageDownloadHandler(actionManager, downloader)
 
 snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
@@ -62,30 +62,11 @@ function App() {
   /** @type {CanvasController} */
   let canvasController
 
-  /** @type {ImageDownloader} */
-  let downloader;
-
   if (canvasRef.current) {
     canvasController = new CanvasController(canvasRef?.current);
     actionManager.setCanvas(canvasController);
-    downloader = new ImageDownloader(canvasController);
+    downloader.canvas = canvasController;
   }
-
-  /**
-   * @param {LoadImageActionType} loadImageActionType 
-   * @param {any} imageData 
-   */
-  const handleImageSelect = async (loadImageActionType, imageData) => {
-
-    const data = {
-      loadImageActionType: loadImageActionType,
-      imageData: imageData
-    }
-
-    const action = actionManager.add.loadAction(data);
-
-    await action.execute(data);
-  };
 
   const addActionToHistory = (actionText) => {
     setHistory((prevHistory) => [...prevHistory, actionText]);
@@ -93,18 +74,6 @@ function App() {
 
   const handleTabSelect = (tab) => {
     setSelectedTab(tab);
-  };
-
-  const handleDownloadAsPNG = (fileName) => {
-    downloader.download(fileName, "png", preferences.getPreference("imageQuality"));
-  };
-
-  const handleDownloadAsWebP = (fileName) => {
-    downloader.download(fileName, "webp", preferences.getPreference("imageQuality"));
-  };
-
-  const handleDownloadAsJPEG = (fileName) => {
-    downloader.download(fileName, "jpeg", preferences.getPreference("imageQuality"));
   };
 
   const handleSetCompression = (compressionLevel) => {
@@ -120,24 +89,24 @@ function App() {
       <CanvasComponent ref={canvasRef} />
       <ActionPanel
         selectedTab={selectedTab}
-        onDownloadAsPNG={handleDownloadAsPNG}
-        onDownloadAsWebP={handleDownloadAsWebP}
-        onDownloadAsJPEG={handleDownloadAsJPEG}
         onSetCompression={handleSetCompression}
         defaultCompression={preferences.getPreference("imageQuality") * 100}
-        onLoadImage={handleImageSelect}
+        resetFilters={resetFilters}
 
         contrast={preferences.getPreference("contrast")}
         brightness={preferences.getPreference("brightness")}
         saturation={preferences.getPreference("saturation")}
         grayscale={preferences.getPreference("grayscale")}
 
+        onDownloadAsPNG={downloadHandler.handleDownloadAsPNG}
+        onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
+        onDownloadAsJPEG={downloadHandler.handleDownloadAsJPEG}
+
+        onLoadImage={actionHandler.handleImageSelect}
         handleAdjustBrightness={actionHandler.handleAdjustBrightness}
         handleAdjustSaturation={actionHandler.handleAdjustSaturation}
         handleAdjustContrast={actionHandler.handleAdjustContrast}
         handleAdjustGrayscale={actionHandler.handleAdjustGrayscale}
-
-        resetFilters={resetFilters}
       />
       <ActionHistoryPanelComponent
         history={history}
