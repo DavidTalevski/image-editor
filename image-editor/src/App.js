@@ -13,16 +13,21 @@ import { ImageDownloader } from './js/core/downloader/imageDownloader';
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
 import SnapshotManager from './js/core/snapshot/snapshotManager';
-import ActionHandler from './js/handlers/actionHandler';
+
+import FilterActionHandler from './js/handlers/filterActionHandler';
 import ImageDownloadHandler from './js/handlers/downloadHandler';
+import LoadActionHandler from './js/handlers/loadActionHandler';
+import EditActionHandler from './js/handlers/editActionHandler';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
 const snapshotManager = new SnapshotManager();
 const downloader = new ImageDownloader();
 
-const actionHandler = new ActionHandler(actionManager, preferences);
+const filterActionHandler = new FilterActionHandler(actionManager, preferences);
+const loadActionHandler = new LoadActionHandler(actionManager, preferences)
 const downloadHandler = new ImageDownloadHandler(downloader, preferences)
+const editActionHandler = new EditActionHandler(actionManager, preferences)
 
 snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
@@ -109,15 +114,21 @@ function App() {
         onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
         onDownloadAsJPEG={downloadHandler.handleDownloadAsJPEG}
 
-        onLoadImage={actionHandler.handleImageSelect}
-        handleAdjustBrightness={actionHandler.handleAdjustBrightness}
-        handleAdjustSaturation={actionHandler.handleAdjustSaturation}
-        handleAdjustContrast={actionHandler.handleAdjustContrast}
-        handleAdjustGrayscale={actionHandler.handleAdjustGrayscale}
-        handleAdjustHueRotation={actionHandler.handleAdjustHueRotation}
-        handleAdjustInvert={actionHandler.handleAdjustInvert}
-        handleAdjustBlur={actionHandler.handleAdjustBlur}
-        handleAdjustSepia={actionHandler.handleAdjustSepia}
+        onLoadImage={loadActionHandler.handleImageSelect}
+
+        handleBrightness={filterActionHandler.handleBrightness}
+        handleSaturation={filterActionHandler.handleSaturation}
+        handleContrast={filterActionHandler.handleContrast}
+        handleGrayscale={filterActionHandler.handleGrayscale}
+        handleHueRotation={filterActionHandler.handleHueRotation}
+        handleInvert={filterActionHandler.handleInvert}
+        handleBlur={filterActionHandler.handleBlur}
+        handleSepia={filterActionHandler.handleSepia}
+
+        handleCrop={editActionHandler.handleCrop}
+        handleFlip={editActionHandler.handleFlip}
+        handleResize={editActionHandler.handleResize}
+        handleRotate={editActionHandler.handleRotate}
       />
       <ActionHistoryPanelComponent
         history={history}

@@ -6,6 +6,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import DownloadImagePanel from "./panels/downloadImagePanel";
 import LoadImagePanel from './panels/loadImagePanel';
 import FilterPanel from './panels/filterPanel';
+import EditPanel from './panels/editPanel';
 
 const ActionPanel = ({
     selectedTab,
@@ -15,14 +16,14 @@ const ActionPanel = ({
     onSetCompression,
     defaultCompression,
     onLoadImage,
-    handleAdjustBrightness,
-    handleAdjustContrast,
-    handleAdjustSaturation,
-    handleAdjustGrayscale,
-    handleAdjustHueRotation,
-    handleAdjustSepia,
-    handleAdjustBlur,
-    handleAdjustInvert,
+    handleBrightness,
+    handleContrast,
+    handleSaturation,
+    handleGrayscale,
+    handleHueRotation,
+    handleSepia,
+    handleBlur,
+    handleInvert,
     brightness,
     contrast,
     saturation,
@@ -32,6 +33,10 @@ const ActionPanel = ({
     invert,
     hueRotation,
     resetFilters,
+    handleCrop,
+    handleResize,
+    handleRotate,
+    handleFlip,
 }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
@@ -60,16 +65,25 @@ const ActionPanel = ({
                         blur={blur}
                         invert={invert}
 
-                        onAdjustBrightness={handleAdjustBrightness}
-                        onAdjustContrast={handleAdjustContrast}
-                        onAdjustSaturation={handleAdjustSaturation}
-                        onAdjustGrayscale={handleAdjustGrayscale}
-                        onAdjustHueRotation={handleAdjustHueRotation}
-                        onAdjustSepia={handleAdjustSepia}
-                        onAdjustBlur={handleAdjustBlur}
-                        onAdjustInvert={handleAdjustInvert}
+                        onAdjustBrightness={handleBrightness}
+                        onAdjustContrast={handleContrast}
+                        onAdjustSaturation={handleSaturation}
+                        onAdjustGrayscale={handleGrayscale}
+                        onAdjustHueRotation={handleHueRotation}
+                        onAdjustSepia={handleSepia}
+                        onAdjustBlur={handleBlur}
+                        onAdjustInvert={handleInvert}
 
                         resetFilters={resetFilters}
+                    />
+                );
+            case 'edit': // Add the case for 'edit'
+                return (
+                    <EditPanel
+                        handleCrop={handleCrop}
+                        handleResize={handleResize}
+                        handleRotate={handleRotate}
+                        handleFlip={handleFlip}
                     />
                 );
             default:

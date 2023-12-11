@@ -1,8 +1,7 @@
 import { UserPreferences } from "../core/storage/userPreferences";
 import ActionManager from "../core/action/actionManager";
-import LoadImageActionType from "../core/enum/loadImageActionType.enum";
 
-class ActionHandler {
+export default class FilterActionHandler {
     /**
      * @param {ActionManager} actionManager 
      * @param {UserPreferences} preferences 
@@ -13,24 +12,9 @@ class ActionHandler {
     }
 
     /**
-     * @param {LoadImageActionType} loadImageActionType 
-     * @param {any} imageData 
-     */
-    handleImageSelect = async (loadImageActionType, imageData) => {
-        const data = {
-            loadImageActionType: loadImageActionType,
-            imageData: imageData
-        }
-
-        const action = this.actionManager.add.loadAction(data);
-
-        await action.execute(data);
-    };
-
-    /**
      * @param {number} brightness 
      */
-    handleAdjustBrightness = async (brightness) => {
+    handleBrightness = async (brightness) => {
         this.preferences.setPreference("brightness", brightness);
 
         const data = {
@@ -45,7 +29,7 @@ class ActionHandler {
     /**
      * @param {number} contrast 
      */
-    handleAdjustContrast = async (contrast) => {
+    handleContrast = async (contrast) => {
         this.preferences.setPreference("contrast", contrast);
 
         const data = {
@@ -60,7 +44,7 @@ class ActionHandler {
     /**
      * @param {number} saturation 
      */
-    handleAdjustSaturation = async (saturation) => {
+    handleSaturation = async (saturation) => {
         this.preferences.setPreference("saturation", saturation);
 
         const data = {
@@ -75,7 +59,7 @@ class ActionHandler {
     /**
      * @param {number} grayscale 
      */
-    handleAdjustGrayscale = async (grayscale) => {
+    handleGrayscale = async (grayscale) => {
         this.preferences.setPreference("grayscale", grayscale);
 
         const data = {
@@ -88,10 +72,9 @@ class ActionHandler {
     };
 
     /**
-     * 
      * @param {number} hueRotationDegrees 
      */
-    handleAdjustHueRotation = async (hueRotationDegrees) => {
+    handleHueRotation = async (hueRotationDegrees) => {
         this.preferences.setPreference("hueRotationDegrees", hueRotationDegrees);
 
         const data = {
@@ -106,7 +89,7 @@ class ActionHandler {
     /**
      * @param {number} sepia 
      */
-    handleAdjustSepia = async (sepia) => {
+    handleSepia = async (sepia) => {
         this.preferences.setPreference("sepia", sepia);
 
         const data = {
@@ -121,7 +104,7 @@ class ActionHandler {
     /**
      * @param {number} blur 
      */
-    handleAdjustBlur = async (blur) => {
+    handleBlur = async (blur) => {
         this.preferences.setPreference("blur", blur);
 
         const data = {
@@ -136,7 +119,7 @@ class ActionHandler {
     /**
      * @param {number} invert 
      */
-    handleAdjustInvert = async (invert) => {
+    handleInvert = async (invert) => {
         this.preferences.setPreference("invert", invert);
 
         const data = {
@@ -148,5 +131,3 @@ class ActionHandler {
         await action.update(data);
     };
 }
-
-export default ActionHandler;
