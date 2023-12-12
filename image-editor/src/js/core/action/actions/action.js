@@ -17,7 +17,6 @@ export default class Action {
         /** @protected */
         this.active = false;
 
-        /** @protected */
         this.data = data;
     }
 

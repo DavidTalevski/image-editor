@@ -1,5 +1,6 @@
 import { UserPreferences } from "../core/storage/userPreferences";
 import ActionManager from "../core/action/actionManager";
+import FlipType from "../enum/flipType.enum";
 
 export default class EditActionHandler {
     /**
@@ -53,12 +54,12 @@ export default class EditActionHandler {
     };
 
     /**
-     * @param {number} flip 
+     * @param {FlipType} flip 
      */
     handleFlip = async (flip) => {
 
         const data = {
-            flip: flip,
+            flipType: flip
         };
 
         const action = this.actionManager.add.flipAction(data);

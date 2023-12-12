@@ -16,6 +16,10 @@ export default class CanvasController {
         this.filter = new CanvasFilterManager();
     }
 
+    getContext() {
+        return this.canvas.getContext("2d");
+    }
+
     /**
      * @param {HTMLImageElement} image 
      */

@@ -8,7 +8,8 @@ const ActionType = Object.freeze({
     HUE_ROTATION: 5,
     INVERT: 6,
     BLUR: 7,
-    SEPIA: 8
+    SEPIA: 8,
+    FLIP: 9
 })
 
 export default ActionType;

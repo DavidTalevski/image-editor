@@ -8,6 +8,8 @@ import HueRotationAction from "./actions/hueRotationAction/hueRotationAction";
 import InvertAction from "./actions/invertAction/invertAction";
 import SepiaAction from "./actions/sepiaAction/sepiaAction";
 import BlurAction from "./actions/blurAction/blurAction";
+import FlipAction from "./actions/flipAction/flipAction";
+import ActionType from "../enum/actionType.enum";
 
 export default class ActionFactory {
 
@@ -91,15 +93,35 @@ export default class ActionFactory {
     }
 
     /**
+     * @param {import("./actions/flipAction/flipActionData").FlipActionData} data 
+     * @returns {FlipAction}
+     */
+    flipAction(data) {
+        const currentAction = this.actionManager.getCurrentAction();
+
+        console.log(currentAction.data.flipType, data);
+
+        // If its the same flip type then update the current action, else create a new action
+        if (currentAction && currentAction.type == ActionType.FLIP) {
+            if (currentAction.data.flipType == data.flipType) {
+                return currentAction;
+            }
+        }
+
+        return this.createAction(FlipAction, data, true);
+    }
+
+    /**
      * @template {new (...args: any[]) => {}} AC
      * @param {AC} ActionClass
      * @param {ConstructorParameters<AC>[0]} actionData
+     * @param {boolean} override - Whether to override the same action check
      * @returns {InstanceType<AC>}
      */
-    createAction(ActionClass, actionData) {
+    createAction(ActionClass, actionData, override = false) {
         const currentAction = this.actionManager.getCurrentAction();
 
-        if (currentAction && currentAction instanceof ActionClass) {
+        if (!override && currentAction && currentAction instanceof ActionClass) {
             return currentAction;
         }
 
