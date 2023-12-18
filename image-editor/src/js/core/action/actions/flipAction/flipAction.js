@@ -1,7 +1,6 @@
 import Action from "../action";
 import ActionType from "../../../enum/actionType.enum";
-import CanvasController from "../../../canvas/canvasController";
-import FlipType from "../../../../enum/flipType.enum";
+import FlipOrientation from "../../../../enum/flipOrientation.enum";
 
 export default class FlipAction extends Action {
     /**
@@ -11,61 +10,45 @@ export default class FlipAction extends Action {
 
     type = ActionType.FLIP;
 
-    /**
-     * @param {CanvasController} canvas
-     * @param {LoadActionData} data
-     */
-    constructor(canvas, data) {
-        super(canvas, data);
-    }
-
     async execute() {
         super.execute();
 
-        const context = this.canvas.getContext();
-
-        if (this.data.flipType == FlipType.HORIZONTAL) {
-            this.flipCanvasHorizontally(context);
+        if (this.data.flipOrientation === FlipOrientation.HORIZONTAL) {
+            this.flipCanvasHorizontally();
         } else {
-            this.flipCanvasVertically(context);
+            this.flipCanvasVertically();
         }
+
     }
 
-    /**
-     * Flip the entire canvas horizontally
-     * @param {CanvasRenderingContext2D} context
-     */
-    flipCanvasHorizontally(context) {
-        // Save the current state of the context
+    flipCanvasHorizontally() {
+
+        const context = this.canvas.getContext();
+
         context.save();
 
-        // Flip the canvas horizontally
+        this.canvas.clearFilters();
+
         context.translate(context.canvas.width, 0);
         context.scale(-1, 1);
 
-        // Draw the entire canvas on the flipped canvas
         context.drawImage(context.canvas, 0, 0);
 
-        // Restore the saved state (optional)
         context.restore();
     }
 
-    /**
-     * Flip the entire canvas vertically
-     * @param {CanvasRenderingContext2D} context
-     */
-    flipCanvasVertically(context) {
-        // Save the current state of the context
+    flipCanvasVertically() {
+        const context = this.canvas.getContext();
+
         context.save();
 
-        // Flip the canvas vertically
+        this.canvas.clearFilters();
+
         context.translate(0, context.canvas.height);
         context.scale(1, -1);
 
-        // Draw the entire canvas on the flipped canvas
         context.drawImage(context.canvas, 0, 0);
 
-        // Restore the saved state (optional)
         context.restore();
     }
 }

@@ -1,19 +1,20 @@
-import { ImageType } from "../enum/imageType.enum";
+import ImageType from "../enum/imageType.enum";
 import CanvasFilterManager from "./canvasFilterManager";
 
 export default class CanvasController {
 
+    constructor() {
+        this.filter = new CanvasFilterManager();
+
+        window.test = this.filter;
+    }
+
     /**
      * @param {HTMLCanvasElement} canvas 
      */
-    constructor(canvas) {
-        /** @private */
+    setCanvas(canvas) {
         this.canvas = canvas;
-
-        /** @private */
-        this.context = canvas.getContext('2d');
-
-        this.filter = new CanvasFilterManager();
+        this.context = this.getContext();
     }
 
     getContext() {
@@ -43,6 +44,7 @@ export default class CanvasController {
      * @param {number} brightness 
      */
     setBrightness(brightness) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("brightness", `${brightness}%`);
         this.applyFilters();
     }
@@ -51,6 +53,7 @@ export default class CanvasController {
      * @param {contrast} brightness 
      */
     setContrast(contrast) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("contrast", `${contrast}%`);
         this.applyFilters();
     }
@@ -59,6 +62,7 @@ export default class CanvasController {
      * @param {number} grayscale 
      */
     setGrayscale(grayscale) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("grayscale", `${grayscale}%`);
         this.applyFilters();
     }
@@ -67,6 +71,7 @@ export default class CanvasController {
      * @param {saturation} brightness 
      */
     setSaturation(saturation) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("saturate", `${saturation}%`);
         this.applyFilters();
     }
@@ -75,6 +80,7 @@ export default class CanvasController {
      * @param {number} hueRotationDegrees 
      */
     setHueRotation(hueRotationDegrees) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("hue-rotate", `${hueRotationDegrees}deg`);
         this.applyFilters();
     }
@@ -91,6 +97,7 @@ export default class CanvasController {
      * @param {number} blur 
      */
     setBlur(blur) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("blur", `${blur}px`);
         this.applyFilters();
     }
@@ -99,6 +106,7 @@ export default class CanvasController {
      * @param {number} sepia 
      */
     setSepia(sepia) {
+        this.filter.clearFilters();
         this.filter.addOrUpdateFilter("sepia", `${sepia}%`);
         this.applyFilters();
     }
@@ -106,6 +114,11 @@ export default class CanvasController {
     applyFilters() {
         this.context.filter = this.filter.getFilters();
         this.redraw();
+    }
+
+    clearFilters() {
+        this.filter.clearFilters();
+        this.context.filter = "none"
     }
 
     /**

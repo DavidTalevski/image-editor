@@ -1,5 +1,5 @@
-import { ImageDownloader } from "../core/downloader/imageDownloader";
-import { UserPreferences } from "../core/storage/userPreferences";
+import ImageDownloader from "../core/downloader/imageDownloader";
+import UserPreferences from "../core/storage/userPreferences";
 
 class ImageDownloadHandler {
 

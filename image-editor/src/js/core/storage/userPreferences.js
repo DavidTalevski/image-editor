@@ -1,9 +1,8 @@
-import { StoredUserPreferences } from "./storedUserPreferences";
-import { StorageType } from "./enum/storageType.enum";
-// import { LocalStorage } from "node-localstorage";
+import StoredUserPreferences from "./storedUserPreferences";
+import StorageType from "./enum/storageType.enum";
 import structuredClone from '@ungap/structured-clone';
 
-export class UserPreferences {
+export default class UserPreferences {
 
     /** @private */
     TAG = "[User Preferences]"

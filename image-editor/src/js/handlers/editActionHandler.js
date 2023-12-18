@@ -1,6 +1,6 @@
-import { UserPreferences } from "../core/storage/userPreferences";
+import UserPreferences from "../core/storage/userPreferences";
 import ActionManager from "../core/action/actionManager";
-import FlipType from "../enum/flipType.enum";
+import FlipOrientation from "../enum/flipOrientation.enum";
 
 export default class EditActionHandler {
     /**
@@ -54,12 +54,12 @@ export default class EditActionHandler {
     };
 
     /**
-     * @param {FlipType} flip 
+     * @param {FlipOrientation} flip 
      */
     handleFlip = async (flip) => {
 
         const data = {
-            flipType: flip
+            flipOrientation: flip
         };
 
         const action = this.actionManager.add.flipAction(data);

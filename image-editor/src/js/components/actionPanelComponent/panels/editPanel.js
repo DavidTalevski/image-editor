@@ -1,5 +1,5 @@
 import React from 'react';
-import FlipType from '../../../enum/flipType.enum';
+import FlipOrientation from '../../../enum/flipOrientation.enum';
 
 const EditPanel = ({
     handleCrop,
@@ -16,8 +16,8 @@ const EditPanel = ({
             <button onClick={() => handleResize()}>Resize</button> */}
 
 
-            <button onClick={() => handleFlip(FlipType.HORIZONTAL)}>Flip Horizontal</button>
-            <button onClick={() => handleFlip(FlipType.VERTICAL)}>Flip Vertical</button>
+            <button onClick={() => handleFlip(FlipOrientation.HORIZONTAL)}>Flip Horizontal</button>
+            <button onClick={() => handleFlip(FlipOrientation.VERTICAL)}>Flip Vertical</button>
         </div>
     );
 };

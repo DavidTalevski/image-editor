@@ -97,13 +97,11 @@ export default class ActionFactory {
      * @returns {FlipAction}
      */
     flipAction(data) {
-        const currentAction = this.actionManager.getCurrentAction();
-
-        console.log(currentAction.data.flipType, data);
+        const currentAction = this.actionManager.getCurrentAction()
 
         // If its the same flip type then update the current action, else create a new action
-        if (currentAction && currentAction.type == ActionType.FLIP) {
-            if (currentAction.data.flipType == data.flipType) {
+        if (currentAction && currentAction.type === ActionType.FLIP) {
+            if (currentAction.data.flipOrientation === data.flipOrientation) {
                 return currentAction;
             }
         }

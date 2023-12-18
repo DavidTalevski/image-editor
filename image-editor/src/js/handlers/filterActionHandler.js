@@ -1,4 +1,4 @@
-import { UserPreferences } from "../core/storage/userPreferences";
+import UserPreferences from "../core/storage/userPreferences";
 import ActionManager from "../core/action/actionManager";
 
 export default class FilterActionHandler {

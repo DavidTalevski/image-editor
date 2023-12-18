@@ -7,8 +7,8 @@ import TabListComponent from './js/components/tabListComponent/tabListComponent'
 import ActionPanel from './js/components/actionPanelComponent/actionPanelComponent';
 import ActionHistoryPanelComponent from './js/components/actionHistoryPanelComponent/actionHistoryPanelComponent';
 
-import { UserPreferences } from './js/core/storage/userPreferences';
-import { ImageDownloader } from './js/core/downloader/imageDownloader';
+import UserPreferences from './js/core/storage/userPreferences';
+import ImageDownloader from './js/core/downloader/imageDownloader';
 
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
@@ -23,11 +23,14 @@ const preferences = new UserPreferences();
 const actionManager = new ActionManager();
 const snapshotManager = new SnapshotManager();
 const downloader = new ImageDownloader();
+const canvasController = new CanvasController();
 
 const filterActionHandler = new FilterActionHandler(actionManager, preferences);
 const loadActionHandler = new LoadActionHandler(actionManager, preferences)
 const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
+
+window.ac = actionManager;
 
 snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
@@ -67,11 +70,8 @@ function App() {
     }
   }, [resetFilters]);
 
-  /** @type {CanvasController} */
-  let canvasController
-
   if (canvasRef.current) {
-    canvasController = new CanvasController(canvasRef?.current);
+    canvasController.setCanvas(canvasRef.current);
     actionManager.setCanvas(canvasController);
     downloader.canvas = canvasController;
   }

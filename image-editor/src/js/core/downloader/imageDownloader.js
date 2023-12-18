@@ -1,7 +1,7 @@
 import CanvasController from "../canvas/canvasController";
-import { ImageType } from "../enum/imageType.enum";
+import ImageType from "../enum/imageType.enum";
 
-export class ImageDownloader {
+export default class ImageDownloader {
 
     /** @private */
     TAG = "[Image Downloader]";

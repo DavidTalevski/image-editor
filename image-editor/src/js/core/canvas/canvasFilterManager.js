@@ -1,26 +1,11 @@
-import CanvasController from "./canvasController";
-
 class CanvasFilterManager {
 
     /**
-     * Creates a CanvasFilterManager instance.
-     * @param {CanvasController} canvas - The canvas element to manage filters on.
+     * An array to store filters, where each filter is represented by an object with `name` and `value` properties.
+     * @private
+     * @type {Array<{ name: string, value: number }>}
      */
-    constructor(canvas) {
-        /**
-         * The canvas element.
-         * @private
-         * @type {CanvasController}
-         */
-        this.canvas = canvas;
-
-        /**
-         * An array to store filters, where each filter is represented by an object with `name` and `value` properties.
-         * @private
-         * @type {Array<{ name: string, value: number }>}
-         */
-        this.filters = [];
-    }
+    filters = [];
 
     /**
      * Adds or updates a filter in the array.
@@ -59,6 +44,10 @@ class CanvasFilterManager {
      */
     removeFilter(name) {
         this.filters = this.filters.filter((filter) => filter.name !== name);
+    }
+
+    clearFilters() {
+        this.filters = [];
     }
 
     /**

@@ -1,6 +1,6 @@
-import { ImageType } from "../enum/imageType.enum"
+import ImageType from "../enum/imageType.enum"
 
-export const StoredUserPreferences = {
+const StoredUserPreferences = {
     /** @type {ImageType} */
     downloadImageType: ImageType.PNG,
     imageQuality: 1,
@@ -17,3 +17,5 @@ export const StoredUserPreferences = {
      */
     snapshots: []
 }
+
+export default StoredUserPreferences

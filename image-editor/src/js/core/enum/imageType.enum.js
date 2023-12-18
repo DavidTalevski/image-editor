@@ -1,6 +1,8 @@
 /** @enum {string} */
-export const ImageType = Object.freeze({
+const ImageType = Object.freeze({
     PNG: "png",
     WEBP: "webp",
     JPEG: "jpeg"
 })
+
+export default ImageType;
