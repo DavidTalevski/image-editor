@@ -10,6 +10,7 @@ import SepiaAction from "./actions/sepiaAction/sepiaAction";
 import BlurAction from "./actions/blurAction/blurAction";
 import FlipAction from "./actions/flipAction/flipAction";
 import ActionType from "../enum/actionType.enum";
+import RotateAction from "./actions/rotateAction/rotateAction";
 
 export default class ActionFactory {
 
@@ -107,6 +108,14 @@ export default class ActionFactory {
         }
 
         return this.createAction(FlipAction, data, true);
+    }
+
+    /**
+     * @param {import("./actions/rotateAction/rotateActionData").RotateActionData} data 
+     * @returns {RotateAction}
+     */
+    rotateAction(data) {
+        return this.createAction(RotateAction, data, true);
     }
 
     /**

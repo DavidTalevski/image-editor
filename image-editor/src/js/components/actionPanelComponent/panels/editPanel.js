@@ -7,14 +7,20 @@ const EditPanel = ({
     handleRotate,
     handleFlip,
 }) => {
+    const handleRotateRight = () => {
+        handleRotate(90);
+    };
+
+    const handleRotateLeft = () => {
+        handleRotate(-90);
+    };
+
     return (
         <div className="edit-panel">
             <h3>Edit Actions</h3>
-            {/* <button onClick={() => handleRotate('left')}>Rotate Left</button>
-            <button onClick={() => handleRotate('right')}>Rotate Right</button>
-            <button onClick={() => handleCrop()}>Crop</button>
-            <button onClick={() => handleResize()}>Resize</button> */}
 
+            <button onClick={handleRotateLeft}>Rotate Left</button>
+            <button onClick={handleRotateRight}>Rotate Right</button>
 
             <button onClick={() => handleFlip(FlipOrientation.HORIZONTAL)}>Flip Horizontal</button>
             <button onClick={() => handleFlip(FlipOrientation.VERTICAL)}>Flip Vertical</button>

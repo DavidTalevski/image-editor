@@ -12,8 +12,8 @@
 - [X] Contrast
 - [ ] Action History (Undo Step)
 - [ ] Color Picker
-- [ ] Flip Image
-- [ ] Rotate Image
+- [X] Flip Image
+- [X] Rotate Image
 
 ### Image Conversion
 

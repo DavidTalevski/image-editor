@@ -40,12 +40,12 @@ export default class EditActionHandler {
     };
 
     /**
-     * @param {number} rotate 
+     * @param {number} degrees
      */
-    handleRotate = async (rotate) => {
+    handleRotate = async (degrees) => {
 
         const data = {
-            rotate: rotate,
+            degrees: degrees,
         };
 
         const action = this.actionManager.add.rotateAction(data);
