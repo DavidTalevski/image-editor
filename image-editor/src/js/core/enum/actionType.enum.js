@@ -10,7 +10,8 @@ const ActionType = Object.freeze({
     BLUR: 7,
     SEPIA: 8,
     FLIP: 9,
-    ROTATE: 10
+    ROTATE: 10,
+    UPSCALE: 11
 })
 
 export default ActionType;

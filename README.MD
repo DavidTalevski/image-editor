@@ -11,7 +11,7 @@
 - [X] Brightness
 - [X] Contrast
 - [X] Action History (Undo Step)
-- [ ] Color Picker
+- [ ] Color Picker and Draw?
 - [X] Flip Image
 - [X] Rotate Image
 
@@ -21,10 +21,9 @@
 
 ### Upscaling
 
-- [ ] Upscale (Real-ESRGAN Model)
+- [X] Upscale (Real-ESRGAN Model)
+- [ ] Add upscale options
 
 ### Advanced Features
 
-- [ ] Create GIF
-- [ ] Create Spritesheet
-- [ ] Server Image Caching
+- [X] Server Image Caching

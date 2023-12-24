@@ -11,6 +11,7 @@ import BlurAction from "./actions/blurAction/blurAction";
 import FlipAction from "./actions/flipAction/flipAction";
 import ActionType from "../enum/actionType.enum";
 import RotateAction from "./actions/rotateAction/rotateAction";
+import UpscaleAction from "./actions/upscaleAction/upscaleAction";
 
 export default class ActionFactory {
 
@@ -108,6 +109,14 @@ export default class ActionFactory {
         }
 
         return this.createAction(FlipAction, data, true);
+    }
+
+    /**
+     * @param {import(import("./actions/upscaleAction/upscaleActionData").UpscaleActionData)} data 
+     * @returns {UpscaleAction}
+     */
+    upscaleAction(data) {
+        return this.createAction(UpscaleAction, data, true);
     }
 
     /**

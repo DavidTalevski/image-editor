@@ -7,6 +7,7 @@ import DownloadImagePanel from "./panels/downloadImagePanel";
 import LoadImagePanel from './panels/loadImagePanel';
 import FilterPanel from './panels/filterPanel';
 import EditPanel from './panels/editPanel';
+import UpscalePanel from './panels/upscalePanel';
 
 const ActionPanel = ({
     selectedTab,
@@ -37,6 +38,7 @@ const ActionPanel = ({
     handleResize,
     handleRotate,
     handleFlip,
+    handleUpscale
 }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
@@ -84,6 +86,12 @@ const ActionPanel = ({
                         handleResize={handleResize}
                         handleRotate={handleRotate}
                         handleFlip={handleFlip}
+                    />
+                );
+            case 'upscale': // Add the case for 'edit'
+                return (
+                    <UpscalePanel
+                        handleUpscale={handleUpscale}
                     />
                 );
             default:

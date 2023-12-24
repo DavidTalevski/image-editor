@@ -27,7 +27,7 @@ const downloader = new ImageDownloader();
 const canvasController = new CanvasController();
 
 const filterActionHandler = new FilterActionHandler(actionManager, preferences);
-const loadActionHandler = new LoadActionHandler(actionManager, preferences)
+const loadActionHandler = new LoadActionHandler(actionManager, preferences, canvasController)
 const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
 const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasController);
@@ -105,11 +105,10 @@ function App() {
 
   return (
     <div className="app">
-      <TabListComponent
-        canvasRef={canvasRef}
-        onTabSelect={handleTabSelect}
-      />
+      <TabListComponent onTabSelect={handleTabSelect} />
+
       <CanvasComponent ref={canvasRef} />
+
       <ActionPanel
         selectedTab={selectedTab}
         onSetCompression={handleSetCompression}
@@ -130,6 +129,7 @@ function App() {
         onDownloadAsJPEG={downloadHandler.handleDownloadAsJPEG}
 
         onLoadImage={loadActionHandler.handleImageSelect}
+        handleUpscale={loadActionHandler.handleUpscaleImage}
 
         handleBrightness={filterActionHandler.handleBrightness}
         handleSaturation={filterActionHandler.handleSaturation}
@@ -145,10 +145,12 @@ function App() {
         handleResize={editActionHandler.handleResize}
         handleRotate={editActionHandler.handleRotate}
       />
+
       <ActionHistoryPanelComponent
         history={history}
         onCardClicked={actionHistoryHandler.handleHistoryCardClick}
       />
+
     </div>
   );
 }
