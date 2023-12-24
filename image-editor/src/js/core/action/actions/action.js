@@ -6,6 +6,10 @@ export default class Action {
     /** @type {ActionType} */
     type;
 
+    title = "Title";
+
+    description = "Description";
+
     /**
      * @param {CanvasController} canvas 
      * @param {any} data
@@ -15,7 +19,7 @@ export default class Action {
         this.canvas = canvas;
 
         /** @protected */
-        this.active = false;
+        this.active = true;
 
         this.data = data;
     }
@@ -31,6 +35,10 @@ export default class Action {
 
     async execute() {
         this.active = true;
+    }
+
+    deactivate() {
+        this.active = false;
     }
 
     destroy() {

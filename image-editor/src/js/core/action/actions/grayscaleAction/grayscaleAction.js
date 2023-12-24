@@ -8,9 +8,11 @@ import FilterAction from "../filterAction";
 
 export default class GrayscaleAction extends FilterAction {
     /**
-     * @type {ContrastActionConfig}
+     * @type {GrayScaleActionConfig}
      */
     data;
+
+    title = "Grayscale Filter"
 
     type = ActionType.GRAYSCALE;
 
@@ -24,6 +26,8 @@ export default class GrayscaleAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set grayscale to ${this.data.grayscale}`
 
         this.canvas.setGrayscale(this.data.grayscale);
     }

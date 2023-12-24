@@ -12,6 +12,8 @@ export default class BrightnessAction extends FilterAction {
      */
     data;
 
+    title = "Brightness Filter";
+
     type = ActionType.BRIGHTNESS;
 
     /**
@@ -24,6 +26,8 @@ export default class BrightnessAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set brightness to ${this.data.brightness}`;
 
         this.canvas.setBrightness(this.data.brightness);
     }

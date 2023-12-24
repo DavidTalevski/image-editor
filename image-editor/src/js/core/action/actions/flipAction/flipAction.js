@@ -8,14 +8,18 @@ export default class FlipAction extends Action {
      */
     data;
 
+    title = "Flip Image";
+
     type = ActionType.FLIP;
 
     async execute() {
         super.execute();
 
         if (this.data.flipOrientation === FlipOrientation.HORIZONTAL) {
+            this.description = "Flip horizontally";
             this.flipCanvasHorizontally();
         } else {
+            this.description = "Flip vertically";
             this.flipCanvasVertically();
         }
 

@@ -23,7 +23,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.brightnessAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -38,7 +38,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.contrastAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -53,7 +53,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.saturationAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -68,7 +68,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.grayscaleAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -83,7 +83,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.hueRotationAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -98,7 +98,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.sepiaAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -113,7 +113,7 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.blurAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -128,6 +128,6 @@ export default class FilterActionHandler {
 
         const action = this.actionManager.add.invertAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 }

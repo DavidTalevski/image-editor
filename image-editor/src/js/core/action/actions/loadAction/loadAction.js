@@ -10,6 +10,10 @@ export default class LoadAction extends Action {
      */
     data;
 
+    title = "Load Image"
+
+    description = "";
+
     type = ActionType.LOAD;
 
     /**
@@ -23,6 +27,7 @@ export default class LoadAction extends Action {
 
     async execute() {
         super.execute();
+
         return this.drawImage(this.data.loadImageActionType, this.data.imageData);
     }
 

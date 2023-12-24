@@ -12,6 +12,8 @@ export default class BlurAction extends FilterAction {
      */
     data;
 
+    title = "Blur Filter";
+
     type = ActionType.BLUR;
 
     /**
@@ -24,6 +26,8 @@ export default class BlurAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set blur to ${this.data.blur}`;
 
         this.canvas.setBlur(this.data.blur);
     }

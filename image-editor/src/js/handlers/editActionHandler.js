@@ -23,7 +23,7 @@ export default class EditActionHandler {
 
         const action = this.actionManager.add.cropAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -36,7 +36,7 @@ export default class EditActionHandler {
 
         const action = this.actionManager.add.resizeAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -50,7 +50,7 @@ export default class EditActionHandler {
 
         const action = this.actionManager.add.rotateAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 
     /**
@@ -64,6 +64,6 @@ export default class EditActionHandler {
 
         const action = this.actionManager.add.flipAction(data);
 
-        await action.update(data);
+        await this.actionManager.updateAction(action, data);
     };
 }

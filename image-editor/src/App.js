@@ -18,6 +18,7 @@ import FilterActionHandler from './js/handlers/filterActionHandler';
 import ImageDownloadHandler from './js/handlers/downloadHandler';
 import LoadActionHandler from './js/handlers/loadActionHandler';
 import EditActionHandler from './js/handlers/editActionHandler';
+import ActionHistoryHandler from './js/handlers/actionHistoryHandler';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
@@ -29,6 +30,7 @@ const filterActionHandler = new FilterActionHandler(actionManager, preferences);
 const loadActionHandler = new LoadActionHandler(actionManager, preferences)
 const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
+const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasController);
 
 window.ac = actionManager;
 
@@ -40,20 +42,6 @@ function App() {
   const [history, setHistory] = useState([]);
 
   const [resetFilters, setResetFilters] = useState(false);
-
-  useEffect(() => {
-    const onActionCreated = (action) => {
-      addActionToHistory(action.type);
-      setResetFilters(true);
-    }
-
-    actionManager.on(actionManager.events.ACTION_CREATED, onActionCreated);
-
-    // Clean up the listener when the component unmounts
-    return () => {
-      actionManager.off(actionManager.events.ACTION_CREATED, onActionCreated);
-    };
-  }, []); // Empty dependency array means this effect runs once after the initial render
 
   // Reset the value back to false after the reset has been performed
   useEffect(() => {
@@ -76,9 +64,36 @@ function App() {
     downloader.canvas = canvasController;
   }
 
-  const addActionToHistory = (actionText) => {
-    setHistory((prevHistory) => [...prevHistory, actionText]);
+  const updateActionHistory = () => {
+    const updatedHistory = actionManager.actionQueue.map((action) => {
+      return {
+        title: action.title,
+        description: action.description,
+        isActive: action.isActive(),
+        icon: "placeholder"
+      };
+    });
+
+    setHistory(updatedHistory);
   };
+
+  useEffect(() => {
+    const onActionCreated = (action) => {
+      updateActionHistory();
+      setResetFilters(true);
+    }
+
+    actionManager.on(actionManager.events.ACTION_CREATED, onActionCreated);
+    actionManager.on(actionManager.events.ACTION_UPDATED, updateActionHistory);
+    actionManager.on(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      actionManager.off(actionManager.events.ACTION_CREATED, onActionCreated);
+      actionManager.off(actionManager.events.ACTION_UPDATED, updateActionHistory);
+      actionManager.off(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
+    };
+  }, []); // Empty dependency array means this effect runs once after the initial render
 
   const handleTabSelect = (tab) => {
     setSelectedTab(tab);
@@ -132,6 +147,7 @@ function App() {
       />
       <ActionHistoryPanelComponent
         history={history}
+        onCardClicked={actionHistoryHandler.handleHistoryCardClick}
       />
     </div>
   );

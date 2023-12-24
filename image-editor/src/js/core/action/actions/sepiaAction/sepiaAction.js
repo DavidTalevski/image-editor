@@ -12,6 +12,8 @@ export default class SepiaAction extends FilterAction {
      */
     data;
 
+    title = "Sepia Filter";
+
     type = ActionType.SEPIA;
 
     /**
@@ -24,6 +26,8 @@ export default class SepiaAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set sepia to ${this.data.sepia}`;
 
         this.canvas.setSepia(this.data.sepia);
     }

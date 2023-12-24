@@ -12,6 +12,8 @@ export default class HueRotationAction extends FilterAction {
      */
     data;
 
+    title = "Hue Rotation Filter";
+
     type = ActionType.HUE_ROTATION;
 
     /**
@@ -24,6 +26,8 @@ export default class HueRotationAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set hue rotation to ${this.data.hueRotationDegrees}`;
 
         this.canvas.setHueRotation(this.data.hueRotationDegrees);
     }

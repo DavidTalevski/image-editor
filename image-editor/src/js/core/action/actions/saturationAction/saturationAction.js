@@ -12,6 +12,8 @@ export default class SaturationAction extends FilterAction {
      */
     data;
 
+    title = "Saturation Filter";
+
     type = ActionType.SATURATION;
 
     /**
@@ -24,6 +26,8 @@ export default class SaturationAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set saturation to ${this.data.saturation}`;
 
         this.canvas.setSaturation(this.data.saturation);
     }

@@ -12,6 +12,8 @@ export default class ContrastAction extends FilterAction {
      */
     data;
 
+    title = "Contrast Filter";
+
     type = ActionType.CONTRAST;
 
     /**
@@ -24,6 +26,8 @@ export default class ContrastAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set contrast to ${this.data.contrast}`;
 
         this.canvas.setContrast(this.data.contrast);
     }

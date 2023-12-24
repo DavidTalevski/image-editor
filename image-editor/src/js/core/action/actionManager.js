@@ -52,6 +52,10 @@ export default class ActionManager extends EventEmitter {
      * @param {Action} action 
      */
     addAction(action) {
+        console.log(this.TAG, "Adding action");
+
+        this.removeUnactiveActions();
+
         this.actionQueue.push(action);
 
         this.emit(this.events.ACTION_CREATED, action);
@@ -64,6 +68,10 @@ export default class ActionManager extends EventEmitter {
         return this.actionQueue[this.actionQueue.length - 1];
     }
 
+    removeUnactiveActions() {
+        this.actionQueue = this.actionQueue.filter(action => action.isActive());
+    }
+
     /**
      * Executes a specific action from the action queue.
      * @param {number} orderId - The order ID of the action to execute.
@@ -72,47 +80,44 @@ export default class ActionManager extends EventEmitter {
     async executeAction(orderId) {
         const action = this.actionQueue[orderId];
 
-        if (!action || action.isActive) return;
+        if (!action) return;
 
         console.log(this.TAG, "Executing action with id:", orderId);
-        return action.execute();
+        await action.execute();
+
+        this.emit(this.events.ACTION_EXECUTED, action, orderId);
     }
 
     /**
-     * Undoes a specific action from the action queue.
-     * @param {number} orderId - The order ID of the action to undo.
-     * @returns {Promise} A promise that resolves when the action is undone.
+     * @param {Action} action 
+     * @param {any} data 
      */
-    async undoAction(orderId) {
-        const action = this.actionQueue[orderId];
+    async updateAction(action, data) {
+        await action.update(data);
 
-        if (!action || !action.isActive) return;
-
-        console.log(this.TAG, "Undoing action with id:", orderId);
-        return action.undo();
+        this.emit(this.events.ACTION_UPDATED, action);
     }
 
     /**
      * Executes all actions between two order IDs (inclusive).
+     * Deactivates all other actions.
      * @param {number} startOrderId - The starting order ID.
      * @param {number} endOrderId - The ending order ID.
      */
     async executeAllActionsBetween(startOrderId, endOrderId) {
         console.log(this.TAG, `Executing actions between ${startOrderId} and ${endOrderId}`);
-        for (let i = startOrderId; i <= endOrderId; i++) {
-            await this.executeAction(i);
-        }
-    }
+        for (let i = 0; i < this.actionQueue.length; i++) {
+            const action = this.actionQueue[i];
 
-    /**
-     * Undoes all actions between two order IDs (inclusive).
-     * @param {number} startOrderId - The starting order ID.
-     * @param {number} endOrderId - The ending order ID.
-     */
-    async undoAllActionsBetween(startOrderId, endOrderId) {
-        console.log(this.TAG, `Undoing actions between ${startOrderId} and ${endOrderId}`);
-        for (let i = endOrderId; i >= startOrderId; i--) {
-            await this.undoAction(i);
+            if (i >= startOrderId && i <= endOrderId) {
+                // Execute the action within the specified range
+                await this.executeAction(i);
+            } else {
+                // Deactivate actions outside the specified range
+                action.deactivate();
+            }
         }
+
+        this.emit(this.events.MULTIPLE_ACTIONS_EXECUTED);
     }
 }

@@ -12,6 +12,8 @@ export default class InvertAction extends FilterAction {
      */
     data;
 
+    title = "Invert Filter";
+
     type = ActionType.INVERT;
 
     /**
@@ -24,6 +26,8 @@ export default class InvertAction extends FilterAction {
 
     async execute() {
         await super.execute();
+
+        this.description = `Set invert to ${this.data.invert}`;
 
         this.canvas.setInvert(this.data.invert);
     }

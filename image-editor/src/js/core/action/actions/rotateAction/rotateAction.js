@@ -7,10 +7,14 @@ export default class RotateAction extends Action {
      */
     data;
 
+    title = "Rotate Image";
+
     type = ActionType.ROTATE;
 
     async execute() {
         super.execute();
+
+        this.description = `Rotate by ${this.data.degrees} degrees`;
 
         this.rotate(this.data.degrees)
     }

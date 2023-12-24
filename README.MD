@@ -10,7 +10,7 @@
 - [X] Filters
 - [X] Brightness
 - [X] Contrast
-- [ ] Action History (Undo Step)
+- [X] Action History (Undo Step)
 - [ ] Color Picker
 - [X] Flip Image
 - [X] Rotate Image
