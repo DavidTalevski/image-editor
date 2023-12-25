@@ -6,8 +6,8 @@ const EditTab = ({ onTabSelect }) => {
     return (
         <div className="tab">
             <button className="tab-button" onClick={() => onTabSelect('edit')}>
-                <FontAwesomeIcon icon={faEdit} />
-                Edit
+                <FontAwesomeIcon icon={faEdit} className="tab-icon" />
+                <span className="tab-text">Edit</span>
             </button>
         </div>
     );

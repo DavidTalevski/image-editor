@@ -6,8 +6,8 @@ const LoadImageTab = ({ onTabSelect }) => {
     return (
         <div className="tab">
             <button className="tab-button" onClick={onTabSelect}>
-                <FontAwesomeIcon icon={faFileImage} />
-                Open image
+                <FontAwesomeIcon icon={faFileImage} className="tab-icon" />
+                <span className="tab-text">Open</span>
             </button>
         </div>
     );

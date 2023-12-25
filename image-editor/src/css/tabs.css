@@ -1,0 +1,62 @@
+.tab-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  padding: 20px;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+}
+
+.tab {
+  margin: 10px 0;
+}
+
+.tab-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 15px;
+  color: #ffffff; /* Set your desired text color */
+  margin-bottom: 10px; /* Adjust spacing as needed */
+}
+
+.tab-button {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  font-family: 'Montserrat', sans-serif;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 150px; /* Set your desired fixed width */
+  transition: background-color 0.3s ease, transform 0.1s ease-in-out;
+}
+
+.tab-button:hover {
+  background-color: #45a049;
+}
+
+.tab-button:active {
+  transform: scale(0.95);
+}
+
+.tab-icon {
+  margin-right: 5px;
+}
+
+.tab-text {
+  flex: 1;
+  font-weight: bold;
+  letter-spacing: 0.5px; /* Adjust the value as needed */
+}

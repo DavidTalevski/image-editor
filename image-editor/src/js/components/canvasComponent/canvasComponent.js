@@ -13,7 +13,7 @@ const CanvasComponent = React.forwardRef((props, ref) => {
             }}
             width={400} // Set your desired width
             height={400} // Set your desired height
-            style={{ border: '1px solid black' }}
+            className="canvas-container" // Apply the CSS class
         ></canvas>
     );
 });

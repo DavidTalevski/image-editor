@@ -6,8 +6,8 @@ const UpscaleTab = ({ onTabSelect }) => {
     return (
         <div className="tab">
             <button className="tab-button" onClick={() => onTabSelect('upscale')}>
-                <FontAwesomeIcon icon={faArrowUpLong} />
-                Upscale
+                <FontAwesomeIcon icon={faArrowUpLong} className="tab-icon" />
+                <span className="tab-text">Upscale</span>
             </button>
         </div>
     );

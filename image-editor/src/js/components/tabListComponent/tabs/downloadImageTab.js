@@ -6,8 +6,8 @@ const DownloadImageTab = ({ onTabSelect }) => {
     return (
         <div className="tab">
             <button className="tab-button" onClick={onTabSelect}>
-                <FontAwesomeIcon icon={faDownload} />
-                Download Image
+                <FontAwesomeIcon icon={faDownload} className="tab-icon" />
+                <span className="tab-text">Download</span>
             </button>
         </div>
     );

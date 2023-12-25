@@ -7,12 +7,15 @@ import UpscaleTab from './tabs/upscaleTab';
 
 const TabListComponent = ({ onTabSelect }) => {
     return (
-        <div className="tab-list">
-            <LoadImageTab onTabSelect={() => onTabSelect('loadImage')} />
-            <DownloadImageTab onTabSelect={() => onTabSelect('downloadImage')} />
-            <FilterTab onTabSelect={() => onTabSelect('filter')} />
-            <EditTab onTabSelect={() => onTabSelect('edit')} />
-            <UpscaleTab onTabSelect={() => onTabSelect("upscale")} />
+        <div className="tab-container">
+            <h1 className="tab-title">Image Editor App</h1>
+            <div className="tab-list">
+                <LoadImageTab onTabSelect={() => onTabSelect('loadImage')} />
+                <DownloadImageTab onTabSelect={() => onTabSelect('downloadImage')} />
+                <FilterTab onTabSelect={() => onTabSelect('filter')} />
+                <EditTab onTabSelect={() => onTabSelect('edit')} />
+                <UpscaleTab onTabSelect={() => onTabSelect("upscale")} />
+            </div>
         </div>
     );
 };

@@ -6,8 +6,8 @@ const FilterTab = ({ onTabSelect }) => {
     return (
         <div className="tab">
             <button className="tab-button" onClick={onTabSelect}>
-                <FontAwesomeIcon icon={faFilter} />
-                Filters
+                <FontAwesomeIcon icon={faFilter} className="tab-icon" />
+                <span className="tab-text">Filters</span>
             </button>
         </div>
     );

@@ -1,0 +1,5 @@
+.canvas-container {
+    border-left: 2px solid #ffffff; /* White border color on the left */
+    border-right: 2px solid #ffffff; /* White border color on the right */
+    transition: border-color 0.3s ease-in-out; /* Only the border-color effect */
+}
