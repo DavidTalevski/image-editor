@@ -40,15 +40,17 @@
   cursor: pointer;
   border-radius: 5px;
   width: 150px; /* Set your desired fixed width */
-  transition: background-color 0.3s ease, transform 0.1s ease-in-out;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
+  
 .tab-button:hover {
-  background-color: #45a049;
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
 .tab-button:active {
-  transform: scale(0.95);
+    background-color: #398439;
+    transform: scale(0.95);
 }
 
 .tab-icon {

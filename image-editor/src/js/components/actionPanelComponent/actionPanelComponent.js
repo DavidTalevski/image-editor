@@ -102,7 +102,6 @@ const ActionPanel = ({
     return (
         <div className="right-panel">
             <div className="action-panel-header">
-                <FontAwesomeIcon icon={faDownload} />
                 <span>Actions</span>
             </div>
             {renderPanelContent()}

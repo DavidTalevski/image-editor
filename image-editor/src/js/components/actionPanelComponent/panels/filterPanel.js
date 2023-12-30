@@ -46,15 +46,14 @@ const FilterPanel = ({
 
     return (
         <div className="filter-panel">
-            <h3>Adjust Filters</h3>
-
             <div className="filter-slider">
-                <label htmlFor="brightnessSlider">Brightness</label>
+                <label htmlFor="brightnessSlider">Brightness {brightnessValue}%</label>
                 <input
                     id="brightnessSlider"
                     type="range"
                     min="0"
                     max="200"
+                    className="custom-slider"
                     value={brightnessValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -62,16 +61,16 @@ const FilterPanel = ({
                         onAdjustBrightness(val);
                     }}
                 />
-                <span>{brightnessValue}%</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="contrastSlider">Contrast</label>
+                <label htmlFor="contrastSlider">Contrast {contrastValue}%</label>
                 <input
                     id="contrastSlider"
                     type="range"
                     min="0"
                     max="200"
+                    className="custom-slider"
                     value={contrastValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -79,16 +78,16 @@ const FilterPanel = ({
                         onAdjustContrast(val);
                     }}
                 />
-                <span>{contrastValue}%</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="saturationSlider">Saturation</label>
+                <label htmlFor="saturationSlider">Saturation {saturationValue}%</label>
                 <input
                     id="saturationSlider"
                     type="range"
                     min="0"
                     max="200"
+                    className="custom-slider"
                     value={saturationValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -96,16 +95,16 @@ const FilterPanel = ({
                         onAdjustSaturation(val);
                     }}
                 />
-                <span>{saturationValue}%</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="grayscaleSlider">Grayscale</label>
+                <label htmlFor="grayscaleSlider">Grayscale {grayscaleValue}%</label>
                 <input
                     id="grayscaleSlider"
                     type="range"
                     min="0"
                     max="100"
+                    className="custom-slider"
                     value={grayscaleValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -113,16 +112,16 @@ const FilterPanel = ({
                         onAdjustGrayscale(val);
                     }}
                 />
-                <span>{grayscaleValue}%</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="hueSlider">Hue Rotation</label>
+                <label htmlFor="hueSlider">Hue Rotation {hueRotationValue}°</label>
                 <input
                     id="hueSlider"
                     type="range"
                     min="0"
                     max="360"
+                    className="custom-slider"
                     value={hueRotationValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -130,16 +129,16 @@ const FilterPanel = ({
                         onAdjustHueRotation(val);
                     }}
                 />
-                <span>{hueRotationValue}°</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="sepiaSlider">Sepia</label>
+                <label htmlFor="sepiaSlider">Sepia {sepiaValue}%</label>
                 <input
                     id="sepiaSlider"
                     type="range"
                     min="0"
                     max="100"
+                    className="custom-slider"
                     value={sepiaValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -147,16 +146,16 @@ const FilterPanel = ({
                         onAdjustSepia(val);
                     }}
                 />
-                <span>{sepiaValue}%</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="blurSlider">Blur</label>
+                <label htmlFor="blurSlider">Blur {blurValue}px</label>
                 <input
                     id="blurSlider"
                     type="range"
                     min="0"
                     max="20"
+                    className="custom-slider"
                     value={blurValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -164,16 +163,16 @@ const FilterPanel = ({
                         onAdjustBlur(val);
                     }}
                 />
-                <span>{blurValue}px</span>
             </div>
 
             <div className="filter-slider">
-                <label htmlFor="invertSlider">Invert</label>
+                <label htmlFor="invertSlider">Invert {invertValue}%</label>
                 <input
                     id="invertSlider"
                     type="range"
                     min="0"
                     max="100"
+                    className="custom-slider"
                     value={invertValue}
                     onChange={(e) => {
                         const val = Number(e.target.value);
@@ -181,7 +180,6 @@ const FilterPanel = ({
                         onAdjustInvert(val);
                     }}
                 />
-                <span>{invertValue}%</span>
             </div>
         </div>
     );

@@ -1,0 +1,127 @@
+.download-image-panel {
+    margin-top: 10px;
+}
+  
+.panel-button {
+    background-color: #009bcf;
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+  
+.panel-button:hover {
+    background-color: #0088b6;
+    transform: scale(1.05);
+}
+
+.panel-button:active {
+    background-color: #0088b6;
+    transform: scale(0.95);
+}
+
+
+
+.panel-icon {
+    margin-right: 5px;
+}
+
+.panel-text {
+    flex: 1;
+}
+
+.action-panel-header {
+    color: #000;
+    padding: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  
+.action-panel-header span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.right-panel {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+}
+
+.load-image-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.panel-button {
+    margin-top: 8px; /* Add spacing between buttons */
+}
+
+.compression-control {
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.custom-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: #d3d3d3; /* Slider track color */
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.custom-slider:hover {
+  opacity: 1;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #009bcf; /* Slider thumb color */
+  cursor: pointer;
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #009bcf; /* Slider thumb color for Firefox */
+  cursor: pointer;
+}
+
+.filter-slider {
+  padding-bottom: 10px;
+}
+
+.file-name-input {
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.file-name-input input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

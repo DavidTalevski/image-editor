@@ -1,7 +1,7 @@
 // LoadImagePanel.js
 import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faPaste, faExternalLink } from '@fortawesome/free-solid-svg-icons';
 
 import LoadImageActionType from '../../../core/enum/loadImageActionType.enum';
 
@@ -40,15 +40,18 @@ const LoadImagePanel = ({ onLoadImage }) => {
             </div>
 
             <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.UPLOAD)}>
-                <FontAwesomeIcon icon={faUpload} /> Upload Image
+                <FontAwesomeIcon icon={faUpload} className="panel-icon" />
+                <span className="panel-text">Upload Image</span>
             </button>
 
             <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.URL)}>
-                <FontAwesomeIcon icon={faUpload} /> Load From URL
+                <FontAwesomeIcon icon={faExternalLink} className="panel-icon" />
+                <span className="panel-text">Load from URL</span>
             </button>
 
             <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.CLIPBOARD)}>
-                <FontAwesomeIcon icon={faUpload} /> Paste Image
+                <FontAwesomeIcon icon={faPaste} className="panel-icon" />
+                <span className="panel-text">Paste Image</span>
             </button>
 
         </div>

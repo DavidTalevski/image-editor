@@ -4,30 +4,6 @@
   height: 100vh;
 }
 
-.right-panel {
-  background-color: #f0f0f0;
-  padding: 20px;
-  border-left: 1px solid #ccc;
-}
-
-.download-image-panel {
-  margin-top: 10px;
-}
-
-.panel-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin-right: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
 .compression-control {
   margin-top: 10px;
 }

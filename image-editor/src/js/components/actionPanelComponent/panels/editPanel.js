@@ -1,5 +1,7 @@
 import React from 'react';
 import FlipOrientation from '../../../enum/flipOrientation.enum';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateLeft, faRotateRight, faGripHorizontal, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 
 const EditPanel = ({
     handleCrop,
@@ -17,13 +19,25 @@ const EditPanel = ({
 
     return (
         <div className="edit-panel">
-            <h3>Edit Actions</h3>
+            <button className="panel-button" onClick={handleRotateLeft}>
+                <FontAwesomeIcon icon={faRotateLeft} className="panel-icon" />
+                <span className="panel-text">Rotate Left</span>
+            </button>
 
-            <button onClick={handleRotateLeft}>Rotate Left</button>
-            <button onClick={handleRotateRight}>Rotate Right</button>
+            <button className="panel-button" onClick={handleRotateRight}>
+                <FontAwesomeIcon icon={faRotateRight} className="panel-icon" />
+                <span className="panel-text">Rotate Right</span>
+            </button>
 
-            <button onClick={() => handleFlip(FlipOrientation.HORIZONTAL)}>Flip Horizontal</button>
-            <button onClick={() => handleFlip(FlipOrientation.VERTICAL)}>Flip Vertical</button>
+            <button className="panel-button" onClick={() => handleFlip(FlipOrientation.HORIZONTAL)}>
+                <FontAwesomeIcon icon={faGripHorizontal} className="panel-icon" />
+                <span className="panel-text">Flip Horizontal</span>
+            </button>
+
+            <button className="panel-button" onClick={() => handleFlip(FlipOrientation.VERTICAL)}>
+                <FontAwesomeIcon icon={faGripVertical} className="panel-icon" />
+                <span className="panel-text">Flip Vertical</span>
+            </button>
         </div>
     );
 };

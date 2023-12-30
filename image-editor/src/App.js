@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './css/App.css';
 import './css/tabs.css';
 import './css/canvas.css';
+import './css/panels.css';
 
 import CanvasComponent from './js/components/canvasComponent/canvasComponent';
 import TabListComponent from './js/components/tabListComponent/tabListComponent';

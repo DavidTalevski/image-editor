@@ -1,5 +1,4 @@
 import React from 'react';
-import FlipOrientation from '../../../enum/flipOrientation.enum';
 
 const UpscalePanel = ({ handleUpscale }) => {
     return (
