@@ -13,7 +13,7 @@ const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPE
     }, [compressionLevel, onSetCompression]);
 
     return (
-        <div className="download-image-panel">
+        <div className="action-panel">
             <div className="compression-control">
                 <label>Quality {compressionLevel}%</label>
                 <input className="custom-slider" type="range" min="1" max="100" value={compressionLevel} onChange={(e) => setCompressionLevel(e.target.value)} />

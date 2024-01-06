@@ -8,6 +8,7 @@ import LoadImagePanel from './panels/loadImagePanel';
 import FilterPanel from './panels/filterPanel';
 import EditPanel from './panels/editPanel';
 import UpscalePanel from './panels/upscalePanel';
+import ResizePanel from './panels/resizePanel';
 
 const ActionPanel = ({
     selectedTab,
@@ -34,11 +35,11 @@ const ActionPanel = ({
     invert,
     hueRotation,
     resetFilters,
-    handleCrop,
-    handleResize,
     handleRotate,
     handleFlip,
-    handleUpscale
+    handleUpscale,
+    onSaveResize,
+    onCancelResize
 }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
@@ -82,8 +83,6 @@ const ActionPanel = ({
             case 'edit': // Add the case for 'edit'
                 return (
                     <EditPanel
-                        handleCrop={handleCrop}
-                        handleResize={handleResize}
                         handleRotate={handleRotate}
                         handleFlip={handleFlip}
                     />
@@ -92,6 +91,13 @@ const ActionPanel = ({
                 return (
                     <UpscalePanel
                         handleUpscale={handleUpscale}
+                    />
+                );
+            case 'resize': // Add the case for 'edit'
+                return (
+                    <ResizePanel
+                        onSave={onSaveResize}
+                        onCancel={onCancelResize}
                     />
                 );
             default:

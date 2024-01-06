@@ -9,6 +9,7 @@ import CanvasComponent from './js/components/canvasComponent/canvasComponent';
 import TabListComponent from './js/components/tabListComponent/tabListComponent';
 import ActionPanel from './js/components/actionPanelComponent/actionPanelComponent';
 import ActionHistoryPanelComponent from './js/components/actionHistoryPanelComponent/actionHistoryPanelComponent';
+import ResizableBoxComponent from './js/components/resizableBoxComponent/resizableBoxComponent';
 
 import UserPreferences from './js/core/storage/userPreferences';
 import ImageDownloader from './js/core/downloader/imageDownloader';
@@ -22,6 +23,7 @@ import ImageDownloadHandler from './js/handlers/downloadHandler';
 import LoadActionHandler from './js/handlers/loadActionHandler';
 import EditActionHandler from './js/handlers/editActionHandler';
 import ActionHistoryHandler from './js/handlers/actionHistoryHandler';
+import ResizeActionHandler from './js/handlers/resizeActionHandler';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
@@ -34,6 +36,7 @@ const loadActionHandler = new LoadActionHandler(actionManager, preferences, canv
 const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
 const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasController);
+const resizeActionHandler = new ResizeActionHandler(actionManager, canvasController);
 
 window.ac = actionManager;
 
@@ -44,6 +47,7 @@ function App() {
   const [selectedTab, setSelectedTab] = useState(null);
   const [history, setHistory] = useState([]);
 
+  const [inResizeMode, setResizeMode] = useState(false);
   const [resetFilters, setResetFilters] = useState(false);
 
   // Reset the value back to false after the reset has been performed
@@ -99,8 +103,22 @@ function App() {
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   const handleTabSelect = (tab) => {
+    if (tab == "resize") {
+      resizeActionHandler.enterResizeMode();
+      setResizeMode(true);
+    } else {
+      resizeActionHandler.cancelResizeMode();
+      setResizeMode(false);
+    }
+
     setSelectedTab(tab);
   };
+
+  const handleResize = (width, height) => {
+    if (inResizeMode) {
+      resizeActionHandler.handleResize(width, height)
+    }
+  }
 
   const handleSetCompression = (compressionLevel) => {
     preferences.setPreference("imageQuality", compressionLevel / 100);
@@ -110,7 +128,25 @@ function App() {
     <div className="app">
       <TabListComponent onTabSelect={handleTabSelect} />
 
-      <CanvasComponent ref={canvasRef} />
+      <div style={{
+        position: 'relative',
+        width: 1024,
+        height: 768,
+        minWidth: 300,
+        minHeight: 300,
+      }}>
+
+        <CanvasComponent ref={canvasRef} />
+
+        {inResizeMode && (
+          <ResizableBoxComponent
+            width={canvasController.getWidth()}
+            height={canvasController.getHeight()}
+            canvasController={canvasController}
+            handleResize={handleResize}
+          />
+        )}
+      </div>
 
       <ActionPanel
         selectedTab={selectedTab}
@@ -143,10 +179,11 @@ function App() {
         handleBlur={filterActionHandler.handleBlur}
         handleSepia={filterActionHandler.handleSepia}
 
-        handleCrop={editActionHandler.handleCrop}
         handleFlip={editActionHandler.handleFlip}
-        handleResize={editActionHandler.handleResize}
         handleRotate={editActionHandler.handleRotate}
+
+        onSaveResize={resizeActionHandler.saveResize}
+        onCancelResize={resizeActionHandler.cancelResizeMode}
       />
 
       <ActionHistoryPanelComponent
@@ -154,7 +191,7 @@ function App() {
         onCardClicked={actionHistoryHandler.handleHistoryCardClick}
       />
 
-    </div>
+    </div >
   );
 }
 

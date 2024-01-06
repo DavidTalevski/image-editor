@@ -4,6 +4,7 @@ import DownloadImageTab from './tabs/downloadImageTab';
 import FilterTab from './tabs/filterTab';
 import EditTab from './tabs/editTab';
 import UpscaleTab from './tabs/upscaleTab';
+import ResizeTab from './tabs/resizeTab';
 
 const TabListComponent = ({ onTabSelect }) => {
     return (
@@ -14,6 +15,7 @@ const TabListComponent = ({ onTabSelect }) => {
                 <DownloadImageTab onTabSelect={() => onTabSelect('downloadImage')} />
                 <FilterTab onTabSelect={() => onTabSelect('filter')} />
                 <EditTab onTabSelect={() => onTabSelect('edit')} />
+                <ResizeTab onTabSelect={() => onTabSelect("resize")} />
                 <UpscaleTab onTabSelect={() => onTabSelect("upscale")} />
             </div>
         </div>

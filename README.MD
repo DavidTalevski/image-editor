@@ -27,3 +27,8 @@
 ### Advanced Features
 
 - [X] Server Image Caching
+
+### To do
+
+- [ ] Loading screen when processing actions
+- [ ] Split action panel into multiple panels

@@ -2,7 +2,7 @@ import React from 'react';
 
 const UpscalePanel = ({ handleUpscale }) => {
     return (
-        <div className="upscale-panel">
+        <div className="action-panel">
             <h3>Upscale Actions</h3>
 
             <button onClick={handleUpscale}>Upscale</button>

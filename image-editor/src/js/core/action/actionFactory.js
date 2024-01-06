@@ -12,6 +12,7 @@ import FlipAction from "./actions/flipAction/flipAction";
 import ActionType from "../enum/actionType.enum";
 import RotateAction from "./actions/rotateAction/rotateAction";
 import UpscaleAction from "./actions/upscaleAction/upscaleAction";
+import ResizeAction from "./actions/resizeAction/resizeAction";
 
 export default class ActionFactory {
 
@@ -27,7 +28,7 @@ export default class ActionFactory {
      * @returns {LoadAction}
      */
     loadAction(data) {
-        return this.createAction(LoadAction, data);
+        return this.createAction(LoadAction, data, true);
     }
 
     /**
@@ -125,6 +126,14 @@ export default class ActionFactory {
      */
     rotateAction(data) {
         return this.createAction(RotateAction, data, true);
+    }
+
+    /**
+     * @param {import("./actions/resizeAction/resizeActionData").ResizeActionData} data 
+     * @returns {ResizeAction}
+     */
+    resizeAction(data) {
+        return this.createAction(ResizeAction, data)
     }
 
     /**

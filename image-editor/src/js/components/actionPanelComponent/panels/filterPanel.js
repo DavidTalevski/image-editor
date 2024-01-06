@@ -45,7 +45,7 @@ const FilterPanel = ({
     }, [resetFilters]);
 
     return (
-        <div className="filter-panel">
+        <div className="action-panel">
             <div className="filter-slider">
                 <label htmlFor="brightnessSlider">Brightness {brightnessValue}%</label>
                 <input

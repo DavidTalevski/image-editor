@@ -11,7 +11,8 @@ const ActionType = Object.freeze({
     SEPIA: 8,
     FLIP: 9,
     ROTATE: 10,
-    UPSCALE: 11
+    UPSCALE: 11,
+    RESIZE: 12
 })
 
 export default ActionType;

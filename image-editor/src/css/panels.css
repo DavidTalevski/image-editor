@@ -1,6 +1,10 @@
 .download-image-panel {
     margin-top: 10px;
 }
+
+.action-panel {
+  width: 250px
+}
   
 .panel-button {
     background-color: #009bcf;

@@ -12,7 +12,7 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked }) => {
     }, [history]);
 
     return (
-        <div style={{ maxHeight: '1000px', overflowY: 'auto' }} ref={panelRef}>
+        <div style={{ maxHeight: '768px', overflowY: 'auto' }} ref={panelRef}>
             <h2>Action History Panel</h2>
             {history.slice().reverse().map((action, index, array) => (
                 <ActionHistoryCard

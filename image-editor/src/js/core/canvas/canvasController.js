@@ -1,12 +1,15 @@
+import EventEmitter from "eventemitter3";
 import ImageType from "../enum/imageType.enum";
+import CanvasEvents from "./canvasEvents.enum";
 import CanvasFilterManager from "./canvasFilterManager";
 
-export default class CanvasController {
+export default class CanvasController extends EventEmitter {
+
+    events = CanvasEvents;
 
     constructor() {
+        super();
         this.filter = new CanvasFilterManager();
-
-        window.test = this.filter;
     }
 
     /**
@@ -21,15 +24,34 @@ export default class CanvasController {
         return this.canvas.getContext("2d");
     }
 
+    getWidth() {
+        if (!this.canvas) return 0;
+
+        return this.canvas.clientWidth;
+    }
+
+    getHeight() {
+        if (!this.canvas) return 0;
+
+        return this.canvas.clientHeight;
+    }
+
+    resize(width, height) {
+        this.canvas.width = width;
+        this.canvas.height = height;
+    }
+
     /**
      * @param {HTMLImageElement} image 
      */
-    drawImage(image) {
-        this.canvas.width = image.width;
-        this.canvas.height = image.height;
+    drawImage(image, width, height) {
+        this.canvas.width = width ?? image.width;
+        this.canvas.height = height ?? image.height;
 
         this.clear();
         this.context.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+
+        this.emit(this.events.DRAW_IMAGE, image);
     }
 
     clear() {
@@ -38,6 +60,8 @@ export default class CanvasController {
 
     redraw() {
         this.context.drawImage(this.canvas, 0, 0);
+
+        this.emit(this.events.DRAW_IMAGE, this.canvas);
     }
 
     /**

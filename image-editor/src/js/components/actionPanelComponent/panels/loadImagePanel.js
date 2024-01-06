@@ -28,7 +28,7 @@ const LoadImagePanel = ({ onLoadImage }) => {
     };
 
     return (
-        <div className="load-image-panel">
+        <div className="action-panel">
             <div className="file-upload">
                 <input
                     type="file"

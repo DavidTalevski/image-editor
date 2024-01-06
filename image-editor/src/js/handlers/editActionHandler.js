@@ -13,33 +13,6 @@ export default class EditActionHandler {
     }
 
     /**
-     * @param {number} crop 
-     */
-    handleCrop = async (crop) => {
-
-        const data = {
-            crop: crop,
-        };
-
-        const action = this.actionManager.add.cropAction(data);
-
-        await this.actionManager.updateAction(action, data);
-    };
-
-    /**
-     * @param {number} resize 
-     */
-    handleResize = async (resize) => {
-        const data = {
-            resize: resize,
-        };
-
-        const action = this.actionManager.add.resizeAction(data);
-
-        await this.actionManager.updateAction(action, data);
-    };
-
-    /**
      * @param {number} degrees
      */
     handleRotate = async (degrees) => {
