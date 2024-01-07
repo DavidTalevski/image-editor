@@ -16,7 +16,6 @@ import ImageDownloader from './js/core/downloader/imageDownloader';
 
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
-import SnapshotManager from './js/core/snapshot/snapshotManager';
 
 import FilterActionHandler from './js/handlers/filterActionHandler';
 import ImageDownloadHandler from './js/handlers/downloadHandler';
@@ -24,10 +23,11 @@ import LoadActionHandler from './js/handlers/loadActionHandler';
 import EditActionHandler from './js/handlers/editActionHandler';
 import ActionHistoryHandler from './js/handlers/actionHistoryHandler';
 import ResizeActionHandler from './js/handlers/resizeActionHandler';
+import CropActionHandler from './js/handlers/cropActionHandler';
+import DraggableBoxComponent from './js/components/resizableBoxComponent/draggableBoxComponent';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
-const snapshotManager = new SnapshotManager();
 const downloader = new ImageDownloader();
 const canvasController = new CanvasController();
 
@@ -37,10 +37,9 @@ const downloadHandler = new ImageDownloadHandler(downloader, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
 const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasController);
 const resizeActionHandler = new ResizeActionHandler(actionManager, canvasController);
+const cropActionHandler = new CropActionHandler(actionManager, canvasController);
 
 window.ac = actionManager;
-
-snapshotManager.loadSavedSnapshots(preferences.getPreference("snapshots"));
 
 function App() {
   const canvasRef = useRef(null);
@@ -48,6 +47,7 @@ function App() {
   const [history, setHistory] = useState([]);
 
   const [inResizeMode, setResizeMode] = useState(false);
+  const [inCropMode, setCropMode] = useState(false);
   const [resetFilters, setResetFilters] = useState(false);
 
   // Reset the value back to false after the reset has been performed
@@ -111,8 +111,24 @@ function App() {
       setResizeMode(false);
     }
 
+    if (tab == "crop") {
+      setCropMode(true);
+    } else {
+      setCropMode(false);
+    }
+
     setSelectedTab(tab);
   };
+
+  const onSaveCrop = () => {
+    cropActionHandler.saveCrop();
+    setCropMode(false);
+  }
+
+  const onSaveResize = () => {
+    resizeActionHandler.saveResize();
+    setResizeMode(false);
+  }
 
   const handleResize = (width, height) => {
     if (inResizeMode) {
@@ -142,8 +158,15 @@ function App() {
           <ResizableBoxComponent
             width={canvasController.getWidth()}
             height={canvasController.getHeight()}
-            canvasController={canvasController}
             handleResize={handleResize}
+          />
+        )}
+
+        {inCropMode && (
+          <DraggableBoxComponent
+            initialWidth={canvasController.getWidth()}
+            initialHeight={canvasController.getHeight()}
+            onBoxChange={cropActionHandler.updateBox}
           />
         )}
       </div>
@@ -182,8 +205,10 @@ function App() {
         handleFlip={editActionHandler.handleFlip}
         handleRotate={editActionHandler.handleRotate}
 
-        onSaveResize={resizeActionHandler.saveResize}
+        onSaveResize={onSaveResize}
         onCancelResize={resizeActionHandler.cancelResizeMode}
+
+        onSaveCrop={onSaveCrop}
       />
 
       <ActionHistoryPanelComponent

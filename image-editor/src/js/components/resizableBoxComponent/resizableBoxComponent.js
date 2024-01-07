@@ -21,4 +21,3 @@ const ResizableBoxComponent = ({ width, height, handleResize }) => {
 };
 
 export default ResizableBoxComponent;
-

@@ -1,4 +1,6 @@
 import ActionManager from "./actionManager";
+// import ActionType from "../enum/actionType.enum";
+
 import BrightnessAction from "./actions/brightnessAction/brightnessAction";
 import ContrastAction from "./actions/contrastAction/contrastAction";
 import LoadAction from "./actions/loadAction/loadAction";
@@ -9,10 +11,10 @@ import InvertAction from "./actions/invertAction/invertAction";
 import SepiaAction from "./actions/sepiaAction/sepiaAction";
 import BlurAction from "./actions/blurAction/blurAction";
 import FlipAction from "./actions/flipAction/flipAction";
-import ActionType from "../enum/actionType.enum";
 import RotateAction from "./actions/rotateAction/rotateAction";
 import UpscaleAction from "./actions/upscaleAction/upscaleAction";
 import ResizeAction from "./actions/resizeAction/resizeAction";
+import CropAction from "./actions/cropAction/cropAction";
 
 export default class ActionFactory {
 
@@ -100,14 +102,14 @@ export default class ActionFactory {
      * @returns {FlipAction}
      */
     flipAction(data) {
-        const currentAction = this.actionManager.getCurrentAction()
+        // const currentAction = this.actionManager.getCurrentAction()
 
         // If its the same flip type then update the current action, else create a new action
-        if (currentAction && currentAction.type === ActionType.FLIP) {
-            if (currentAction.data.flipOrientation === data.flipOrientation) {
-                return currentAction;
-            }
-        }
+        // if (currentAction && currentAction.type === ActionType.FLIP) {
+        //     if (currentAction.data.flipOrientation === data.flipOrientation) {
+        //         return currentAction;
+        //     }
+        // }
 
         return this.createAction(FlipAction, data, true);
     }
@@ -134,6 +136,14 @@ export default class ActionFactory {
      */
     resizeAction(data) {
         return this.createAction(ResizeAction, data)
+    }
+
+    /**
+     * @param {import("./actions/cropAction/cropActionData").CropActionData} data 
+     * @returns {CropAction}
+     */
+    cropAction(data) {
+        return this.createAction(CropAction, data)
     }
 
     /**

@@ -5,8 +5,8 @@
 - [x] Load Image
 - [X] Save Image
 - [X] Image Compression
-- [ ] Crop
-- [ ] Resize
+- [X] Crop
+- [X] Resize
 - [X] Filters
 - [X] Brightness
 - [X] Contrast
@@ -32,3 +32,4 @@
 
 - [ ] Loading screen when processing actions
 - [ ] Split action panel into multiple panels
+- [ ] Add options to remove all actions

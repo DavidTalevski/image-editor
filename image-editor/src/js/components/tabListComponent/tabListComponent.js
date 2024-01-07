@@ -5,6 +5,7 @@ import FilterTab from './tabs/filterTab';
 import EditTab from './tabs/editTab';
 import UpscaleTab from './tabs/upscaleTab';
 import ResizeTab from './tabs/resizeTab';
+import CropTab from './tabs/cropTab';
 
 const TabListComponent = ({ onTabSelect }) => {
     return (
@@ -16,6 +17,7 @@ const TabListComponent = ({ onTabSelect }) => {
                 <FilterTab onTabSelect={() => onTabSelect('filter')} />
                 <EditTab onTabSelect={() => onTabSelect('edit')} />
                 <ResizeTab onTabSelect={() => onTabSelect("resize")} />
+                <CropTab onTabSelect={() => onTabSelect("crop")} />
                 <UpscaleTab onTabSelect={() => onTabSelect("upscale")} />
             </div>
         </div>

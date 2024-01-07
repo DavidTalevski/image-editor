@@ -9,6 +9,7 @@ import FilterPanel from './panels/filterPanel';
 import EditPanel from './panels/editPanel';
 import UpscalePanel from './panels/upscalePanel';
 import ResizePanel from './panels/resizePanel';
+import CropPanel from './panels/cropPanel';
 
 const ActionPanel = ({
     selectedTab,
@@ -39,7 +40,9 @@ const ActionPanel = ({
     handleFlip,
     handleUpscale,
     onSaveResize,
-    onCancelResize
+    onCancelResize,
+    onSaveCrop,
+    onCancelCrop
 }) => {
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
@@ -98,6 +101,13 @@ const ActionPanel = ({
                     <ResizePanel
                         onSave={onSaveResize}
                         onCancel={onCancelResize}
+                    />
+                );
+            case 'crop': // Add the case for 'edit'
+                return (
+                    <CropPanel
+                        onSave={onSaveCrop}
+                        onCancel={onCancelCrop}
                     />
                 );
             default:

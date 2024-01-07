@@ -1,5 +1,6 @@
 import CanvasController from "../../canvas/canvasController";
 import ActionType from "../../enum/actionType.enum";
+import structuredClone from "@ungap/structured-clone"
 
 export default class Action {
 
@@ -21,7 +22,7 @@ export default class Action {
         /** @protected */
         this.active = true;
 
-        this.data = data;
+        this.data = structuredClone(data);
     }
 
     isActive() {
