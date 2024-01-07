@@ -31,8 +31,11 @@ export default class CropAction extends Action {
         // Get the 2D context of the source canvas and temporary canvas
         const tempContext = tempCanvas.getContext('2d');
 
+        const ratioX = this.canvas.getWidth() / this.canvas.getClientWidth();
+        const ratioY = this.canvas.getHeight() / this.canvas.getClientHeight();
+
         // Draw the cropped portion onto the temporary canvas
-        tempContext.drawImage(this.canvas.canvas, x, y, width, height, 0, 0, width, height);
+        tempContext.drawImage(this.canvas.canvas, ratioX * x, ratioY * y, ratioX * width, ratioY * height, 0, 0, width, height);
 
         // Clear the original canvas
         this.canvas.clear();

@@ -29,6 +29,14 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
         }
     };
 
+    const boxStyle = {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        border: '2px solid #3498db', // Nice blue border
+        boxSizing: 'border-box',
+    };
+
     return (
         <Draggable
             bounds="parent"
@@ -42,8 +50,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
                 minConstraints={[100, 100]}
                 onResize={handleResize}
             >
-                <div style={{ backgroundColor: 'rgba(128, 0, 0, 0.3)', width: '100%', height: '100%' }}>
-                    Resize and Drag Box
+                <div style={boxStyle}>
                 </div>
             </ResizableBox>
         </Draggable>

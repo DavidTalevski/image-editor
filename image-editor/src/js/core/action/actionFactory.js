@@ -135,7 +135,7 @@ export default class ActionFactory {
      * @returns {ResizeAction}
      */
     resizeAction(data) {
-        return this.createAction(ResizeAction, data)
+        return this.createAction(ResizeAction, data, true)
     }
 
     /**
@@ -143,7 +143,7 @@ export default class ActionFactory {
      * @returns {CropAction}
      */
     cropAction(data) {
-        return this.createAction(CropAction, data)
+        return this.createAction(CropAction, data, true)
     }
 
     /**

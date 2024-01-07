@@ -1,6 +1,6 @@
 import CanvasController from "../../canvas/canvasController";
 import ActionType from "../../enum/actionType.enum";
-import structuredClone from "@ungap/structured-clone"
+import structuredClone from "@ungap/structured-clone";
 
 export default class Action {
 
@@ -30,7 +30,7 @@ export default class Action {
     }
 
     async update(data) {
-        this.data = data;
+        this.data = structuredClone(data);
         return this.execute();
     }
 

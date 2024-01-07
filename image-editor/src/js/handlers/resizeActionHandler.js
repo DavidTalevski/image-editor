@@ -35,8 +35,8 @@ export default class ResizeActionHandler {
 
     createAction = () => {
         const data = {
-            width: this.canvas.getWidth(),
-            height: this.canvas.getHeight(),
+            width: this.canvas.getClientWidth(),
+            height: this.canvas.getClientHeight(),
         };
 
         this.actionManager.add.resizeAction(data);

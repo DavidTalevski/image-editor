@@ -24,16 +24,28 @@ export default class CanvasController extends EventEmitter {
         return this.canvas.getContext("2d");
     }
 
-    getWidth() {
+    getClientWidth() {
         if (!this.canvas) return 0;
 
         return this.canvas.clientWidth;
     }
 
-    getHeight() {
+    getClientHeight() {
         if (!this.canvas) return 0;
 
         return this.canvas.clientHeight;
+    }
+
+    getWidth() {
+        if (!this.canvas) return 0;
+
+        return this.canvas.width;
+    }
+
+    getHeight() {
+        if (!this.canvas) return 0;
+
+        return this.canvas.height;
     }
 
     resize(width, height) {

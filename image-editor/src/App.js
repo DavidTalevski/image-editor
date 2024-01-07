@@ -156,16 +156,16 @@ function App() {
 
         {inResizeMode && (
           <ResizableBoxComponent
-            width={canvasController.getWidth()}
-            height={canvasController.getHeight()}
+            width={canvasController.getClientWidth()}
+            height={canvasController.getClientHeight()}
             handleResize={handleResize}
           />
         )}
 
         {inCropMode && (
           <DraggableBoxComponent
-            initialWidth={canvasController.getWidth()}
-            initialHeight={canvasController.getHeight()}
+            initialWidth={canvasController.getClientWidth()}
+            initialHeight={canvasController.getClientHeight()}
             onBoxChange={cropActionHandler.updateBox}
           />
         )}
