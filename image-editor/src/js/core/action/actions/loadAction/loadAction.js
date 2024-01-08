@@ -16,14 +16,7 @@ export default class LoadAction extends Action {
 
     type = ActionType.LOAD;
 
-    /**
-     * @param {CanvasController} canvas 
-     * @param {LoadActionData} data 
-     */
-    constructor(canvas, data) {
-        super(canvas, data);
-        this.loader = new ImageLoader();
-    }
+    loader = new ImageLoader();
 
     async execute() {
         super.execute();
@@ -51,5 +44,10 @@ export default class LoadAction extends Action {
         }
 
         this.canvas.drawImage(image);
+    }
+
+    destroy() {
+        this.loader = null;
+        super.destroy();
     }
 }

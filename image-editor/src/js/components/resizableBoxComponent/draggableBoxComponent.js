@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ResizableBox } from 'react-resizable';
 import Draggable from 'react-draggable';
 import "../../../css/resizable.css";
+import CanvasResolution from '../../settings/canvasResolution';
 
 const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => {
     const [width, setWidth] = useState(initialWidth);
@@ -46,7 +47,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
             <ResizableBox
                 width={width}
                 height={height}
-                maxConstraints={[1024, 768]}
+                maxConstraints={[CanvasResolution.WIDTH, CanvasResolution.HEIGHT]}
                 minConstraints={[100, 100]}
                 onResize={handleResize}
             >

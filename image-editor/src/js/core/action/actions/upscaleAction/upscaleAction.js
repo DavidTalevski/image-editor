@@ -59,4 +59,9 @@ export default class UpscaleAction extends Action {
 
         this.canvas.drawImage(image);
     }
+
+    destroy() {
+        this.loader = null;
+        super.destroy();
+    }
 }

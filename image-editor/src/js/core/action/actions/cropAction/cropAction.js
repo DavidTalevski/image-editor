@@ -43,4 +43,9 @@ export default class CropAction extends Action {
         this.canvas.drawImage(tempCanvas);
     }
 
+    destroy() {
+        this.loader = null;
+        super.destroy();
+    }
+
 }

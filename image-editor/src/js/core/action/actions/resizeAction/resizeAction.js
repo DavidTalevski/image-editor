@@ -22,4 +22,9 @@ export default class ResizeAction extends Action {
 
         this.canvas.drawImage(image, this.data.width, this.data.height);
     }
+
+    destroy() {
+        this.loader = null;
+        super.destroy();
+    }
 }

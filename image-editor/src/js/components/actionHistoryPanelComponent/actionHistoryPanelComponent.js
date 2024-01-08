@@ -1,18 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import ActionHistoryCard from './actionHistoryCard';
 
 const ActionHistoryPanelComponent = ({ history, onCardClicked }) => {
-    const panelRef = useRef(null);
-
-    useEffect(() => {
-        // Scroll to the bottom of the panel when a new action is added
-        // if (panelRef.current) {
-        //     panelRef.current.scrollTop = panelRef.current.scrollHeight;
-        // }
-    }, [history]);
-
     return (
-        <div style={{ maxHeight: '768px', overflowY: 'auto' }} ref={panelRef}>
+        <div style={{ maxHeight: '768px', overflowY: 'auto' }} >
             <h2>Action History Panel</h2>
             {history.slice().reverse().map((action, index, array) => (
                 <ActionHistoryCard

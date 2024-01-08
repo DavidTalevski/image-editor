@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHistory } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,11 +10,8 @@ import { faHistory } from '@fortawesome/free-solid-svg-icons';
  * @returns {JSX.Element} - The ActionHistoryCard component.
  */
 const ActionHistoryCard = ({ id, properties, onClick }) => {
-    /**
-     * Handles the click event for the card.
-     */
+
     const handleClick = () => {
-        // Assuming you have an id property in your properties object
         onClick(id);
     };
 
@@ -25,7 +22,6 @@ const ActionHistoryCard = ({ id, properties, onClick }) => {
         >
             <div className="card-header">
                 <FontAwesomeIcon icon={faHistory} />
-                <span>ID: {id}</span>
             </div>
             <div className="card-body">
                 <h3>{properties.title}</h3>

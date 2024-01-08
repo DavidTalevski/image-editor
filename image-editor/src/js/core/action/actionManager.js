@@ -68,8 +68,44 @@ export default class ActionManager extends EventEmitter {
         return this.actionQueue[this.actionQueue.length - 1];
     }
 
+    /**
+     * Removes inactive actions from the action queue.
+     * Calls the destroy function for each inactive action.
+     */
     removeUnactiveActions() {
-        this.actionQueue = this.actionQueue.filter(action => action.isActive());
+        this.actionQueue = this.actionQueue.filter(action => {
+            if (!action.isActive()) {
+                action.destroy();
+                return false;
+            }
+            return true;
+        });
+    }
+
+    /**
+     * Removes an action from the action queue based on its order ID.
+     * Calls the destroy function before removing the action.
+     * @param {number} orderId - The order ID of the action to remove.
+     */
+    removeAction(orderId) {
+        console.log(this.TAG, "Removing action with id:", orderId);
+
+        const removedAction = this.actionQueue.splice(orderId, 1)[0];
+
+        if (removedAction) {
+            removedAction.destroy();
+
+            this.emit(this.events.ACTION_REMOVED, removedAction, orderId);
+        }
+    }
+
+    /**
+     * Removes the last added action from the action queue.
+     * Calls the destroy function for the removed action.
+     */
+    removeLastAction() {
+        const lastActionIndex = this.actionQueue.length - 1;
+        this.removeAction(lastActionIndex);
     }
 
     /**

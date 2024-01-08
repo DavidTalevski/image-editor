@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResizableBox } from 'react-resizable';
 import "../../../css/resizable.css"; // Make sure to adjust the path if necessary
+import CanvasResolution from '../../settings/canvasResolution';
 
 const ResizableBoxComponent = ({ width, height, handleResize }) => {
     const onResize = (e, { size }) => {
@@ -17,9 +18,12 @@ const ResizableBoxComponent = ({ width, height, handleResize }) => {
 
     return (
         <div>
-            <ResizableBox width={width} height={height} maxConstraints={[1024, 768]} onResize={onResize}>
-                <div style={boxStyle}>
-                </div>
+            <ResizableBox
+                width={width}
+                height={height}
+                maxConstraints={[CanvasResolution.WIDTH, CanvasResolution.HEIGHT]}
+                onResize={onResize}>
+                <div style={boxStyle} />
             </ResizableBox>
         </div>
     );

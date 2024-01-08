@@ -5,6 +5,9 @@ import './css/tabs.css';
 import './css/canvas.css';
 import './css/panels.css';
 
+import CanvasResolution from './js/settings/canvasResolution';
+import PanelType from './js/enum/panelType.enum';
+
 import CanvasComponent from './js/components/canvasComponent/canvasComponent';
 import TabListComponent from './js/components/tabListComponent/tabListComponent';
 import ActionPanel from './js/components/actionPanelComponent/actionPanelComponent';
@@ -92,18 +95,20 @@ function App() {
 
     actionManager.on(actionManager.events.ACTION_CREATED, onActionCreated);
     actionManager.on(actionManager.events.ACTION_UPDATED, updateActionHistory);
+    actionManager.on(actionManager.events.ACTION_REMOVED, updateActionHistory);
     actionManager.on(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
 
     // Clean up the listener when the component unmounts
     return () => {
       actionManager.off(actionManager.events.ACTION_CREATED, onActionCreated);
       actionManager.off(actionManager.events.ACTION_UPDATED, updateActionHistory);
+      actionManager.off(actionManager.events.ACTION_REMOVED, updateActionHistory);
       actionManager.off(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
     };
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   const handleTabSelect = (tab) => {
-    if (tab == "resize") {
+    if (tab == PanelType.RESIZE) {
       resizeActionHandler.enterResizeMode();
       setResizeMode(true);
     } else {
@@ -111,7 +116,7 @@ function App() {
       setResizeMode(false);
     }
 
-    if (tab == "crop") {
+    if (tab == PanelType.CROP) {
       setCropMode(true);
     } else {
       setCropMode(false);
@@ -146,8 +151,8 @@ function App() {
 
       <div style={{
         position: 'relative',
-        width: 1024,
-        height: 768,
+        width: CanvasResolution.WIDTH,
+        height: CanvasResolution.HEIGHT,
         minWidth: 300,
         minHeight: 300,
       }}>

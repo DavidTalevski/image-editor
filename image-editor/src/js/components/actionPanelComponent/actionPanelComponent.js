@@ -1,7 +1,6 @@
 // ActionPanel.js
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import PanelType from '../../enum/panelType.enum';
 
 import DownloadImagePanel from "./panels/downloadImagePanel";
 import LoadImagePanel from './panels/loadImagePanel';
@@ -47,7 +46,7 @@ const ActionPanel = ({
     // Conditional rendering based on the selected tab
     const renderPanelContent = () => {
         switch (selectedTab) {
-            case 'downloadImage':
+            case PanelType.DOWNLOAD:
                 return (
                     <DownloadImagePanel
                         onDownloadAsPNG={onDownloadAsPNG}
@@ -57,9 +56,9 @@ const ActionPanel = ({
                         defaultCompression={defaultCompression}
                     />
                 );
-            case 'loadImage':
+            case PanelType.LOAD:
                 return <LoadImagePanel onLoadImage={onLoadImage} />;
-            case 'filter':
+            case PanelType.FILTER:
                 return (
                     <FilterPanel
                         brightness={brightness}
@@ -83,27 +82,27 @@ const ActionPanel = ({
                         resetFilters={resetFilters}
                     />
                 );
-            case 'edit': // Add the case for 'edit'
+            case PanelType.EDIT: // Add the case for 'edit'
                 return (
                     <EditPanel
                         handleRotate={handleRotate}
                         handleFlip={handleFlip}
                     />
                 );
-            case 'upscale': // Add the case for 'edit'
+            case PanelType.UPSCALE: // Add the case for 'edit'
                 return (
                     <UpscalePanel
                         handleUpscale={handleUpscale}
                     />
                 );
-            case 'resize': // Add the case for 'edit'
+            case PanelType.RESIZE: // Add the case for 'edit'
                 return (
                     <ResizePanel
                         onSave={onSaveResize}
                         onCancel={onCancelResize}
                     />
                 );
-            case 'crop': // Add the case for 'edit'
+            case PanelType.CROP: // Add the case for 'edit'
                 return (
                     <CropPanel
                         onSave={onSaveCrop}

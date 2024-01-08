@@ -28,7 +28,11 @@ export default class LoadActionHandler {
 
         const action = this.actionManager.add.loadAction(data);
 
-        await action.execute(data);
+        try {
+            await action.execute(data);
+        } catch (e) {
+            this.actionManager.removeLastAction()
+        }
     };
 
     handleUpscaleImage = async () => {

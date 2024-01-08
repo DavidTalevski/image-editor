@@ -1,4 +1,6 @@
 import React from 'react';
+import PanelType from '../../enum/panelType.enum';
+
 import LoadImageTab from './tabs/loadImageTab';
 import DownloadImageTab from './tabs/downloadImageTab';
 import FilterTab from './tabs/filterTab';
@@ -12,13 +14,13 @@ const TabListComponent = ({ onTabSelect }) => {
         <div className="tab-container">
             <h1 className="tab-title">Image Editor App</h1>
             <div className="tab-list">
-                <LoadImageTab onTabSelect={() => onTabSelect('loadImage')} />
-                <DownloadImageTab onTabSelect={() => onTabSelect('downloadImage')} />
-                <FilterTab onTabSelect={() => onTabSelect('filter')} />
-                <EditTab onTabSelect={() => onTabSelect('edit')} />
-                <ResizeTab onTabSelect={() => onTabSelect("resize")} />
-                <CropTab onTabSelect={() => onTabSelect("crop")} />
-                <UpscaleTab onTabSelect={() => onTabSelect("upscale")} />
+                <LoadImageTab onTabSelect={() => onTabSelect(PanelType.LOAD)} />
+                <DownloadImageTab onTabSelect={() => onTabSelect(PanelType.DOWNLOAD)} />
+                <FilterTab onTabSelect={() => onTabSelect(PanelType.FILTER)} />
+                <EditTab onTabSelect={() => onTabSelect(PanelType.EDIT)} />
+                <ResizeTab onTabSelect={() => onTabSelect(PanelType.RESIZE)} />
+                <CropTab onTabSelect={() => onTabSelect(PanelType.CROP)} />
+                <UpscaleTab onTabSelect={() => onTabSelect(PanelType.UPSCALE)} />
             </div>
         </div>
     );
