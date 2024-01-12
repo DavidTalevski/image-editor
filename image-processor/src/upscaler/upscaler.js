@@ -8,12 +8,14 @@ const waifu2x = Waifu2x.default;
 const OPTIONS = upscalerConfig;
 
 class Upscaler {
-    async upscale(input_path, output_path) {
+    // TODO JSDOC
+    async upscale(input_path, output_path, settings) {
+        // imeto da mu go napram so opcite treba
         console.log("Upscaling image:", input_path);
 
         const upscaled_path = this.getTemporaryFilePath(output_path, 1);
 
-        await waifu2x.upscaleImage(input_path, upscaled_path, OPTIONS.MAIN_UPSCALE_OPTIONS);
+        await waifu2x.upscaleImage(input_path, upscaled_path, settings);
         console.log("Created upscaled image:", upscaled_path);
 
         const process = sharp(upscaled_path);
@@ -28,7 +30,7 @@ class Upscaler {
             await process.toFile(output_path);
             console.log("Saved image:", output_path);
         } catch (e) {
-            console.log("Unable to save file: ", image, e);
+            console.log("Unable to save file: ", e);
         }
 
         fs.unlinkSync(input_path);

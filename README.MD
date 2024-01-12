@@ -22,7 +22,7 @@
 ### Upscaling
 
 - [X] Upscale (Real-ESRGAN Model)
-- [ ] Add upscale options
+- [X] Add upscale options
 
 ### Advanced Features
 
@@ -30,6 +30,12 @@
 
 ### To do
 
-- [ ] Loading screen when processing actions
+- [ ] Add logic for selected tab
+- [ ] Add css for upscale panel
+- [X] Loading screen when processing actions
 - [ ] Split action panel into multiple panels
 - [ ] Add options to remove all actions
+- [ ] Optimization to skip loading images when running history actions
+- [X] Update upscale hash when loading is finished
+- [X] Fix cancel button in crop and resize
+- [X] Fix issues when canvas is empty and no image is loaded

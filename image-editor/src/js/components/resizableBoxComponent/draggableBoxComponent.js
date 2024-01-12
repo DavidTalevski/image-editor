@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ResizableBox } from 'react-resizable';
 import Draggable from 'react-draggable';
-import "../../../css/resizable.css";
 import CanvasResolution from '../../settings/canvasResolution';
 
 const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => {
@@ -14,7 +13,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
         const { x, y } = data;
         setX(x);
         setY(y);
-        // Call the external function with the updated values
+
         if (onBoxChange) {
             onBoxChange(x, y, width, height);
         }
@@ -24,7 +23,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
         const { width, height } = size;
         setWidth(width);
         setHeight(height);
-        // Call the external function with the updated values
+
         if (onBoxChange) {
             onBoxChange(x, y, width, height);
         }
@@ -34,7 +33,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        border: '2px solid #3498db', // Nice blue border
+        border: '2px solid #3498db',
         boxSizing: 'border-box',
     };
 

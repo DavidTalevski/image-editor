@@ -4,6 +4,7 @@ import './css/App.css';
 import './css/tabs.css';
 import './css/canvas.css';
 import './css/panels.css';
+import "./css/resizable.css";
 
 import CanvasResolution from './js/settings/canvasResolution';
 import PanelType from './js/enum/panelType.enum';
@@ -28,6 +29,7 @@ import ActionHistoryHandler from './js/handlers/actionHistoryHandler';
 import ResizeActionHandler from './js/handlers/resizeActionHandler';
 import CropActionHandler from './js/handlers/cropActionHandler';
 import DraggableBoxComponent from './js/components/resizableBoxComponent/draggableBoxComponent';
+import LoadingComponent from './js/components/loadingComponent/loadingComponent';
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
@@ -52,6 +54,8 @@ function App() {
   const [inResizeMode, setResizeMode] = useState(false);
   const [inCropMode, setCropMode] = useState(false);
   const [resetFilters, setResetFilters] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // Reset the value back to false after the reset has been performed
   useEffect(() => {
@@ -93,17 +97,34 @@ function App() {
       setResetFilters(true);
     }
 
+    const actionsStarted = () => {
+      console.log("actionsStarted");
+      setIsLoading(true);
+    }
+
+    const actionExecuted = () => {
+      console.log("actionsExecuted");
+      updateActionHistory();
+      setIsLoading(false);
+    }
+
     actionManager.on(actionManager.events.ACTION_CREATED, onActionCreated);
     actionManager.on(actionManager.events.ACTION_UPDATED, updateActionHistory);
     actionManager.on(actionManager.events.ACTION_REMOVED, updateActionHistory);
-    actionManager.on(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
+    actionManager.on(actionManager.events.ACTION_UPDATE_EXECUTED, actionsStarted);
+    actionManager.on(actionManager.events.ACTION_UPDATED, actionExecuted);
+    actionManager.on(actionManager.events.MULTIPLE_ACTIONS_STARTED, actionsStarted);
+    actionManager.on(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, actionExecuted);
 
     // Clean up the listener when the component unmounts
     return () => {
       actionManager.off(actionManager.events.ACTION_CREATED, onActionCreated);
       actionManager.off(actionManager.events.ACTION_UPDATED, updateActionHistory);
       actionManager.off(actionManager.events.ACTION_REMOVED, updateActionHistory);
-      actionManager.off(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, updateActionHistory);
+      actionManager.off(actionManager.events.ACTION_UPDATE_EXECUTED, actionsStarted);
+      actionManager.off(actionManager.events.ACTION_UPDATED, actionExecuted);
+      actionManager.off(actionManager.events.MULTIPLE_ACTIONS_STARTED, actionsStarted);
+      actionManager.off(actionManager.events.MULTIPLE_ACTIONS_EXECUTED, actionExecuted);
     };
   }, []); // Empty dependency array means this effect runs once after the initial render
 
@@ -128,11 +149,15 @@ function App() {
   const onSaveCrop = () => {
     cropActionHandler.saveCrop();
     setCropMode(false);
+    // todo
+    setSelectedTab(null);
   }
 
   const onSaveResize = () => {
     resizeActionHandler.saveResize();
     setResizeMode(false);
+    // todo
+    setSelectedTab(null);
   }
 
   const handleResize = (width, height) => {
@@ -156,6 +181,10 @@ function App() {
         minWidth: 300,
         minHeight: 300,
       }}>
+
+        {isLoading && (
+          <LoadingComponent />
+        )}
 
         <CanvasComponent ref={canvasRef} />
 
@@ -211,9 +240,10 @@ function App() {
         handleRotate={editActionHandler.handleRotate}
 
         onSaveResize={onSaveResize}
-        onCancelResize={resizeActionHandler.cancelResizeMode}
+        onCancelResize={handleTabSelect}
 
         onSaveCrop={onSaveCrop}
+        onCancelCrop={handleTabSelect}
       />
 
       <ActionHistoryPanelComponent

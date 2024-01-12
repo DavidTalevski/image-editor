@@ -29,23 +29,27 @@ export default class LoadActionHandler {
         const action = this.actionManager.add.loadAction(data);
 
         try {
-            await action.execute(data);
+            await this.actionManager.updateAction(action, data);
         } catch (e) {
             this.actionManager.removeLastAction()
         }
     };
 
-    handleUpscaleImage = async () => {
+    /**
+     * @param {import("../core/action/actions/upscaleAction/upscaleActionData").UpscaleSettings} object 
+     */
+    handleUpscaleImage = async (object) => {
         const canvasBase64 = this.canvas.getSaveData("jpeg");
         const MD5Hash = new MD5HashGenerator().generateMD5Hash(canvasBase64);
 
         const data = {
             MD5Hash: MD5Hash,
+            settings: object,
             URL: "http://localhost:4000/upscale"
         }
 
         const action = this.actionManager.add.upscaleAction(data);
 
-        await action.execute(data);
+        await this.actionManager.updateAction(action, data);
     }
 }

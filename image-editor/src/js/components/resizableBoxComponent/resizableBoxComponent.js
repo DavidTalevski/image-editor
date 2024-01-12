@@ -1,6 +1,5 @@
 import React from 'react';
 import { ResizableBox } from 'react-resizable';
-import "../../../css/resizable.css"; // Make sure to adjust the path if necessary
 import CanvasResolution from '../../settings/canvasResolution';
 
 const ResizableBoxComponent = ({ width, height, handleResize }) => {
@@ -11,9 +10,9 @@ const ResizableBoxComponent = ({ width, height, handleResize }) => {
     const boxStyle = {
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 128, 0, 0)', // Fully transparent background
-        border: '2px solid #3498db', // Nice blue border
-        boxSizing: 'border-box', // Include border in width and height
+        backgroundColor: 'rgba(0, 128, 0, 0)',
+        border: '2px solid #3498db',
+        boxSizing: 'border-box',
     };
 
     return (

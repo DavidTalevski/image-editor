@@ -164,6 +164,7 @@ export default class CanvasController extends EventEmitter {
      * @returns {string}
      */
     getSaveData(format = ImageType.PNG, quality = 1) {
+        if (!this.canvas) return;
         return this.canvas.toDataURL(`image/${format}`, quality);
     }
 }

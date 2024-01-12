@@ -129,3 +129,28 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
+
+.upscaler-options label {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.scale-numbers {
+  display: flex;
+}
+
+.scale-options label  {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.scale-options label,
+.anime-options label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.upscale-button {
+    margin-top: 8px;
+    /* Add any other button-specific styles */
+}

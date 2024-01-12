@@ -129,6 +129,8 @@ export default class ActionManager extends EventEmitter {
      * @param {any} data 
      */
     async updateAction(action, data) {
+        this.emit(this.events.ACTION_UPDATE_EXECUTED, action);
+
         await action.update(data);
 
         this.emit(this.events.ACTION_UPDATED, action);
@@ -141,7 +143,11 @@ export default class ActionManager extends EventEmitter {
      * @param {number} endOrderId - The ending order ID.
      */
     async executeAllActionsBetween(startOrderId, endOrderId) {
+        if (this.actionQueue.length == 0) return;
+
         console.log(this.TAG, `Executing actions between ${startOrderId} and ${endOrderId}`);
+        this.emit(this.events.MULTIPLE_ACTIONS_STARTED);
+
         for (let i = 0; i < this.actionQueue.length; i++) {
             const action = this.actionQueue[i];
 
@@ -153,6 +159,9 @@ export default class ActionManager extends EventEmitter {
                 action.deactivate();
             }
         }
+
+
+        console.log(this.TAG, `Executed actions between ${startOrderId} and ${endOrderId}`);
 
         this.emit(this.events.MULTIPLE_ACTIONS_EXECUTED);
     }

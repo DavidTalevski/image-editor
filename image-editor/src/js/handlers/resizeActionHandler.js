@@ -23,6 +23,10 @@ export default class ResizeActionHandler {
     }
 
     enterResizeMode = async () => {
+        const saveData = this.canvas.getSaveData();
+
+        if (!saveData) return;
+
         this.image = await this.loader.loadFromUrl(this.canvas.getSaveData());
     }
 

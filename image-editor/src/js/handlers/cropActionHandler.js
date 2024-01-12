@@ -37,6 +37,8 @@ export default class CropActionHandler {
     };
 
     saveCrop = () => {
+        if (this.box.width <= 0 || this.box.height <= 0) return;
+
         this.createAction();
     }
 

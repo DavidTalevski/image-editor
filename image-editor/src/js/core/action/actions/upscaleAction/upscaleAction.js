@@ -11,6 +11,8 @@ export default class UpscaleAction extends Action {
 
     title = "Upscale Image"
 
+    description = "Upscaling..."
+
     type = ActionType.UPSCALE;
 
     loader = new ImageLoader();
@@ -22,7 +24,8 @@ export default class UpscaleAction extends Action {
         const imageData = this.canvas.getSaveData("jpeg").replace(/^data:image\/jpeg;base64,/, '');
 
         const md5 = this.data.MD5Hash;
-        const data = { image: imageData, MD5Hash: md5 }
+        const upscaleSettings = this.data.settings;
+        const data = { image: imageData, settings: upscaleSettings, MD5Hash: md5 }
 
         this.description = `Hash: ${md5}`;
 
