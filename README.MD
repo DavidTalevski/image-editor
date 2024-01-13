@@ -11,7 +11,6 @@
 - [X] Brightness
 - [X] Contrast
 - [X] Action History (Undo Step)
-- [ ] Color Picker and Draw?
 - [X] Flip Image
 - [X] Rotate Image
 
@@ -35,7 +34,10 @@
 - [X] Loading screen when processing actions
 - [ ] Split action panel into multiple panels
 - [X] Add options to remove all actions
-- [ ] Optimization to skip loading images when running history actions
+- [X] Optimization to skip loading images when running history actions
 - [X] Update upscale hash when loading is finished
 - [X] Fix cancel button in crop and resize
 - [X] Fix issues when canvas is empty and no image is loaded
+- [ ] Add animations when the action panel changes
+- [ ] Add an animation when a new history card is created
+- [ ] Responsiveness

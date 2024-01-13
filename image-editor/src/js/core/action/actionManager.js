@@ -3,6 +3,7 @@ import CanvasController from "../canvas/canvasController";
 import EventEmitter from "eventemitter3"
 import ActionManagerEvents from "./events/actionManagerEvents.enum";
 import ActionFactory from "./actionFactory";
+import ActionType from "../enum/actionType.enum";
 
 export default class ActionManager extends EventEmitter {
 
@@ -159,10 +160,14 @@ export default class ActionManager extends EventEmitter {
         console.log(this.TAG, `Executing actions between ${startOrderId} and ${endOrderId}`);
         this.emit(this.events.MULTIPLE_ACTIONS_STARTED);
 
+        const lastLoadingAction = this.getLastLoadingAction(startOrderId, endOrderId);
+        const startId = lastLoadingAction == -1 ? startOrderId : lastLoadingAction;
+
+
         for (let i = 0; i < this.actionQueue.length; i++) {
             const action = this.actionQueue[i];
 
-            if (i >= startOrderId && i <= endOrderId) {
+            if (i >= startId && i <= endOrderId) {
                 // Execute the action within the specified range
                 await this.executeAction(i);
             } else {
@@ -171,9 +176,22 @@ export default class ActionManager extends EventEmitter {
             }
         }
 
-
-        console.log(this.TAG, `Executed actions between ${startOrderId} and ${endOrderId}`);
+        console.log(this.TAG, `Executed actions between ${startId} and ${endOrderId}`);
 
         this.emit(this.events.MULTIPLE_ACTIONS_EXECUTED);
+    }
+
+    /**
+     * @param {number} startOrderId - The starting order ID.
+     * @param {number} endOrderId - The ending order ID.
+     */
+    getLastLoadingAction(startOrderId, endOrderId) {
+        for (let i = endOrderId; i >= startOrderId; i--) {
+            const action = this.actionQueue[i];
+
+            if (action.type === ActionType.LOAD) return i;
+        }
+
+        return -1;
     }
 }
