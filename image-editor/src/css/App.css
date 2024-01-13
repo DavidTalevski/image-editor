@@ -8,37 +8,3 @@
   margin-top: 10px;
 }
 
-.action-history-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.card-header span {
-  margin-left: 8px;
-}
-
-.card-body {
-  text-align: left;
-}
-
-.action-history-card {
-  background-color: transparent;
-  color: gray;
-  /* Add other styles for the inactive state */
-}
-
-.action-history-card.active {
-  background-color: white; /* or any other color for active state */
-  color: black;
-  /* Add other styles for the active state */
-}

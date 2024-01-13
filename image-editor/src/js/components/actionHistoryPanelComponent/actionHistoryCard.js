@@ -10,7 +10,6 @@ import { faHistory } from '@fortawesome/free-solid-svg-icons';
  * @returns {JSX.Element} - The ActionHistoryCard component.
  */
 const ActionHistoryCard = ({ id, properties, onClick }) => {
-
     const handleClick = () => {
         onClick(id);
     };

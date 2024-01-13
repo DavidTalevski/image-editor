@@ -1,0 +1,55 @@
+.action-history-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
+}
+
+.inactive {
+  animation: fadeOut 0.5s ease-out;
+  opacity: 0.4;
+}
+
+.active {
+  background-color: white;
+  color: black;
+  /* Add other styles for the active state */
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-header span {
+  margin-left: 8px;
+}
+
+.card-body {
+  text-align: left;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
+}

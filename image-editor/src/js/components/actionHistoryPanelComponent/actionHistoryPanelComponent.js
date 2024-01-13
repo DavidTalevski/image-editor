@@ -28,7 +28,6 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked })
                 <span className="panel-text">Clear</span>
             </button>
 
-            {/* Confirmation Popup */}
             {showConfirmation && (
                 <ClearConfirmationPopup
                     onConfirm={handleConfirmClear}
@@ -38,7 +37,7 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked })
 
             {history.slice().reverse().map((action, index, array) => (
                 <ActionHistoryCard
-                    key={index}
+                    key={array.length - index - 1}
                     id={array.length - index - 1}
                     properties={action}
                     onClick={onCardClicked}

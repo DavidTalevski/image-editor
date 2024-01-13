@@ -5,6 +5,7 @@ import './css/tabs.css';
 import './css/canvas.css';
 import './css/panels.css';
 import "./css/resizable.css";
+import "./css/history.css";
 
 import CanvasResolution from './js/settings/canvasResolution';
 import PanelType from './js/enum/panelType.enum';

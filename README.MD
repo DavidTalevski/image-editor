@@ -29,15 +29,15 @@
 
 ### To do
 
-- [ ] Add logic for selected tab
-- [ ] Add css for upscale panel
 - [X] Loading screen when processing actions
-- [ ] Split action panel into multiple panels
 - [X] Add options to remove all actions
 - [X] Optimization to skip loading images when running history actions
 - [X] Update upscale hash when loading is finished
 - [X] Fix cancel button in crop and resize
 - [X] Fix issues when canvas is empty and no image is loaded
+- [X] Add an animation when a new history card is created
+- [ ] Add logic for selected tab
+- [ ] Add css for upscale panel
 - [ ] Add animations when the action panel changes
-- [ ] Add an animation when a new history card is created
 - [ ] Responsiveness
+- [ ] Save action history to local storage and make sure it works after reload
