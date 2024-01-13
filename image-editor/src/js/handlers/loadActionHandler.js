@@ -31,6 +31,7 @@ export default class LoadActionHandler {
         try {
             await this.actionManager.updateAction(action, data);
         } catch (e) {
+            this.actionManager.emit(this.actionManager.events.ACTION_UPDATED, action);
             this.actionManager.removeLastAction()
         }
     };

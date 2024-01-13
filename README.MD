@@ -34,7 +34,7 @@
 - [ ] Add css for upscale panel
 - [X] Loading screen when processing actions
 - [ ] Split action panel into multiple panels
-- [ ] Add options to remove all actions
+- [X] Add options to remove all actions
 - [ ] Optimization to skip loading images when running history actions
 - [X] Update upscale hash when loading is finished
 - [X] Fix cancel button in crop and resize

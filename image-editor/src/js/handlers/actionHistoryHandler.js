@@ -20,6 +20,11 @@ class ActionHistoryHandler {
         await this.actionManager.executeAllActionsBetween(0, id);
     }
 
+    handleClearHistory = () => {
+        this.actionManager.removeAllActions();
+        this.canvas.clear();
+    }
+
 }
 
 export default ActionHistoryHandler;

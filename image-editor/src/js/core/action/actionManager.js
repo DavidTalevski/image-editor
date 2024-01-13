@@ -109,6 +109,17 @@ export default class ActionManager extends EventEmitter {
     }
 
     /**
+     * Removes all actions from the action queue.
+     * Calls the destroy function for each removed action.
+     */
+    removeAllActions() {
+        while (this.actionQueue.length > 0) {
+            const lastActionIndex = this.actionQueue.length - 1;
+            this.removeAction(lastActionIndex);
+        }
+    }
+
+    /**
      * Executes a specific action from the action queue.
      * @param {number} orderId - The order ID of the action to execute.
      * @returns {Promise} A promise that resolves when the action is executed.

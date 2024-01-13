@@ -68,6 +68,7 @@ export default class CanvasController extends EventEmitter {
     }
 
     clear() {
+        if (!this.canvas) return;
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 

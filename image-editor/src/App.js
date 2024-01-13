@@ -249,6 +249,7 @@ function App() {
       <ActionHistoryPanelComponent
         history={history}
         onCardClicked={actionHistoryHandler.handleHistoryCardClick}
+        onClearClicked={actionHistoryHandler.handleClearHistory}
       />
 
     </div >
