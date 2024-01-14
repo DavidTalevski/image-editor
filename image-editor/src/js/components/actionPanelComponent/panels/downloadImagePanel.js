@@ -1,9 +1,9 @@
 // DownloadImagePanel.js
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileImage } from '@fortawesome/free-solid-svg-icons';
+import { faFileImage, faFileArchive } from '@fortawesome/free-solid-svg-icons';
 
-const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onSetCompression, defaultCompression }) => {
+const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onDownloadProject, onSetCompression, defaultCompression }) => {
 
     const [fileName, setFileName] = useState('');
     const [compressionLevel, setCompressionLevel] = useState(defaultCompression || 1);
@@ -25,15 +25,23 @@ const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPE
             </div>
 
             <button className="panel-button" onClick={() => onDownloadAsPNG(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} /> Download as PNG
+                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
+                <span className="panel-text">Download as PNG</span>
             </button>
 
             <button className="panel-button" onClick={() => onDownloadAsWebP(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} /> Download as WebP
+                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
+                <span className="panel-text">Download as WebP</span>
             </button>
 
             <button className="panel-button" onClick={() => onDownloadAsJPEG(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} /> Download as JPEG
+                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
+                <span className="panel-text">Download as JPEG</span>
+            </button>
+
+            <button className="panel-button" onClick={() => onDownloadProject(fileName)}>
+                <FontAwesomeIcon icon={faFileArchive} className="panel-icon" />
+                <span className="panel-text">Download Project</span>
             </button>
         </div>
     );

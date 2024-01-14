@@ -102,15 +102,6 @@ export default class ActionFactory {
      * @returns {FlipAction}
      */
     flipAction(data) {
-        // const currentAction = this.actionManager.getCurrentAction()
-
-        // If its the same flip type then update the current action, else create a new action
-        // if (currentAction && currentAction.type === ActionType.FLIP) {
-        //     if (currentAction.data.flipOrientation === data.flipOrientation) {
-        //         return currentAction;
-        //     }
-        // }
-
         return this.createAction(FlipAction, data, true);
     }
 
@@ -147,13 +138,25 @@ export default class ActionFactory {
     }
 
     /**
+     * @param {import("./actions/actionSaveData").ActionSaveData} saveData 
+     */
+    createActionFromSaveData(saveData) {
+        const actionClass = this.actionManager.registry.getActionClass(saveData.type);
+
+        const action = this.createAction(actionClass, saveData.data, true, false);
+        action.description = saveData.description;
+
+        this.actionManager.addAction(action);
+    }
+
+    /**
      * @template {new (...args: any[]) => {}} AC
      * @param {AC} ActionClass
      * @param {ConstructorParameters<AC>[0]} actionData
      * @param {boolean} override - Whether to override the same action check
      * @returns {InstanceType<AC>}
      */
-    createAction(ActionClass, actionData, override = false) {
+    createAction(ActionClass, actionData, override = false, automaticallyAdd = true) {
         const currentAction = this.actionManager.getCurrentAction();
 
         if (!override && currentAction && currentAction instanceof ActionClass) {
@@ -162,7 +165,7 @@ export default class ActionFactory {
 
         const action = new ActionClass(this.actionManager.canvas, actionData);
 
-        this.actionManager.addAction(action);
+        if (automaticallyAdd) this.actionManager.addAction(action);
 
         return action;
     }

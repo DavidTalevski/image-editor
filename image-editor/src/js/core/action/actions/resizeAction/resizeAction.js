@@ -10,6 +10,8 @@ export default class ResizeAction extends Action {
 
     title = "Resize Image";
 
+    description = "";
+
     type = ActionType.RESIZE;
 
     loader = new ImageLoader();

@@ -15,9 +15,11 @@ const ActionPanel = ({
     onDownloadAsPNG,
     onDownloadAsWebP,
     onDownloadAsJPEG,
+    onDownloadProject,
     onSetCompression,
     defaultCompression,
     onLoadImage,
+    onProjectLoad,
     handleBrightness,
     handleContrast,
     handleSaturation,
@@ -52,12 +54,16 @@ const ActionPanel = ({
                         onDownloadAsPNG={onDownloadAsPNG}
                         onDownloadAsWebP={onDownloadAsWebP}
                         onDownloadAsJPEG={onDownloadAsJPEG}
+                        onDownloadProject={onDownloadProject}
                         onSetCompression={onSetCompression}
                         defaultCompression={defaultCompression}
                     />
                 );
             case PanelType.LOAD:
-                return <LoadImagePanel onLoadImage={onLoadImage} />;
+                return <LoadImagePanel
+                    onLoadImage={onLoadImage}
+                    onProjectLoad={onProjectLoad}
+                />;
             case PanelType.FILTER:
                 return (
                     <FilterPanel

@@ -39,7 +39,7 @@
 - [X] Entering resize mode causes [Violation] 'click' handler took 239ms
 - [X] Add logic for selected tab
 - [X] Crop or resize are selected even after canceling
+- [X] Save project and load after
 - [ ] Add css for upscale panel
 - [ ] Add animations when the action panel changes
 - [ ] Responsiveness
-- [ ] Save action history to local storage and make sure it works after reload

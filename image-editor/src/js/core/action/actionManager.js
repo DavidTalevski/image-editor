@@ -4,6 +4,7 @@ import EventEmitter from "eventemitter3"
 import ActionManagerEvents from "./events/actionManagerEvents.enum";
 import ActionFactory from "./actionFactory";
 import ActionType from "../enum/actionType.enum";
+import ActionRegistryManager from "./registry/actionRegistryManager";
 
 export default class ActionManager extends EventEmitter {
 
@@ -20,6 +21,8 @@ export default class ActionManager extends EventEmitter {
 
     add = new ActionFactory(this);
 
+    registry = new ActionRegistryManager();
+
     /**
      * Creates an instance of ActionManager.
      * @param {CanvasController} canvas - The canvas controller instance.
@@ -34,19 +37,19 @@ export default class ActionManager extends EventEmitter {
      */
     setCanvas(canvas) {
         this.canvas = canvas;
+        this.actionQueue.forEach(action => action.canvas = canvas)
     }
 
     /**
      * Loads saved actions into the action queue.
-     * // TODO JSDOC FOR SAVED ACTIONS
-     * @param {any} savedActions - The saved actions to load.
+     * @param {import("./actions/actionSaveData").ActionSaveData[]} savedActions - The saved actions to load.
      */
     loadSavedActions(savedActions) {
         console.log(this.TAG, "Loading saved actions", savedActions);
 
         savedActions.forEach((savedAction) => {
-            this.createAction(savedAction.actionId, savedAction.data);
-        });;
+            this.add.createActionFromSaveData(savedAction);
+        });
     }
 
     /**
@@ -193,5 +196,9 @@ export default class ActionManager extends EventEmitter {
         }
 
         return -1;
+    }
+
+    getActionSaveData() {
+        return this.actionQueue.map(action => action.getSaveData());
     }
 }

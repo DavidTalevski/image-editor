@@ -2,7 +2,6 @@ import Action from "../action";
 import { ImageLoader } from "../../../loader/imageLoader";
 import ActionType from "../../../enum/actionType.enum";
 import LoadImageActionType from "../../../enum/loadImageActionType.enum";
-import CanvasController from "../../../canvas/canvasController";
 
 export default class LoadAction extends Action {
     /**
@@ -15,6 +14,11 @@ export default class LoadAction extends Action {
     description = "";
 
     type = ActionType.LOAD;
+
+    /**
+     * @type {HTMLImageElement|null}
+     */
+    image = null;
 
     loader = new ImageLoader();
 
@@ -29,21 +33,35 @@ export default class LoadAction extends Action {
      * @param {string} data - Base64 data
      */
     async drawImage(actionType, data) {
-        let image;
-
         try {
             if (actionType == LoadImageActionType.UPLOAD) {
-                image = await this.loader.loadFromBlob(data);
+                this.image = await this.loader.loadFromBlob(data);
             } else if (actionType == LoadImageActionType.URL) {
-                image = await this.loader.loadFromUrl(data);
+                this.image = await this.loader.loadFromUrl(data);
             } else if (actionType == LoadImageActionType.CLIPBOARD) {
-                image = await this.loader.loadFromClipboard();
+                this.image = await this.loader.loadFromClipboard();
             }
         } catch (e) {
             throw e;
         }
 
-        this.canvas.drawImage(image);
+        this.canvas.drawImage(this.image);
+    }
+
+    getSaveData() {
+        if (this.data.loadImageActionType != LoadImageActionType.URL) {
+            this.data.loadImageActionType = LoadImageActionType.URL;
+            this.data.imageData = this.imageToBase64(this.image);
+        }
+        return super.getSaveData();
+    }
+
+    imageToBase64(imgElement) {
+        var canvas = document.createElement('canvas');
+        canvas.width = imgElement.width;
+        canvas.height = imgElement.height;
+        canvas.getContext('2d').drawImage(imgElement, 0, 0, imgElement.width, imgElement.height);
+        return canvas.toDataURL('image/png');
     }
 
     destroy() {

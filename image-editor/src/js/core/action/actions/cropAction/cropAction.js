@@ -10,6 +10,8 @@ export default class CropAction extends Action {
 
     title = "Crop Image";
 
+    description = "";
+
     type = ActionType.CROP;
 
     loader = new ImageLoader();

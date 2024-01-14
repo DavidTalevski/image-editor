@@ -17,7 +17,6 @@ import ActionHistoryPanelComponent from './js/components/actionHistoryPanelCompo
 import ResizableBoxComponent from './js/components/resizableBoxComponent/resizableBoxComponent';
 
 import UserPreferences from './js/core/storage/userPreferences';
-import ImageDownloader from './js/core/downloader/imageDownloader';
 
 import CanvasController from './js/core/canvas/canvasController';
 import ActionManager from './js/core/action/actionManager';
@@ -34,12 +33,11 @@ import LoadingComponent from './js/components/loadingComponent/loadingComponent'
 
 const preferences = new UserPreferences();
 const actionManager = new ActionManager();
-const downloader = new ImageDownloader();
 const canvasController = new CanvasController();
 
 const filterActionHandler = new FilterActionHandler(actionManager, preferences);
-const loadActionHandler = new LoadActionHandler(actionManager, preferences, canvasController)
-const downloadHandler = new ImageDownloadHandler(downloader, preferences)
+const loadActionHandler = new LoadActionHandler(actionManager, preferences)
+const downloadHandler = new ImageDownloadHandler(actionManager, preferences)
 const editActionHandler = new EditActionHandler(actionManager, preferences)
 const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasController);
 const resizeActionHandler = new ResizeActionHandler(actionManager, canvasController);
@@ -76,10 +74,10 @@ function App() {
   if (canvasRef.current) {
     canvasController.setCanvas(canvasRef.current);
     actionManager.setCanvas(canvasController);
-    downloader.canvas = canvasController;
   }
 
   const updateActionHistory = () => {
+    // Todo
     const updatedHistory = actionManager.actionQueue.map((action) => {
       return {
         title: action.title,
@@ -227,8 +225,10 @@ function App() {
         onDownloadAsPNG={downloadHandler.handleDownloadAsPNG}
         onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
         onDownloadAsJPEG={downloadHandler.handleDownloadAsJPEG}
+        onDownloadProject={downloadHandler.handleDownloadProject}
 
         onLoadImage={loadActionHandler.handleImageSelect}
+        onProjectLoad={loadActionHandler.handleProjectLoad}
         handleUpscale={loadActionHandler.handleUpscaleImage}
 
         handleBrightness={filterActionHandler.handleBrightness}

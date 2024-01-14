@@ -46,4 +46,12 @@ export default class Action {
         this.data = null;
         this.canvas = null;
     }
+
+    getSaveData() {
+        return {
+            type: this.type,
+            data: this.data,
+            description: this.description
+        }
+    }
 }

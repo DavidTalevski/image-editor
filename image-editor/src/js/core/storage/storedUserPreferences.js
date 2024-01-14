@@ -12,10 +12,7 @@ const StoredUserPreferences = {
     sepia: 0,
     blur: 0,
     invert: 0,
-    /**
-     * @type {import("../snapshots/snapshot").Snapshot[]}
-     */
-    snapshots: []
+    savedActions: []
 }
 
 export default StoredUserPreferences

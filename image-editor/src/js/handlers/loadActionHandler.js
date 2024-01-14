@@ -8,12 +8,13 @@ export default class LoadActionHandler {
     /**
      * @param {ActionManager} actionManager 
      * @param {UserPreferences} preferences 
-     * @param {CanvasController} canvas
      */
-    constructor(actionManager, preferences, canvas) {
+    constructor(actionManager, preferences) {
+        /** @private */
         this.actionManager = actionManager;
+
+        /** @private */
         this.preferences = preferences;
-        this.canvas = canvas;
     }
 
     /**
@@ -41,7 +42,7 @@ export default class LoadActionHandler {
      * @param {import("../core/action/actions/upscaleAction/upscaleActionData").UpscaleSettings} object 
      */
     handleUpscaleImage = async (object) => {
-        const canvasBase64 = this.canvas.getSaveData("jpeg");
+        const canvasBase64 = this.actionManager.canvas.getSaveData("jpeg");
         const MD5Hash = new MD5HashGenerator().generateMD5Hash(canvasBase64);
 
         const data = {
@@ -53,5 +54,30 @@ export default class LoadActionHandler {
         const action = this.actionManager.add.upscaleAction(data);
 
         await this.actionManager.updateAction(action, data);
+    }
+
+    handleProjectLoad = (file) => {
+        // Use FileReader to read the contents of the JSON file
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+            try {
+                // Parse the JSON data
+                const jsonData = JSON.parse(event.target.result);
+
+                this.actionManager.removeAllActions();
+                this.actionManager.loadSavedActions(jsonData);
+                // TODO
+                this.actionManager.executeAllActionsBetween(0, this.actionManager.actionQueue.length - 1);
+
+                // Now you can use the jsonData as a usable object
+                console.log('Parsed JSON data:', jsonData);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        };
+
+        // Read the contents of the JSON file
+        reader.readAsText(file);
     }
 }

@@ -1,23 +1,27 @@
-import ImageDownloader from "../core/downloader/imageDownloader";
+import ActionManager from "../core/action/actionManager";
+import Downloader from "../core/downloader/downloader";
 import UserPreferences from "../core/storage/userPreferences";
 
 class ImageDownloadHandler {
 
     /**
-     * @param {ImageDownloader} downloader 
+     * @param {ActionManager} actionManager
      * @param {UserPreferences} preferences 
      */
-    constructor(downloader, preferences) {
+    constructor(actionManager, preferences) {
         /** @private */
-        this.downloader = downloader;
+        this.downloader = new Downloader(actionManager.canvas);
 
         /** @private */
         this.preferences = preferences;
+
+        /** @private */
+        this.actionManager = actionManager;
     }
 
     /** @private */
     downloadImage(fileName, format) {
-        this.downloader.download(fileName, format, this.preferences.getPreference("imageQuality"));
+        this.downloader.downloadCanvas(fileName, format, this.preferences.getPreference("imageQuality"));
     };
 
     handleDownloadAsPNG = (fileName) => {
@@ -31,6 +35,11 @@ class ImageDownloadHandler {
     handleDownloadAsJPEG = (fileName) => {
         this.downloadImage(fileName, "jpeg");
     };
+
+    handleDownloadProject = (fileName) => {
+        const data = JSON.stringify(this.actionManager.getActionSaveData(), null, 2);
+        this.downloader.downloadJSON(fileName, data);
+    }
 }
 
 export default ImageDownloadHandler;
