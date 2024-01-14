@@ -173,7 +173,10 @@ function App() {
 
   return (
     <div className="app">
-      <TabListComponent onTabSelect={handleTabSelect} />
+      <TabListComponent
+        onTabSelect={handleTabSelect}
+        selectedTab={selectedTab}
+      />
 
       <div style={{
         position: 'relative',

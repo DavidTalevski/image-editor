@@ -168,4 +168,15 @@ export default class CanvasController extends EventEmitter {
         if (!this.canvas) return;
         return this.canvas.toDataURL(`image/${format}`, quality);
     }
+
+    /**
+     * @returns {Promise<Blob>}
+     */
+    getDataAsBlob() {
+        return new Promise((resolve, reject) => {
+            this.canvas.toBlob((blob) => {
+                resolve(blob);
+            });
+        })
+    }
 }

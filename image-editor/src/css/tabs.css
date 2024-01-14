@@ -62,3 +62,18 @@
   font-weight: bold;
   letter-spacing: 0.5px; /* Adjust the value as needed */
 }
+
+.tab-button.selected {
+  background-color: #347c38; /* Set your selected tab background color */
+  transform: scale(1.05);
+}
+
+.tab-button.selected:hover {
+  background-color: #317434;
+  transform: scale(1.05);
+}
+
+.tab-button.selected:active {
+  background-color: #285f2a;
+  transform: scale(0.95);
+}

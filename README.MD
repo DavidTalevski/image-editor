@@ -36,7 +36,9 @@
 - [X] Fix cancel button in crop and resize
 - [X] Fix issues when canvas is empty and no image is loaded
 - [X] Add an animation when a new history card is created
-- [ ] Add logic for selected tab
+- [X] Entering resize mode causes [Violation] 'click' handler took 239ms
+- [X] Add logic for selected tab
+- [X] Crop or resize are selected even after canceling
 - [ ] Add css for upscale panel
 - [ ] Add animations when the action panel changes
 - [ ] Responsiveness
