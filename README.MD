@@ -26,6 +26,7 @@
 ### Advanced Features
 
 - [X] Server Image Caching
+- [X] Saving and loading a project
 
 ### To do
 
@@ -39,7 +40,7 @@
 - [X] Entering resize mode causes [Violation] 'click' handler took 239ms
 - [X] Add logic for selected tab
 - [X] Crop or resize are selected even after canceling
-- [X] Save project and load after
-- [ ] Add css for upscale panel
+- [X] Add css for upscale panel
 - [ ] Add animations when the action panel changes
+- [ ] Display image resolution
 - [ ] Responsiveness

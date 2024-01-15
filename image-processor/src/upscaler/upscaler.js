@@ -10,8 +10,10 @@ const OPTIONS = upscalerConfig;
 class Upscaler {
     // TODO JSDOC
     async upscale(input_path, output_path, settings) {
-        // imeto da mu go napram so opcite treba
         console.log("Upscaling image:", input_path);
+
+        // warcrime
+        if (settings.mode == "both") settings.mode = "noise-scale";
 
         const upscaled_path = this.getTemporaryFilePath(output_path, 1);
 

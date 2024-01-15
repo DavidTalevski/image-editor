@@ -128,21 +128,6 @@
   box-sizing: border-box;
 }
 
-.upscaler-options label {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.scale-numbers {
-  display: flex;
-}
-
-.scale-options label  {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.scale-options label,
 .anime-options label {
     display: block;
     margin-bottom: 8px;
@@ -227,4 +212,106 @@
 .confirm-button:hover,
 .cancel-button:hover {
   background-color: #0056b3;
+}
+
+.custom-radio {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-radio input {
+  opacity: 0;
+  position: absolute;
+}
+
+.custom-radio span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s ease-out;
+}
+
+.custom-radio input:checked + span {
+  background-color: #009bcf;
+  border-color: #333;
+  transform: scale(1.1); /* Add a slight scale effect on checked */
+}
+
+.upscaler-header {
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.custom-radio.scale-numbers {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Adjust as needed */
+}
+
+.custom-radio.scale-numbers label {
+  flex: 1;
+  margin: 0 5px; /* Adjust as needed */
+}
+
+.upscaler-options,
+.scale-numbers,
+.scale-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px; /* Adjust as needed */
+}
+
+.custom-radio {
+  flex: 1;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.custom-radio:last-child {
+  margin-right: 0;
+}
+.radio-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.radio-option div {
+  display: flex;
+  align-items: center;
+}
+
+.radio-option input {
+  margin-right: 8px; /* Adjust as needed for spacing between circle and text */
+}
+
+.radio-option span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s ease-out;
+}
+
+.radio-option input:checked + span {
+  background-color: #009bcf;
+  border-color: #333;
+  transform: scale(1.1); /* Add a slight scale effect on checked */
+}
+
+.label-text {
+  margin-top: 4px; /* Adjust as needed for spacing between circle and text */
+  margin-left: -8px;
 }
