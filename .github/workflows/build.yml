@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
      env:
-      CI: ""
+      CI: false
 
     steps:
     - name: Checkout Repository
