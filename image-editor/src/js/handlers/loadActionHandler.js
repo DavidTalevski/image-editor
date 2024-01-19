@@ -53,7 +53,13 @@ export default class LoadActionHandler {
 
         const action = this.actionManager.add.upscaleAction(data);
 
-        await this.actionManager.updateAction(action, data);
+        try {
+            await this.actionManager.updateAction(action, data);
+        } catch (e) {
+            console.log(e);
+            this.actionManager.emit(this.actionManager.events.ACTION_UPDATED, action);
+            this.actionManager.removeLastAction();
+        }
     }
 
     handleProjectLoad = (file) => {
