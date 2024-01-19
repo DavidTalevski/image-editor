@@ -19,11 +19,16 @@ class ImageDownloadHandler {
         this.actionManager = actionManager;
     }
 
+
     /** @private */
     downloadImage(fileName, format) {
         const q = this.preferences.getPreference("imageQuality");
         this.downloader.downloadCanvas(this.actionManager.canvas, fileName, format, q);
     };
+
+    handleSetCompression = (compressionlevel) => {
+        preferences.setPreference("imageQuality", compressionLevel / 100);
+    }
 
     handleDownloadAsPNG = (fileName) => {
         this.downloadImage(fileName, "png");

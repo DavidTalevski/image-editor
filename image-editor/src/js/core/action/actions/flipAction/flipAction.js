@@ -26,7 +26,6 @@ export default class FlipAction extends Action {
     }
 
     flipCanvasHorizontally() {
-
         const context = this.canvas.getContext();
 
         context.save();

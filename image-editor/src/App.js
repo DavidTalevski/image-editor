@@ -1,6 +1,5 @@
-// App.js
 import React, { useState, useRef, useEffect } from 'react';
-import './css/App.css';
+import './css/app.css';
 import './css/tabs.css';
 import './css/canvas.css';
 import './css/panels.css';
@@ -43,8 +42,6 @@ const actionHistoryHandler = new ActionHistoryHandler(actionManager, canvasContr
 const resizeActionHandler = new ResizeActionHandler(actionManager, canvasController);
 const cropActionHandler = new CropActionHandler(actionManager, canvasController);
 
-window.ac = actionManager;
-
 function App() {
   const canvasRef = useRef(null);
   const [selectedTab, setSelectedTab] = useState(null);
@@ -77,13 +74,11 @@ function App() {
   }
 
   const updateActionHistory = () => {
-    // Todo
     const updatedHistory = actionManager.actionQueue.map((action) => {
       return {
         title: action.title,
         description: action.description,
-        isActive: action.isActive(),
-        icon: "placeholder"
+        isActive: action.isActive()
       };
     });
 
@@ -91,18 +86,16 @@ function App() {
   };
 
   useEffect(() => {
-    const onActionCreated = (action) => {
+    const onActionCreated = () => {
       updateActionHistory();
       setResetFilters(true);
     }
 
     const actionsStarted = () => {
-      console.log("actionsStarted");
       setIsLoading(true);
     }
 
     const actionExecuted = () => {
-      console.log("actionsExecuted");
       updateActionHistory();
       setIsLoading(false);
     }
@@ -148,26 +141,19 @@ function App() {
   const onSaveCrop = () => {
     cropActionHandler.saveCrop();
     setCropMode(false);
-    // todo
     setSelectedTab(null);
   }
 
   const onSaveResize = () => {
     resizeActionHandler.saveResize();
     setResizeMode(false);
-    // todo
     setSelectedTab(null);
   }
 
   const handleResize = (width, height) => {
-    if (inResizeMode) {
-      resizeActionHandler.handleResize(width, height)
-    }
+    if (!inResizeMode) return;
+    resizeActionHandler.handleResize(width, height)
   }
-
-  const handleSetCompression = (compressionLevel) => {
-    preferences.setPreference("imageQuality", compressionLevel / 100);
-  };
 
   return (
     <div className="app">
@@ -184,9 +170,7 @@ function App() {
         minHeight: 300,
       }}>
 
-        {isLoading && (
-          <LoadingComponent />
-        )}
+        {isLoading && (<LoadingComponent />)}
 
         <CanvasComponent ref={canvasRef} />
 
@@ -209,7 +193,6 @@ function App() {
 
       <ActionPanel
         selectedTab={selectedTab}
-        onSetCompression={handleSetCompression}
         defaultCompression={preferences.getPreference("imageQuality") * 100}
         resetFilters={resetFilters}
 
@@ -222,6 +205,7 @@ function App() {
         blur={preferences.getPreference("blur")}
         invert={preferences.getPreference("invert")}
 
+        onSetCompression={downloadHandler.handleSetCompression}
         onDownloadAsPNG={downloadHandler.handleDownloadAsPNG}
         onDownloadAsWebP={downloadHandler.handleDownloadAsWebP}
         onDownloadAsJPEG={downloadHandler.handleDownloadAsJPEG}
