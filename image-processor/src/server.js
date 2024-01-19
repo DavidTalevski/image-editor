@@ -13,6 +13,11 @@ app.use(bodyParser.json({ limit: '20mb' }));
 
 const imagesFolder = path.join(__dirname, '../images');
 
+// Check if the images folder exists, if not create an empty images folder
+if (!fs.existsSync(imagesFolder)) {
+    fs.mkdirSync(imagesFolder);
+}
+
 app.post('/upscale', async (req, res) => {
     try {
         const imageData = req.body.image;
