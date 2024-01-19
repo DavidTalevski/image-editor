@@ -26,8 +26,8 @@ class ImageDownloadHandler {
         this.downloader.downloadCanvas(this.actionManager.canvas, fileName, format, q);
     };
 
-    handleSetCompression = (compressionlevel) => {
-        preferences.setPreference("imageQuality", compressionLevel / 100);
+    handleSetCompression = (compressionLevel) => {
+        this.preferences.setPreference("imageQuality", compressionLevel / 100);
     }
 
     handleDownloadAsPNG = (fileName) => {

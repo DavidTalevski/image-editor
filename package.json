@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm --prefix image-processor start\" \"npm --prefix image-editor start\"",
+    "build": "npm --prefix image-editor run build",
+    "predeploy": "npm --prefix image-editor run build",
+    "deploy": "gh-pages -d image-editor/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "David Talevski",
   "license": "ISC",
-  "workspaces": ["image-editor", "image-processor"],
+  "workspaces": [
+    "image-editor",
+    "image-processor"
+  ],
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "gh-pages": "^6.1.1"
   }
 }
