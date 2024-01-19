@@ -10,7 +10,7 @@ class ImageDownloadHandler {
      */
     constructor(actionManager, preferences) {
         /** @private */
-        this.downloader = new Downloader(actionManager.canvas);
+        this.downloader = new Downloader();
 
         /** @private */
         this.preferences = preferences;
@@ -21,7 +21,8 @@ class ImageDownloadHandler {
 
     /** @private */
     downloadImage(fileName, format) {
-        this.downloader.downloadCanvas(fileName, format, this.preferences.getPreference("imageQuality"));
+        const q = this.preferences.getPreference("imageQuality");
+        this.downloader.downloadCanvas(this.actionManager.canvas, fileName, format, q);
     };
 
     handleDownloadAsPNG = (fileName) => {

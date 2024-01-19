@@ -23,14 +23,18 @@ export default class ResizeActionHandler {
     }
 
     enterResizeMode = async () => {
-        // toDataUrl isnt async so it blocks rendering
-        const saveData = await this.canvas.getDataAsBlob();
+        try {
+            // toDataUrl isnt async so it blocks rendering
+            const saveData = await this.canvas.getDataAsBlob();
 
-        if (!saveData) {
-            return;
+            if (!saveData) {
+                return;
+            }
+
+            this.image = await this.loader.loadFromBlob(saveData);
+        } catch (e) {
+            console.log(e);
         }
-
-        this.image = await this.loader.loadFromBlob(saveData);
     }
 
     cancelResizeMode = () => {

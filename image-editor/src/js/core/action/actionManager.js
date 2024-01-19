@@ -192,7 +192,8 @@ export default class ActionManager extends EventEmitter {
         for (let i = endOrderId; i >= startOrderId; i--) {
             const action = this.actionQueue[i];
 
-            if (action.type === ActionType.LOAD) return i;
+            if (action.type === ActionType.LOAD ||
+                action.type === ActionType.UPSCALE) return i;
         }
 
         return -1;

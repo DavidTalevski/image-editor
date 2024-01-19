@@ -7,8 +7,21 @@ const upscalerConfig = require('./upscalerConfig.js');
 const waifu2x = Waifu2x.default;
 const OPTIONS = upscalerConfig;
 
+/**
+ * @typedef UpscaleSettings
+ * @property {'real-esrgan' | 'waifu2x'} upscalerType - The type of upscaler, either 'ESRGAN' or 'ANIME'.
+ * @property {2 | 3 | 4} upscaleFactor - The factor by which the image should be upscaled (2, 3, or 4).
+ * @property {'noise' | 'scale' | 'both'} mode - The mode for ANIME upscaler, can be 'noise', 'scale', or 'both'.
+ * @property {0 | 1 | 2 | 3} noiseLevel - The noise level for ANIME upscaler, a value between 0 and 3.
+ */
+
 class Upscaler {
-    // TODO JSDOC
+
+    /**
+     * @param {string} input_path 
+     * @param {string} output_path 
+     * @param {UpscaleSettings} settings 
+     */
     async upscale(input_path, output_path, settings) {
         console.log("Upscaling image:", input_path);
 
@@ -39,6 +52,11 @@ class Upscaler {
         fs.unlinkSync(upscaled_path);
     }
 
+    /**
+     * @param {string} input_path 
+     * @param {string} custom 
+     * @returns {string}
+     */
     getTemporaryFilePath(input_path, custom) {
         const extension = path.extname(input_path);
         const folder_path = input_path.slice(0, -(extension.length));

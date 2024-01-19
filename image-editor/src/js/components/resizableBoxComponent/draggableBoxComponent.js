@@ -50,8 +50,7 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
                 minConstraints={[100, 100]}
                 onResize={handleResize}
             >
-                <div style={boxStyle}>
-                </div>
+                <div style={boxStyle} />
             </ResizableBox>
         </Draggable>
     );

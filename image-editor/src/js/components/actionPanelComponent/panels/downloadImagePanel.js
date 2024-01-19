@@ -1,12 +1,20 @@
 // DownloadImagePanel.js
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileImage, faFileArchive } from '@fortawesome/free-solid-svg-icons';
+import CompressionControl from '../../utilityComponents/compressionControl';
+import FileNameInput from '../../utilityComponents/fileNameInput';
+import PanelButton from '../../utilityComponents/panelButton';
 
-const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPEG, onDownloadProject, onSetCompression, defaultCompression }) => {
-
+const DownloadImagePanel = ({
+    onDownloadAsPNG,
+    onDownloadAsWebP,
+    onDownloadAsJPEG,
+    onDownloadProject,
+    onSetCompression,
+    defaultCompression = 1,
+}) => {
     const [fileName, setFileName] = useState('');
-    const [compressionLevel, setCompressionLevel] = useState(defaultCompression || 1);
+    const [compressionLevel, setCompressionLevel] = useState(defaultCompression);
 
     useEffect(() => {
         onSetCompression(compressionLevel);
@@ -14,35 +22,13 @@ const DownloadImagePanel = ({ onDownloadAsPNG, onDownloadAsWebP, onDownloadAsJPE
 
     return (
         <div className="action-panel">
-            <div className="compression-control">
-                <label>Quality {compressionLevel}%</label>
-                <input className="custom-slider" type="range" min="1" max="100" value={compressionLevel} onChange={(e) => setCompressionLevel(e.target.value)} />
-            </div>
+            <CompressionControl compressionLevel={compressionLevel} setCompressionLevel={setCompressionLevel} />
+            <FileNameInput fileName={fileName} setFileName={setFileName} />
 
-            <div className="file-name-input">
-                <label>File Name:</label>
-                <input type="text" value={fileName} onChange={(e) => setFileName(e.target.value)} />
-            </div>
-
-            <button className="panel-button" onClick={() => onDownloadAsPNG(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
-                <span className="panel-text">Download as PNG</span>
-            </button>
-
-            <button className="panel-button" onClick={() => onDownloadAsWebP(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
-                <span className="panel-text">Download as WebP</span>
-            </button>
-
-            <button className="panel-button" onClick={() => onDownloadAsJPEG(fileName)}>
-                <FontAwesomeIcon icon={faFileImage} className="panel-icon" />
-                <span className="panel-text">Download as JPEG</span>
-            </button>
-
-            <button className="panel-button" onClick={() => onDownloadProject(fileName)}>
-                <FontAwesomeIcon icon={faFileArchive} className="panel-icon" />
-                <span className="panel-text">Download Project</span>
-            </button>
+            <PanelButton onClick={() => onDownloadAsPNG(fileName)} icon={faFileImage} text="Download as PNG" />
+            <PanelButton onClick={() => onDownloadAsWebP(fileName)} icon={faFileImage} text="Download as WebP" />
+            <PanelButton onClick={() => onDownloadAsJPEG(fileName)} icon={faFileImage} text="Download as JPEG" />
+            <PanelButton onClick={() => onDownloadProject(fileName)} icon={faFileArchive} text="Download Project" />
         </div>
     );
 };

@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
@@ -28,10 +27,6 @@ app.post('/upscale', async (req, res) => {
         }
 
         const buffer = Buffer.from(imageData, 'base64');
-
-        // const upscaledImageBuffer = await sharp(buffer)
-        //     .resize({ width: 1024, height: 1024 })
-        //     .toBuffer();
 
         fs.writeFileSync(tempImagePath, buffer);
 

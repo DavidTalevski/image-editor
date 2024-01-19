@@ -1,3 +1,49 @@
+/* ActionHistoryPanelComponent.css */
+
+/* Action History Panel Component */
+.action-history-panel {
+  max-height: 768px;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.panel-header {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clear-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.clear-button:hover {
+  background-color: #45a049;
+}
+
+.panel-text {
+  font-weight: bold;
+}
+
+.history-panel-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 15px;
+  color: #000; /* Set your desired text color */
+  margin-bottom: 10px; /* Adjust spacing as needed */
+}
+
+
+/* Action History Card Component */
 .action-history-card {
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -51,5 +97,12 @@
   }
   to {
     opacity: 0.4;
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1000px) {
+  .action-history-panel {
+    display: none; /* Make the panel disappear on smaller screens */
   }
 }

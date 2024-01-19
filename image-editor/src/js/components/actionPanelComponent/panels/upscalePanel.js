@@ -2,21 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import UpscalerType from '../../../enum/upscalerType.enum';
-
-const RadioOption = ({ label, value, checked, onChange }) => (
-    <label className="radio-option">
-        <div>
-            <input
-                type="radio"
-                value={value}
-                checked={checked}
-                onChange={onChange}
-            />
-            <span></span>
-        </div>
-        <div className="label-text">{label}</div>
-    </label>
-);
+import RadioOption from '../../utilityComponents/radioOption';
 
 const UpscalePanel = ({ handleUpscale }) => {
     const [options, setOptions] = useState({

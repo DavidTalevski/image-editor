@@ -1,8 +1,7 @@
 // LoadImagePanel.js
 import React, { useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faPaste, faExternalLink, faFileUpload } from '@fortawesome/free-solid-svg-icons';
-
+import PanelButton from '../../utilityComponents/panelButton';
 import LoadImageActionType from '../../../core/enum/loadImageActionType.enum';
 
 const LoadImagePanel = ({ onLoadImage, onProjectLoad }) => {
@@ -39,42 +38,13 @@ const LoadImagePanel = ({ onLoadImage, onProjectLoad }) => {
 
     return (
         <div className="action-panel">
-            <div className="file-upload">
-                <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    ref={fileInputRef}
-                    onChange={handleFileChange}
-                />
-                <input
-                    type="file"
-                    accept=".json"
-                    style={{ display: 'none' }}
-                    ref={jsonFileInputRef}
-                    onChange={handleJsonFileChange}
-                />
-            </div>
+            <input type="file" accept="image/*" style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
+            <input type="file" accept=".json" style={{ display: 'none' }} ref={jsonFileInputRef} onChange={handleJsonFileChange} />
 
-            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.UPLOAD)}>
-                <FontAwesomeIcon icon={faUpload} className="panel-icon" />
-                <span className="panel-text">Upload Image</span>
-            </button>
-
-            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.URL)}>
-                <FontAwesomeIcon icon={faExternalLink} className="panel-icon" />
-                <span className="panel-text">Load from URL</span>
-            </button>
-
-            <button className="panel-button" onClick={() => handleLoadImage(LoadImageActionType.CLIPBOARD)}>
-                <FontAwesomeIcon icon={faPaste} className="panel-icon" />
-                <span className="panel-text">Paste Image</span>
-            </button>
-
-            <button className="panel-button" onClick={() => handleProjectLoad()}>
-                <FontAwesomeIcon icon={faFileUpload} className="panel-icon" />
-                <span className="panel-text">Load Project</span>
-            </button>
+            <PanelButton onClick={() => handleLoadImage(LoadImageActionType.UPLOAD)} icon={faUpload} text="Upload Image" />
+            <PanelButton onClick={() => handleLoadImage(LoadImageActionType.URL)} icon={faExternalLink} text="Load from URL" />
+            <PanelButton onClick={() => handleLoadImage(LoadImageActionType.CLIPBOARD)} icon={faPaste} text="Paste Image" />
+            <PanelButton onClick={handleProjectLoad} icon={faFileUpload} text="Load Project" />
 
         </div>
     );

@@ -19,9 +19,9 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked })
     };
 
     return (
-        <div style={{ maxHeight: '768px', overflowY: 'auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h2>Action History Panel</h2>
+        <div className="action-history-panel">
+            <div className="panel-header">
+                <h2 className="history-panel-title">Action History Panel</h2>
             </div>
 
             <button className="clear-button" onClick={handleClear}>

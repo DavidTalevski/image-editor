@@ -41,6 +41,4 @@
 - [X] Add logic for selected tab
 - [X] Crop or resize are selected even after canceling
 - [X] Add css for upscale panel
-- [ ] Add animations when the action panel changes
-- [ ] Display image resolution
 - [ ] Responsiveness
