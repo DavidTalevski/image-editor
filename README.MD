@@ -4,6 +4,10 @@
 
 Web app for editing and enhancing images.
 
+Demo: https://davidtalevski.github.io/image-editor/
+
+Note: The upscaling functionalities do not work in the demo.
+
 ## Installation
 
 ```
