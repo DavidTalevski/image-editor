@@ -1,5 +1,16 @@
 # Image Processing App
 
+## Overview
+
+Welcome to the Image Processing App, a web app for editing and enhancing images.
+
+## Installation
+
+```
+    npm install
+    npm run start
+```
+
 ## Functionalities
 
 - [x] Load Image
