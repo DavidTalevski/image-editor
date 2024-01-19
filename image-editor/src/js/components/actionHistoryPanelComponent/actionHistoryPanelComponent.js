@@ -28,21 +28,23 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked })
                 <span className="panel-text">Clear</span>
             </button>
 
-            {showConfirmation && (
-                <ClearConfirmationPopup
-                    onConfirm={handleConfirmClear}
-                    onCancel={handleCancelClear}
-                />
-            )}
+            <div className="action-history-panel-slider">
+                {showConfirmation && (
+                    <ClearConfirmationPopup
+                        onConfirm={handleConfirmClear}
+                        onCancel={handleCancelClear}
+                    />
+                )}
 
-            {history.slice().reverse().map((action, index, array) => (
-                <ActionHistoryCard
-                    key={array.length - index - 1}
-                    id={array.length - index - 1}
-                    properties={action}
-                    onClick={onCardClicked}
-                />
-            ))}
+                {history.slice().reverse().map((action, index, array) => (
+                    <ActionHistoryCard
+                        key={array.length - index - 1}
+                        id={array.length - index - 1}
+                        properties={action}
+                        onClick={onCardClicked}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

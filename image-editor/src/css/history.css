@@ -1,8 +1,8 @@
 /* ActionHistoryPanelComponent.css */
 
 /* Action History Panel Component */
-.action-history-panel {
-  max-height: 768px;
+.action-history-panel-slider {
+  max-height: 85%;
   overflow-y: auto;
   text-align: center;
 }

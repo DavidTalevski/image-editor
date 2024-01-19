@@ -33,6 +33,7 @@ export default class LoadActionHandler {
             await this.actionManager.updateAction(action, data);
         } catch (e) {
             console.log(e);
+            alert("Unable to load image!")
             this.actionManager.emit(this.actionManager.events.ACTION_UPDATED, action);
             this.actionManager.removeLastAction()
         }
@@ -57,6 +58,7 @@ export default class LoadActionHandler {
             await this.actionManager.updateAction(action, data);
         } catch (e) {
             console.log(e);
+            alert("Unable to upscale image!")
             this.actionManager.emit(this.actionManager.events.ACTION_UPDATED, action);
             this.actionManager.removeLastAction();
         }
