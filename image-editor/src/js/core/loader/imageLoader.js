@@ -88,6 +88,8 @@ export class ImageLoader {
         return new Promise(async (resolve, reject) => {
             const image = new Image();
 
+            image.crossOrigin = "anonymous";
+
             image.onerror = (e) => {
                 console.log(this.TAG, "Failed loading image:", e);
                 reject(ImageLoader.Error.FAILED_LOADING_FILE);
