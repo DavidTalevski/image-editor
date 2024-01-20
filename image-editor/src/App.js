@@ -6,7 +6,6 @@ import './css/panels.css';
 import "./css/resizable.css";
 import "./css/history.css";
 
-import CanvasResolution from './js/settings/canvasResolution';
 import PanelType from './js/enum/panelType.enum';
 
 import CanvasComponent from './js/components/canvasComponent/canvasComponent';
@@ -44,6 +43,8 @@ const cropActionHandler = new CropActionHandler(actionManager, canvasController)
 
 function App() {
   const canvasRef = useRef(null);
+  const workspaceContainerRef = useRef(null);
+
   const [selectedTab, setSelectedTab] = useState(null);
   const [history, setHistory] = useState([]);
 
@@ -162,13 +163,7 @@ function App() {
         selectedTab={selectedTab}
       />
 
-      <div style={{
-        position: 'relative',
-        width: CanvasResolution.WIDTH,
-        height: CanvasResolution.HEIGHT,
-        minWidth: 300,
-        minHeight: 300,
-      }}>
+      <div ref={workspaceContainerRef} className='workspace-container'>
 
         {isLoading && (<LoadingComponent />)}
 
@@ -176,9 +171,10 @@ function App() {
 
         {inResizeMode && (
           <ResizableBoxComponent
-            width={canvasController.getClientWidth()}
-            height={canvasController.getClientHeight()}
+            initialWidth={canvasController.getClientWidth()}
+            initialHeight={canvasController.getClientHeight()}
             handleResize={handleResize}
+            containerRef={workspaceContainerRef}
           />
         )}
 
@@ -187,6 +183,7 @@ function App() {
             initialWidth={canvasController.getClientWidth()}
             initialHeight={canvasController.getClientHeight()}
             onBoxChange={cropActionHandler.updateBox}
+            containerRef={workspaceContainerRef}
           />
         )}
       </div>

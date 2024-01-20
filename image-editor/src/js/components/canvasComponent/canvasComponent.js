@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import CanvasResolution from '../../settings/canvasResolution';
 
 const CanvasComponent = React.forwardRef((props, ref) => {
     const canvasRef = useRef(null);
@@ -12,17 +11,17 @@ const CanvasComponent = React.forwardRef((props, ref) => {
                     ref.current = canvas;
                 }
             }}
-            width={CanvasResolution.WIDTH} // Set your desired width
-            height={CanvasResolution.HEIGHT} // Set your desired height
-            className="canvas-container" // Apply the CSS class
+            width={"100%"}
+            height={"100%"}
+            className="canvas-container"
             style={{
-                position: "absolute",
+                position: "relative",
                 top: 0,
                 left: 0,
-                maxWidth: CanvasResolution.WIDTH,
-                maxHeight: CanvasResolution.HEIGHT
+                maxWidth: "100%",
+                maxHeight: "100%"
             }}
-        ></canvas>
+        ></canvas >
     );
 });
 

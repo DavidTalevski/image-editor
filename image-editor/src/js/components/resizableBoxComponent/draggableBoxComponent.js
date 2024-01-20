@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ResizableBox } from 'react-resizable';
 import Draggable from 'react-draggable';
-import CanvasResolution from '../../settings/canvasResolution';
 
-const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => {
+const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange, containerRef }) => {
     const [width, setWidth] = useState(initialWidth);
     const [height, setHeight] = useState(initialHeight);
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
+    const [maxConstraints, setMaxConstraints] = useState([1000, 1000]);
+
+    useEffect(() => {
+        const updateMaxConstraints = () => {
+            if (containerRef.current) {
+                const containerWidth = containerRef.current.clientWidth;
+                const containerHeight = containerRef.current.clientHeight;
+                setMaxConstraints([containerWidth, containerHeight]);
+            }
+        };
+
+        // Initial update
+        updateMaxConstraints();
+
+        // Update on window resize
+        window.addEventListener('resize', updateMaxConstraints);
+
+        // Cleanup on component unmount
+        return () => {
+            window.removeEventListener('resize', updateMaxConstraints);
+        };
+    }, [containerRef]);
 
     const handleDrag = (e, data) => {
         const { x, y } = data;
@@ -35,23 +56,29 @@ const DraggableBoxComponent = ({ initialWidth, initialHeight, onBoxChange }) => 
         backgroundColor: 'rgba(0, 0, 0, 0)',
         border: '2px solid #3498db',
         boxSizing: 'border-box',
+        position: 'relative',
+    };
+
+    const resizableBoxStyle = {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 2,
     };
 
     return (
-        <Draggable
-            bounds="parent"
-            cancel=".react-resizable-handle"
-            onDrag={handleDrag}
-        >
-            <ResizableBox
-                width={width}
-                height={height}
-                maxConstraints={[CanvasResolution.WIDTH, CanvasResolution.HEIGHT]}
-                minConstraints={[100, 100]}
-                onResize={handleResize}
-            >
-                <div style={boxStyle} />
-            </ResizableBox>
+        <Draggable bounds="parent" cancel=".react-resizable-handle" onDrag={handleDrag}>
+            <div style={resizableBoxStyle}>
+                <ResizableBox
+                    width={width}
+                    height={height}
+                    maxConstraints={maxConstraints}
+                    minConstraints={[100, 100]}
+                    onResize={handleResize}
+                >
+                    <div style={boxStyle} />
+                </ResizableBox>
+            </div>
         </Draggable>
     );
 };

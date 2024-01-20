@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ResizableBox } from 'react-resizable';
-import CanvasResolution from '../../settings/canvasResolution';
 
-const ResizableBoxComponent = ({ width, height, handleResize }) => {
+const ResizableBoxComponent = ({ initialWidth, initialHeight, handleResize, containerRef }) => {
+    const [maxConstraints, setMaxConstraints] = useState([1000, 1000]);
+
+    useEffect(() => {
+        const updateMaxConstraints = () => {
+            if (containerRef.current) {
+                const containerWidth = containerRef.current.clientWidth;
+                const containerHeight = containerRef.current.clientHeight;
+                setMaxConstraints([containerWidth, containerHeight]);
+            }
+        };
+        updateMaxConstraints();
+
+        window.addEventListener('resize', updateMaxConstraints);
+
+        return () => {
+            window.removeEventListener('resize', updateMaxConstraints);
+        };
+    }, [containerRef]);
+
     const onResize = (e, { size }) => {
         if (handleResize) handleResize(size.width, size.height);
     };
@@ -15,13 +33,21 @@ const ResizableBoxComponent = ({ width, height, handleResize }) => {
         boxSizing: 'border-box',
     };
 
+    const resizableBoxStyle = {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 2,
+    };
+
     return (
-        <div>
+        <div style={resizableBoxStyle}>
             <ResizableBox
-                width={width}
-                height={height}
-                maxConstraints={[CanvasResolution.WIDTH, CanvasResolution.HEIGHT]}
-                onResize={onResize}>
+                width={initialWidth}
+                height={initialHeight}
+                maxConstraints={maxConstraints}
+                onResize={onResize}
+            >
                 <div style={boxStyle} />
             </ResizableBox>
         </div>

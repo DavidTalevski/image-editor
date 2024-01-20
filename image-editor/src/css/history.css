@@ -99,10 +99,3 @@
     opacity: 0.4;
   }
 }
-
-/* Responsive Styles */
-@media screen and (max-width: 1000px) {
-  .action-history-panel {
-    display: none; /* Make the panel disappear on smaller screens */
-  }
-}

@@ -3,7 +3,7 @@
 }
 
 .action-panel {
-  width: 250px
+  width: 250px;
 }
   
 .panel-button {
@@ -57,6 +57,7 @@
 }
 
 .right-panel {
+    min-width: 250px;
     background-color: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -314,11 +315,4 @@
 .label-text {
   margin-top: 4px; /* Adjust as needed for spacing between circle and text */
   margin-left: -8px;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 820px) {
-  .right-panel {
-    display: none; /* Make the panel disappear on smaller screens */
-  }
 }

@@ -1,7 +1,6 @@
 .canvas-container {
-    border-left: 2px solid #ffffff; /* White border color on the left */
-    border-right: 2px solid #ffffff; /* White border color on the right */
-    transition: border-color 0.3s ease-in-out; /* Only the border-color effect */
+    border: 2px solid #000000; 
+    transition: border-color 0.3s ease-in-out;
 }
 
 .loading-container {
@@ -25,6 +24,14 @@
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite; /* Apply rotation animation */
+}
+
+.workspace-container {
+    position: relative;
+    min-width: 600px;
+    min-height: 600px;
+    height: 100%;
+    overflow: hidden;
 }
 
 @keyframes spin {

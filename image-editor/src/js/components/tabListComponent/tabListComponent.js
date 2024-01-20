@@ -18,7 +18,7 @@ const TabListComponent = ({ onTabSelect, selectedTab }) => {
 
     return (
         <div className="tab-container">
-            <h1 className="tab-title">Image Editor App</h1>
+            <h1 className="tab-title">Image Editor</h1>
             <div className="tab-list">
                 <LoadImageTab
                     onTabSelect={() => handleTabClick(PanelType.LOAD)}
