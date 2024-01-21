@@ -46,14 +46,12 @@ export default class LoadAction extends Action {
         }
 
         this.canvas.drawImage(this.image);
-    }
 
-    getSaveData() {
-        if (this.data.loadImageActionType != LoadImageActionType.URL) {
-            this.data.loadImageActionType = LoadImageActionType.URL;
-            this.data.imageData = this.imageToBase64(this.image);
-        }
-        return super.getSaveData();
+        // Ensures that the image gets saved so that even if the clipboard changes or the
+        // provided url for the image does not exist anymore or it cannot be accessed
+        // the image will be saved when reversing actions in history or saving the project
+        this.data.loadImageActionType = LoadImageActionType.URL;
+        this.data.imageData = this.imageToBase64(this.image);
     }
 
     imageToBase64(imgElement) {
