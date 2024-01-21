@@ -82,6 +82,7 @@ export default class LoadActionHandler {
                 console.log('Parsed JSON data:', jsonData);
             } catch (error) {
                 console.error('Error parsing JSON:', error);
+                alert("Unable to load project file!");
             }
         };
 

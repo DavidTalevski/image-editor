@@ -44,7 +44,7 @@ class ImageDownloadHandler {
 
     handleDownloadProject = (fileName) => {
         const data = JSON.stringify(this.actionManager.getActionSaveData(), null, 2);
-        this.downloader.downloadJSON(fileName, data);
+        this.downloader.downloadProject(fileName, data);
     }
 }
 

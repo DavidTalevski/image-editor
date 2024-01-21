@@ -39,7 +39,7 @@ const LoadImagePanel = ({ onLoadImage, onProjectLoad }) => {
     return (
         <div className="action-panel">
             <input type="file" accept="image/*" style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
-            <input type="file" accept=".json" style={{ display: 'none' }} ref={jsonFileInputRef} onChange={handleJsonFileChange} />
+            <input type="file" accept=".iep" style={{ display: 'none' }} ref={jsonFileInputRef} onChange={handleJsonFileChange} />
 
             <PanelButton onClick={() => handleLoadImage(LoadImageActionType.UPLOAD)} icon={faUpload} text="Upload Image" />
             <PanelButton onClick={() => handleLoadImage(LoadImageActionType.URL)} icon={faExternalLink} text="Load from URL" />

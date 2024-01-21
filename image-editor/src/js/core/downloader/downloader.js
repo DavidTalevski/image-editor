@@ -31,17 +31,17 @@ export default class Downloader {
      * @param {string} fileName
      * @param {string} data 
      */
-    downloadJSON(fileName, data) {
+    downloadProject(fileName, data) {
         if (!fileName || fileName === "") fileName = "project";
         const blob = new Blob([data], { type: 'application/json' });
 
         const link = document.createElement('a');
 
-        link.download = `${fileName}.json`;
+        link.download = `${fileName}.iep`;
 
         link.href = URL.createObjectURL(blob);
 
-        console.log(this.TAG, "Downloading JSON:", `${fileName}.json`);
+        console.log(this.TAG, "Downloading PROJECT:", `${fileName}.iep`);
 
         document.body.appendChild(link);
 
