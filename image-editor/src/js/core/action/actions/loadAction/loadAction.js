@@ -36,7 +36,7 @@ export default class LoadAction extends Action {
         try {
             if (actionType == LoadImageActionType.UPLOAD) {
                 this.image = await this.loader.loadFromBlob(data);
-            } else if (actionType == LoadImageActionType.URL) {
+            } else if (actionType == LoadImageActionType.URL || actionType == LoadImageActionType.BASE64) {
                 this.image = await this.loader.loadFromUrl(data);
             } else if (actionType == LoadImageActionType.CLIPBOARD) {
                 this.image = await this.loader.loadFromClipboard();
@@ -50,8 +50,10 @@ export default class LoadAction extends Action {
         // Ensures that the image gets saved so that even if the clipboard changes or the
         // provided url for the image does not exist anymore or it cannot be accessed
         // the image will be saved when reversing actions in history or saving the project
-        this.data.loadImageActionType = LoadImageActionType.URL;
-        this.data.imageData = this.imageToBase64(this.image);
+        if (this.data.loadImageActionType != LoadImageActionType.BASE64) {
+            this.data.loadImageActionType = LoadImageActionType.BASE64;
+            this.data.imageData = this.imageToBase64(this.image);
+        }
     }
 
     imageToBase64(imgElement) {
