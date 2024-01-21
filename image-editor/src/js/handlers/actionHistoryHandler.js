@@ -25,6 +25,10 @@ class ActionHistoryHandler {
         this.canvas.clear();
     }
 
+    handleClearInactive = () => {
+        this.actionManager.removeInactiveActions();
+    }
+
 }
 
 export default ActionHistoryHandler;

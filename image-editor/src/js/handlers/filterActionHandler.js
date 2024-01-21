@@ -21,6 +21,8 @@ export default class FilterActionHandler {
             brightness: this.preferences.getPreference("brightness"),
         };
 
+        this.actionManager.removeInactiveActions();
+
         const action = this.actionManager.add.brightnessAction(data);
 
         await this.actionManager.updateAction(action, data);
@@ -35,6 +37,8 @@ export default class FilterActionHandler {
         const data = {
             contrast: this.preferences.getPreference("contrast"),
         };
+
+        this.actionManager.removeInactiveActions();
 
         const action = this.actionManager.add.contrastAction(data);
 
@@ -51,6 +55,8 @@ export default class FilterActionHandler {
             saturation: this.preferences.getPreference("saturation"),
         };
 
+        this.actionManager.removeInactiveActions();
+
         const action = this.actionManager.add.saturationAction(data);
 
         await this.actionManager.updateAction(action, data);
@@ -65,6 +71,8 @@ export default class FilterActionHandler {
         const data = {
             grayscale: this.preferences.getPreference("grayscale"),
         };
+
+        this.actionManager.removeInactiveActions();
 
         const action = this.actionManager.add.grayscaleAction(data);
 
@@ -81,6 +89,8 @@ export default class FilterActionHandler {
             hueRotationDegrees: this.preferences.getPreference("hueRotation"),
         };
 
+        this.actionManager.removeInactiveActions();
+
         const action = this.actionManager.add.hueRotationAction(data);
 
         await this.actionManager.updateAction(action, data);
@@ -95,6 +105,8 @@ export default class FilterActionHandler {
         const data = {
             sepia: this.preferences.getPreference("sepia"),
         };
+
+        this.actionManager.removeInactiveActions();
 
         const action = this.actionManager.add.sepiaAction(data);
 
@@ -111,6 +123,8 @@ export default class FilterActionHandler {
             blur: this.preferences.getPreference("blur"),
         };
 
+        this.actionManager.removeInactiveActions();
+
         const action = this.actionManager.add.blurAction(data);
 
         await this.actionManager.updateAction(action, data);
@@ -125,6 +139,8 @@ export default class FilterActionHandler {
         const data = {
             invert: this.preferences.getPreference("invert"),
         };
+
+        this.actionManager.removeInactiveActions();
 
         const action = this.actionManager.add.invertAction(data);
 

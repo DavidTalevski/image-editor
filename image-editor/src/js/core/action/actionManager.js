@@ -57,7 +57,7 @@ export default class ActionManager extends EventEmitter {
     addAction(action) {
         console.log(this.TAG, "Adding action");
 
-        this.removeUnactiveActions();
+        this.removeInactiveActions();
 
         this.actionQueue.push(action);
 
@@ -71,18 +71,14 @@ export default class ActionManager extends EventEmitter {
         return this.actionQueue[this.actionQueue.length - 1];
     }
 
-    /**
-     * Removes inactive actions from the action queue.
-     * Calls the destroy function for each inactive action.
-     */
-    removeUnactiveActions() {
-        this.actionQueue = this.actionQueue.filter(action => {
-            if (!action.isActive()) {
-                action.destroy();
-                return false;
-            }
-            return true;
-        });
+    removeInactiveActions() {
+        console.log(this.TAG, "Removing inactive actions");
+
+        for (let i = this.actionQueue.length - 1; i >= 0; i--) {
+            const currentAction = this.actionQueue[i];
+
+            if (!currentAction.isActive()) this.removeAction(i);
+        }
     }
 
     /**

@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import ActionHistoryCard from './actionHistoryCard';
 import ClearConfirmationPopup from './clearConfirmationComponent';
 
-const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked }) => {
+const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearAllClicked, onClearInactiveClicked }) => {
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const handleClear = () => {
-        setShowConfirmation(true);
+    const handleClearInactive = () => {
+        if (onClearInactiveClicked) onClearInactiveClicked();
     };
 
     const handleConfirmClear = () => {
-        if (onClearClicked) onClearClicked();
+        if (onClearAllClicked) onClearAllClicked();
         setShowConfirmation(false);
     };
 
@@ -24,8 +24,12 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearClicked })
                 <h2 className="history-panel-title">Action History Panel</h2>
             </div>
 
-            <button className="clear-button" onClick={handleClear}>
-                <span className="panel-text">Clear</span>
+            <button className="clear-button" onClick={handleClearInactive}>
+                <span className="panel-text">Clear Inactive</span>
+            </button>
+
+            <button className="clear-button" onClick={handleConfirmClear}>
+                <span className="panel-text">Clear All</span>
             </button>
 
             <div className="action-history-panel-slider">

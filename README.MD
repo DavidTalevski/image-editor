@@ -57,6 +57,7 @@ npm run start
 - [X] Crop or resize are selected even after canceling
 - [X] Add css for upscale panel
 - [X] Responsiveness
-- [ ] Updating filter action while action is inactive is bugged
+- [X] Add button to remove inactive actions
+- [X] Updating filter action while action is inactive is bugged
 - [X] Clicking filter slider instead of scrolling it causes issues
 - [X] Validate project files when loading
