@@ -56,12 +56,14 @@ function App() {
 
   // Reset the value back to false after the reset has been performed
   useEffect(() => {
+    console.log("reset filters", resetFilters);
     if (resetFilters) {
       preferences.setPreference("contrast", 100)
       preferences.setPreference("brightness", 100)
       preferences.setPreference("saturation", 100)
+      preferences.setPreference("hueRotation", 0)
       preferences.setPreference("grayscale", 0)
-      preferences.setPreference("sapia", 0)
+      preferences.setPreference("sepia", 0)
       preferences.setPreference("blur", 0)
       preferences.setPreference("invert", 0)
 
@@ -198,7 +200,7 @@ function App() {
         saturation={preferences.getPreference("saturation")}
         grayscale={preferences.getPreference("grayscale")}
         hueRotation={preferences.getPreference("hueRotation")}
-        sapia={preferences.getPreference("sapia")}
+        sepia={preferences.getPreference("sepia")}
         blur={preferences.getPreference("blur")}
         invert={preferences.getPreference("invert")}
 

@@ -75,10 +75,10 @@ export default class FilterActionHandler {
      * @param {number} hueRotationDegrees 
      */
     handleHueRotation = async (hueRotationDegrees) => {
-        this.preferences.setPreference("hueRotationDegrees", hueRotationDegrees);
+        this.preferences.setPreference("hueRotation", hueRotationDegrees);
 
         const data = {
-            hueRotationDegrees: this.preferences.getPreference("hueRotationDegrees"),
+            hueRotationDegrees: this.preferences.getPreference("hueRotation"),
         };
 
         const action = this.actionManager.add.hueRotationAction(data);

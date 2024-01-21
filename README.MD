@@ -1,4 +1,4 @@
-# Image Processing App
+# Image Editor App
 
 ## Overview
 
@@ -58,5 +58,5 @@ npm run start
 - [X] Add css for upscale panel
 - [X] Responsiveness
 - [ ] Updating filter action while action is inactive is bugged
-- [ ] Clicking filter slider instead of scrolling it causes issues
+- [X] Clicking filter slider instead of scrolling it causes issues
 - [X] Validate project files when loading

@@ -10,7 +10,6 @@ export default class ActionManager extends EventEmitter {
 
     /**
      * @type {Action[]}
-     * @private
      */
     actionQueue = [];
 

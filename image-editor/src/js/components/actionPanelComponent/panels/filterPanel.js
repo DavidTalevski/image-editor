@@ -17,8 +17,9 @@ const FilterPanel = ({
     onAdjustSepia,
     onAdjustBlur,
     onAdjustInvert,
-    resetFilters
+    resetFilters,
 }) => {
+    const [lastUsedSlider, setLastUsedSlider] = useState(null);
 
     const [brightnessValue, setBrightnessValue] = useState(brightness ?? 100);
     const [contrastValue, setContrastValue] = useState(contrast ?? 100);
@@ -33,16 +34,22 @@ const FilterPanel = ({
         // Check if the resetFilters prop has changed
         if (resetFilters) {
             // Reset values to their default numbers (you may need to adjust these)
-            setBrightnessValue(100);
-            setContrastValue(100);
-            setSaturationValue(100);
-            setGrayscaleValue(0);
-            setHueRotationValue(0);
-            setSepiaValue(0);
-            setBlurValue(0);
-            setInvertValue(0);
+            setBrightnessValue(lastUsedSlider === 'brightness' ? brightness : 100);
+            setContrastValue(lastUsedSlider === 'contrast' ? contrast : 100);
+            setSaturationValue(lastUsedSlider === 'saturation' ? saturation : 100);
+            setGrayscaleValue(lastUsedSlider === 'grayscale' ? grayscale : 0);
+            setHueRotationValue(lastUsedSlider === 'hueRotation' ? hueRotation : 0);
+            setSepiaValue(lastUsedSlider === 'sepia' ? sepia : 0);
+            setBlurValue(lastUsedSlider === 'blur' ? blur : 0);
+            setInvertValue(lastUsedSlider === 'invert' ? invert : 0);
         }
-    }, [resetFilters]);
+    }, [resetFilters, brightness, contrast, saturation, grayscale, hueRotation, sepia, blur, invert, lastUsedSlider]);
+
+    const handleSliderChange = (sliderName, value, setValueFunction, onAdjustFunction) => {
+        setValueFunction(value);
+        onAdjustFunction(value);
+        setLastUsedSlider(sliderName);
+    };
 
     return (
         <div className="action-panel">
@@ -55,11 +62,9 @@ const FilterPanel = ({
                     max="200"
                     className="custom-slider"
                     value={brightnessValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setBrightnessValue(val);
-                        onAdjustBrightness(val);
-                    }}
+                    onChange={(e) =>
+                        handleSliderChange('brightness', Number(e.target.value), setBrightnessValue, onAdjustBrightness)
+                    }
                 />
             </div>
 
@@ -72,11 +77,9 @@ const FilterPanel = ({
                     max="200"
                     className="custom-slider"
                     value={contrastValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setContrastValue(val);
-                        onAdjustContrast(val);
-                    }}
+                    onChange={(e) =>
+                        handleSliderChange('contrast', Number(e.target.value), setContrastValue, onAdjustContrast)
+                    }
                 />
             </div>
 
@@ -89,11 +92,9 @@ const FilterPanel = ({
                     max="200"
                     className="custom-slider"
                     value={saturationValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setSaturationValue(val);
-                        onAdjustSaturation(val);
-                    }}
+                    onChange={(e) =>
+                        handleSliderChange('saturation', Number(e.target.value), setSaturationValue, onAdjustSaturation)
+                    }
                 />
             </div>
 
@@ -106,11 +107,9 @@ const FilterPanel = ({
                     max="100"
                     className="custom-slider"
                     value={grayscaleValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setGrayscaleValue(val);
-                        onAdjustGrayscale(val);
-                    }}
+                    onChange={(e) =>
+                        handleSliderChange('grayscale', Number(e.target.value), setGrayscaleValue, onAdjustGrayscale)
+                    }
                 />
             </div>
 
@@ -123,11 +122,9 @@ const FilterPanel = ({
                     max="360"
                     className="custom-slider"
                     value={hueRotationValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setHueRotationValue(val);
-                        onAdjustHueRotation(val);
-                    }}
+                    onChange={(e) =>
+                        handleSliderChange('hueRotation', Number(e.target.value), setHueRotationValue, onAdjustHueRotation)
+                    }
                 />
             </div>
 
@@ -140,11 +137,7 @@ const FilterPanel = ({
                     max="100"
                     className="custom-slider"
                     value={sepiaValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setSepiaValue(val);
-                        onAdjustSepia(val);
-                    }}
+                    onChange={(e) => handleSliderChange('sepia', Number(e.target.value), setSepiaValue, onAdjustSepia)}
                 />
             </div>
 
@@ -157,11 +150,7 @@ const FilterPanel = ({
                     max="20"
                     className="custom-slider"
                     value={blurValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setBlurValue(val);
-                        onAdjustBlur(val);
-                    }}
+                    onChange={(e) => handleSliderChange('blur', Number(e.target.value), setBlurValue, onAdjustBlur)}
                 />
             </div>
 
@@ -174,11 +163,7 @@ const FilterPanel = ({
                     max="100"
                     className="custom-slider"
                     value={invertValue}
-                    onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setInvertValue(val);
-                        onAdjustInvert(val);
-                    }}
+                    onChange={(e) => handleSliderChange('invert', Number(e.target.value), setInvertValue, onAdjustInvert)}
                 />
             </div>
         </div>
