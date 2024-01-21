@@ -28,30 +28,40 @@ export default class FlipAction extends Action {
     flipCanvasHorizontally() {
         const context = this.canvas.getContext();
 
-        context.save();
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = this.canvas.getWidth();
+        tempCanvas.height = this.canvas.getHeight();
+
+        const tempContext = tempCanvas.getContext('2d');
 
         this.canvas.clearFilters();
 
-        context.translate(context.canvas.width, 0);
-        context.scale(-1, 1);
+        tempContext.translate(tempCanvas.width, 0);
+        tempContext.scale(-1, 1);
+        tempContext.drawImage(context.canvas, 0, 0);
 
-        context.drawImage(context.canvas, 0, 0);
+        this.canvas.clear();
 
-        context.restore();
+        context.drawImage(tempCanvas, 0, 0);
     }
 
     flipCanvasVertically() {
         const context = this.canvas.getContext();
 
-        context.save();
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = this.canvas.getWidth();
+        tempCanvas.height = this.canvas.getHeight();
+
+        const tempContext = tempCanvas.getContext('2d');
 
         this.canvas.clearFilters();
 
-        context.translate(0, context.canvas.height);
-        context.scale(1, -1);
+        tempContext.translate(0, tempCanvas.height);
+        tempContext.scale(1, -1);
+        tempContext.drawImage(context.canvas, 0, 0);
 
-        context.drawImage(context.canvas, 0, 0);
+        this.canvas.clear();
 
-        context.restore();
+        context.drawImage(tempCanvas, 0, 0);
     }
 }

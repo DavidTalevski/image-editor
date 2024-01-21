@@ -61,3 +61,4 @@ npm run start
 - [X] Updating filter action while action is inactive is bugged
 - [X] Clicking filter slider instead of scrolling it causes issues
 - [X] Validate project files when loading
+- [X] Transparent images get bugged when flipping
