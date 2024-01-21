@@ -9,6 +9,10 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearAllClicked
         if (onClearInactiveClicked) onClearInactiveClicked();
     };
 
+    const handleShowConfirmation = () => {
+        setShowConfirmation(true);
+    }
+
     const handleConfirmClear = () => {
         if (onClearAllClicked) onClearAllClicked();
         setShowConfirmation(false);
@@ -28,7 +32,7 @@ const ActionHistoryPanelComponent = ({ history, onCardClicked, onClearAllClicked
                 <span className="panel-text">Clear Inactive</span>
             </button>
 
-            <button className="clear-button" onClick={handleConfirmClear}>
+            <button className="clear-button" onClick={handleShowConfirmation}>
                 <span className="panel-text">Clear All</span>
             </button>
 
