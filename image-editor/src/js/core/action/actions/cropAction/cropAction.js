@@ -19,8 +19,6 @@ export default class CropAction extends Action {
     async execute() {
         super.execute();
 
-        console.log(this.data);
-
         this.cropAndDrawOnOriginal(this.data.x, this.data.y, this.data.width, this.data.height)
     }
 

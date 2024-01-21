@@ -56,7 +56,6 @@ function App() {
 
   // Reset the value back to false after the reset has been performed
   useEffect(() => {
-    console.log("reset filters", resetFilters);
     if (resetFilters) {
       preferences.setPreference("contrast", 100)
       preferences.setPreference("brightness", 100)
