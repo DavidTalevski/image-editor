@@ -2,7 +2,7 @@
 
 /* Action History Panel Component */
 .action-history-panel-slider {
-  max-height: 85%;
+  max-height: 80%;
   overflow-y: auto;
   text-align: center;
 }

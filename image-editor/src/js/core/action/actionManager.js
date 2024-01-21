@@ -72,8 +72,6 @@ export default class ActionManager extends EventEmitter {
     }
 
     removeInactiveActions() {
-        console.log(this.TAG, "Removing inactive actions");
-
         for (let i = this.actionQueue.length - 1; i >= 0; i--) {
             const currentAction = this.actionQueue[i];
 
