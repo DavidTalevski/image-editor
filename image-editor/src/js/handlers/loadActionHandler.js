@@ -22,7 +22,6 @@ export default class LoadActionHandler {
      * @param {any} imageData 
      */
     handleImageSelect = async (loadImageActionType, imageData) => {
-        console.log("aaaaa")
         const data = {
             loadImageActionType: loadImageActionType,
             imageData: imageData
