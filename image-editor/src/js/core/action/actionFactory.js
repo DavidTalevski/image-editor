@@ -141,9 +141,11 @@ export default class ActionFactory {
      * @param {import("./actions/actionSaveData").ActionSaveData} saveData 
      */
     createActionFromSaveData(saveData) {
-        const actionClass = this.actionManager.registry.getActionClass(saveData.type);
+        const registry = this.actionManager.registry;
+        const actionClass = registry.getActionClass(saveData.type);
+        const data = saveData.data;
 
-        const action = this.createAction(actionClass, saveData.data, true, false);
+        const action = this.createAction(actionClass, data, true, false);
         action.description = saveData.description;
 
         this.actionManager.addAction(action);
@@ -154,6 +156,7 @@ export default class ActionFactory {
      * @param {AC} ActionClass
      * @param {ConstructorParameters<AC>[0]} actionData
      * @param {boolean} override - Whether to override the same action check
+     * @param {boolean} automaticallyAdd - Whether to include in the manager
      * @returns {InstanceType<AC>}
      */
     createAction(ActionClass, actionData, override = false, automaticallyAdd = true) {

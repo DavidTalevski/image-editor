@@ -9,10 +9,10 @@ const OPTIONS = upscalerConfig;
 
 /**
  * @typedef UpscaleSettings
- * @property {'real-esrgan' | 'waifu2x'} upscalerType - The type of upscaler, either 'ESRGAN' or 'ANIME'.
- * @property {2 | 3 | 4} upscaleFactor - The factor by which the image should be upscaled (2, 3, or 4).
+ * @property {'real-esrgan' | 'waifu2x'} upscaler - The type of upscaler, either 'ESRGAN' or 'ANIME'.
+ * @property {2 | 3 | 4} scale - The factor by which the image should be upscaled (2, 3, or 4).
  * @property {'noise' | 'scale' | 'both'} mode - The mode for ANIME upscaler, can be 'noise', 'scale', or 'both'.
- * @property {0 | 1 | 2 | 3} noiseLevel - The noise level for ANIME upscaler, a value between 0 and 3.
+ * @property {0 | 1 | 2 | 3} noise - The noise level for ANIME upscaler, a value between 0 and 3.
  */
 
 class Upscaler {
@@ -25,8 +25,17 @@ class Upscaler {
     async upscale(input_path, output_path, settings) {
         console.log("Upscaling image:", input_path);
 
-        // warcrime
-        if (settings.mode == "both") settings.mode = "noise-scale";
+        let rescaleFactor = 0;
+
+        // Overwrite settings
+        if (settings.mode == "both") {
+            settings.mode = "noise-scale";
+        }
+
+        if (settings.upscaler == "real-esrgan" && settings.scale != 4) {
+            rescaleFactor = settings.scale;
+            settings.scale = 4;
+        }
 
         const upscaled_path = this.getTemporaryFilePath(output_path, 1);
 
@@ -34,6 +43,10 @@ class Upscaler {
         console.log("Created upscaled image:", upscaled_path);
 
         const process = sharp(upscaled_path);
+
+        if (rescaleFactor > 0) {
+            await this.rescaleImage(process, rescaleFactor);
+        }
 
         if (path.extname(upscaled_path).match(/(.jpg|.jpeg|.JPG|.JPEG)/)) {
             process.jpeg(OPTIONS.SHARP_JPG_OPTIONS);
@@ -53,6 +66,25 @@ class Upscaler {
     }
 
     /**
+     * @private
+     * @param {sharp.Sharp} process 
+     * @param {number} factor 
+     * @returns {sharp.Sharp}
+     */
+    async rescaleImage(process, factor) {
+        const metadata = await process.metadata();
+        const scale = factor / 4;
+
+        const width = Math.round(metadata.width * scale);
+        const height = Math.round(metadata.height * scale);
+
+        process.resize(width, height);
+
+        return process;
+    }
+
+    /**
+     * @private
      * @param {string} input_path 
      * @param {string} custom 
      * @returns {string}

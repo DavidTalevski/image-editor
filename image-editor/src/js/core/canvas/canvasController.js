@@ -54,15 +54,20 @@ export default class CanvasController extends EventEmitter {
     }
 
     /**
-     * // need to change
      * @param {HTMLImageElement} image 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {number} x 
+     * @param {number} y 
      */
-    drawImage(image, width, height, x, y) {
-        this.canvas.width = width ?? image.width;
-        this.canvas.height = height ?? image.height;
+    drawImage(image, width, height, x = 0, y = 0) {
+        const canvas = this.canvas;
+
+        canvas.width = width ?? image.width;
+        canvas.height = height ?? image.height;
 
         this.clear();
-        this.context.drawImage(image, x ?? 0, y ?? 0, this.canvas.width, this.canvas.height);
+        this.context.drawImage(image, x, y, canvas.width, canvas.height);
 
         this.emit(this.events.DRAW_IMAGE, image);
     }

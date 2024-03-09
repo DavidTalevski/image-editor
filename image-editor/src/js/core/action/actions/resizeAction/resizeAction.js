@@ -16,11 +16,11 @@ export default class ResizeAction extends Action {
 
     loader = new ImageLoader();
 
-
     async execute() {
         super.execute();
 
-        const image = await this.loader.loadFromUrl(this.canvas.getSaveData());
+        const data = this.canvas.getSaveData()
+        const image = await this.loader.loadFromUrl(data);
 
         this.canvas.drawImage(image, this.data.width, this.data.height);
     }

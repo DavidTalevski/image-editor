@@ -11,6 +11,9 @@ export default class Action {
 
     description = "Description";
 
+    /** @protected */
+    active = true;
+
     /**
      * @param {CanvasController} canvas 
      * @param {any} data
@@ -18,9 +21,6 @@ export default class Action {
     constructor(canvas, data) {
         /** @protected */
         this.canvas = canvas;
-
-        /** @protected */
-        this.active = true;
 
         this.data = structuredClone(data);
     }
@@ -42,11 +42,6 @@ export default class Action {
         this.active = false;
     }
 
-    destroy() {
-        this.data = null;
-        this.canvas = null;
-    }
-
     getSaveData() {
         return {
             type: this.type,
@@ -54,4 +49,10 @@ export default class Action {
             description: this.description
         }
     }
+
+    destroy() {
+        this.data = null;
+        this.canvas = null;
+    }
+
 }

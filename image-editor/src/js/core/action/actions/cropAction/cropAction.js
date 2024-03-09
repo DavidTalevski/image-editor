@@ -19,10 +19,16 @@ export default class CropAction extends Action {
     async execute() {
         super.execute();
 
-        this.cropAndDrawOnOriginal(this.data.x, this.data.y, this.data.width, this.data.height)
+        this.crop(this.data.x, this.data.y, this.data.width, this.data.height)
     }
 
-    cropAndDrawOnOriginal(x, y, width, height) {
+    /**
+     * @param {number} x 
+     * @param {number} y 
+     * @param {number} width 
+     * @param {number} height 
+     */
+    crop(x, y, width, height) {
         // Create a temporary canvas to hold the cropped image
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = width;
@@ -31,11 +37,23 @@ export default class CropAction extends Action {
         // Get the 2D context of the source canvas and temporary canvas
         const tempContext = tempCanvas.getContext('2d');
 
-        const ratioX = this.canvas.getWidth() / this.canvas.getClientWidth();
-        const ratioY = this.canvas.getHeight() / this.canvas.getClientHeight();
+        const canvasWidth = this.canvas.getWidth();
+        const canvasHeight = this.canvas.getHeight();
+
+        const clientWidth = this.canvas.getClientWidth();
+        const clientHeight = this.canvas.getClientHeight();
+
+        const ratioX = canvasWidth / clientWidth;
+        const ratioY = canvasHeight / clientHeight;
 
         // Draw the cropped portion onto the temporary canvas
-        tempContext.drawImage(this.canvas.canvas, ratioX * x, ratioY * y, ratioX * width, ratioY * height, 0, 0, width, height);
+        tempContext.drawImage(
+            this.canvas.canvas,
+            ratioX * x, ratioY * y,
+            ratioX * width, ratioY * height,
+            0, 0,
+            width, height
+        );
 
         // Clear the original canvas
         this.canvas.clear();

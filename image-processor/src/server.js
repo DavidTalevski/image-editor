@@ -23,9 +23,11 @@ app.post('/upscale', async (req, res) => {
         const imageData = req.body.image;
         const md5Hash = req.body.MD5Hash;
         const settings = req.body.settings;
+
         const fileName = `${md5Hash}-${objectToString(settings)}`;
         const imagePath = path.join(imagesFolder, `${fileName}.jpg`);
-        const tempImagePath = path.join(imagesFolder, `${fileName}_temporary.jpg`);
+        const tempImageName = `${fileName}_temporary.jpg`;
+        const tempImagePath = path.join(imagesFolder, tempImageName);
 
         if (fs.existsSync(imagePath)) {
             return res.sendFile(imagePath);

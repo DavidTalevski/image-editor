@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 
 export default class MD5HashGenerator {
+
   generateMD5Hash(data) {
     try {
       const hash = CryptoJS.MD5(data).toString();
@@ -10,4 +11,5 @@ export default class MD5HashGenerator {
       throw error;
     }
   }
+
 }

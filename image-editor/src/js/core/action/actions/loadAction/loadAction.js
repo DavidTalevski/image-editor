@@ -33,28 +33,35 @@ export default class LoadAction extends Action {
      * @param {string} data - Base64 data
      */
     async drawImage(actionType, data) {
-        try {
-            if (actionType == LoadImageActionType.UPLOAD) {
+        switch (actionType) {
+            case LoadImageActionType.UPLOAD:
                 this.image = await this.loader.loadFromBlob(data);
-            } else if (actionType == LoadImageActionType.URL || actionType == LoadImageActionType.BASE64) {
+                break;
+            case LoadImageActionType.URL:
                 this.image = await this.loader.loadFromUrl(data);
-            } else if (actionType == LoadImageActionType.CLIPBOARD) {
+                break;
+            case LoadImageActionType.BASE64:
+                this.image = await this.loader.loadFromUrl(data);
+                break;
+            case LoadImageActionType.CLIPBOARD:
                 this.image = await this.loader.loadFromClipboard();
-            }
-        } catch (e) {
-            throw e;
+                break;
+            default:
+                throw new Error('Invalid actionType');
         }
 
         this.canvas.drawImage(this.image);
 
-        // Ensures that the image gets saved so that even if the clipboard changes or the
-        // provided url for the image does not exist anymore or it cannot be accessed
-        // the image will be saved when reversing actions in history or saving the project
-        if (this.data.loadImageActionType != LoadImageActionType.BASE64) {
+        // Ensures that the image gets saved even if the clipboard changes 
+        // or the provided url for the image does not exist anymore 
+        // or it cannot be accessed. The image will be saved when
+        // reversing actions in history or saving the project.
+        if (this.data.loadImageActionType !== LoadImageActionType.BASE64) {
             this.data.loadImageActionType = LoadImageActionType.BASE64;
             this.data.imageData = this.imageToBase64(this.image);
         }
     }
+
 
     imageToBase64(imgElement) {
         var canvas = document.createElement('canvas');

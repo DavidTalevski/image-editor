@@ -28,15 +28,15 @@ export default class RotateAction extends Action {
         // Convert degrees to radians
         const radians = (degrees * Math.PI) / 180;
 
-        const originalWidth = context.canvas.width;
-        const originalHeight = context.canvas.height;
+        const width = context.canvas.width;
+        const height = context.canvas.height;
 
         const cos = Math.cos(radians);
         const sin = Math.sin(radians);
 
         // Calculate new dimensions after rotation
-        const newWidth = Math.abs(cos * originalWidth) + Math.abs(sin * originalHeight);
-        const newHeight = Math.abs(sin * originalWidth) + Math.abs(cos * originalHeight);
+        const newWidth = Math.abs(cos * width) + Math.abs(sin * height);
+        const newHeight = Math.abs(sin * width) + Math.abs(cos * height);
 
         // Create a temporary canvas to hold the rotated image
         const tempCanvas = this.getTemporaryCanvas(newWidth, newHeight);
@@ -50,7 +50,7 @@ export default class RotateAction extends Action {
         tempContext.rotate(radians);
 
         // Draw the image onto the temporary canvas
-        tempContext.drawImage(context.canvas, -originalWidth / 2, -originalHeight / 2);
+        tempContext.drawImage(context.canvas, -width / 2, -height / 2);
 
         this.canvas.clear();
 

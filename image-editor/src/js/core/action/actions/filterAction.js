@@ -21,7 +21,8 @@ export default class FilterAction extends Action {
 
         if (!this.image) {
             this.isLoading = true;
-            this.image = await this.loader.loadFromUrl(this.canvas.getSaveData());
+            const data = this.canvas.getSaveData();
+            this.image = await this.loader.loadFromUrl(data);
         }
 
         this.isLoading = false;

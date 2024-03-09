@@ -180,13 +180,16 @@ export default class ActionManager extends EventEmitter {
     /**
      * @param {number} startOrderId - The starting order ID.
      * @param {number} endOrderId - The ending order ID.
+     * @returns {number} - The index of the last loading action.
      */
     getLastLoadingAction(startOrderId, endOrderId) {
         for (let i = endOrderId; i >= startOrderId; i--) {
             const action = this.actionQueue[i];
 
             if (action.type === ActionType.LOAD ||
-                action.type === ActionType.UPSCALE) return i;
+                action.type === ActionType.UPSCALE) {
+                return i;
+            }
         }
 
         return -1;

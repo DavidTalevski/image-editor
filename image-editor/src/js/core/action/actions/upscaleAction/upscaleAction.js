@@ -21,30 +21,28 @@ export default class UpscaleAction extends Action {
         super.execute();
 
         // Get the base64-encoded image data from the canvas
-        const imageData = this.canvas.getSaveData("jpeg").replace(/^data:image\/jpeg;base64,/, '');
+        const regExp = /^data:image\/jpeg;base64,/;
+        const canvasData = this.canvas.getSaveData("jpeg");
+        const imageData = canvasData.replace(regExp, '');
 
         const md5 = this.data.MD5Hash;
         const upscaleSettings = this.data.settings;
-        const data = { image: imageData, settings: upscaleSettings, MD5Hash: md5 }
+        const data = {
+            image: imageData,
+            settings: upscaleSettings,
+            MD5Hash: md5
+        }
 
         this.description = `Hash: ${md5}`;
 
-        try {
+        const response = await axios({
+            url: this.data.URL,
+            responseType: "arraybuffer",
+            method: "post",
+            data: data
+        });
 
-            const response = await axios({
-                url: this.data.URL,
-                responseType: "arraybuffer",
-                method: "post",
-                data: data
-                // timeout: 10000,
-                // onDownloadProgress: progressCallback
-            });
-
-            // const response = await axios.post(this.data.URL, data);
-            return this.drawImage(response.data);
-        } catch (e) {
-            throw e;
-        }
+        return this.drawImage(response.data);
     }
 
     /**
